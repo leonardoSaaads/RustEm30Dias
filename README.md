@@ -1,4 +1,4 @@
-# **APRENDENDO RUST - LINGUAGEM DE PROGRAMAÇÃO IDEAL PARA TELECOM**
+# **APRENDENDO RUST - LINGUAGEM DE PROGRAMAÇÃO 5G/6G**
 
 Este repositório é destinado para o aprendizado da linguagem de programação Rust. Rust é uma linguagem de programação multiparadigma compilada desenvolvida pela Mozilla Research. É projetada para ser "segura, concorrente e prática", mas diferente de outras linguagens seguras, Rust não usa coletor de lixo. Possui suporte nativo ao WebAssembly.
 
@@ -55,12 +55,20 @@ Execute o arquivo e espere a instalação no seu computador. Para verificar se a
 
 ## **Instalação do Rust (Linux)**
 
-Para realizar o download de Rust, acesse: [Rust Lang Org](https://www.rust-lang.org/tools/install).
+Em primeiro lugar, atualize o linux utilzando o comando ``sudo apt-get update`` para distribuições baseadas em Debian.
+Em outras distribuições, como a Fedora, o comando será diferente. Nesse caso, o camando para a atualização será ``sudo dnf updade``.
+
+Em segundo lugar, realize o upgrade. Em distribuições baseadas em debian, o comando é ``sudo apt-get upgrade``. Para distribuições Fedora, o comando é ``sudo dnf upgrade``
 
 ![](/Imagens/Instalation/Rust_download_linux.png)
 
-- Execute o seguinte comando no terminal: ``curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh``
+Depois, para usar o instalador rustup, precisamos digitar o seguinte comando em nosso terminal. Execute: ``curl https://sh.rustup.rs -sSf | sh``
 
+Agora, vamos configurar nosso shell atual usando o seguinte comando: ``source $HOME/.cargo/env``
+
+Por fim, podemos verificar se a instação foi feita corretamente usando o comando: ``rustc --version``
+
+OBS: ``sudo apt  install rustc``
 
 ## **Integração com Visual Studio Code**
 
