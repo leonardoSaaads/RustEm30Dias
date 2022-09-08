@@ -18,24 +18,32 @@ Este repositório é destinado para o aprendizado da linguagem de programação 
   </tr>
   <tr>
     <td>2</td>
-    <td><a href="/HandsOn/HD02/">Conceitos Usuais de Programação</a></td>
+    <td><a href="/HandsOn/HD02/">Hello World, Hello Cargo</a></td>
   </tr>
   <tr>
     <td>3</td>
-    <td><a href="/HandsOn/HD03/">Entendendo as Propriedades</a></td>
+    <td><a href="/HandsOn/HD03/">Variáveis e Mutabilidade</a></td>
   </tr>
   <tr>
     <td>4</td>
-    <td><a href="/HandsOn/HD04/">Utilizando Struct</a></td>
+    <td><a href="/HandsOn/HD04/">Data Types</a></td>
   </tr>
   <tr>
     <td>5</td>
-    <td><a href="/HandsOn/HD05/">Enums e Padrões</a></td>
+    <td><a href="/HandsOn/HD05/">Funções</a></td>
   </tr>
   <tr>
     <td>6</td>
-    <td><a href="/HandsOn/HD06/">Pacotes</a></td>
+    <td><a href="/HandsOn/HD06/">Comentários</a></td>
   </tr>
+  <tr>
+    <td>7</td>
+    <td><a href="/HandsOn/HD07/">Controle de Fluxo</a></td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td><a href="/HandsOn/HD08/">Entendendo Ownership</a></td>
+  </tr>  
 </tbody>
 </table>
 
