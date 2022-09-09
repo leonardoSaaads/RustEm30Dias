@@ -97,7 +97,84 @@ a saída deve ser semelhante a tela abaixo:
 
 ![](/Imagens/HD02/CargoVersion.png)
 
+Neste primeiro momento com Cargo, iremos criar um projeto novo para demonstrar suas funções. Utilize o código abaixo para cria um novo diretório e projeto chamado hello_cargo.
 
+```
+cargo new hello_cargo
+cd hello_cargo
+```
+
+![](/Imagens/HD02/HelloCargo.png)
+
+Você verá que Cargo gerou dois arquivos e um diretório para nós: um arquivo Cargo.toml e um diretório src com um arquivo main.rs dentro. Uma observação importante a se falar é que ele também inicializou um novo repositório Git junto com um arquivo ``.gitignore``. Os arquivos Git não serão gerados se você executar o cargo new dentro de um repositório Git existente; você pode substituir esse comportamento usando ``cargo new --vcs=git``.
+
+Abra o arquivo ``Cargo.toml`` e você verá uma saida semelhante ao código abaixo:
+
+```
+[package]
+name = "hello_cargo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+```
+
+Este arquivo está no formato .toml(Tom's Obvious, Minimal Language), que é o formato de configuração do Cargo.
+
+A primeira linha, ``[package]``, é um cabeçalho de seção que indica que as instruções a seguir estão configurando um pacote. À medida que adicionarmos mais informações a este arquivo, adicionaremos outras seções.
+
+As próximas três linhas definem as informações de configuração que o Cargo precisa para compilar seu programa: o nome, a versão e a edição do Rust a ser usada.
+
+A última linha, ``[dependencies]``, é o início de uma seção para você listar qualquer uma das dependências do seu projeto.
+
+Se você abrir a o arquivo localizado na pasta ``src``, verá que é basicamente o "Hello, World!" do Rust! Isso ocorre pois o Cargo generaliza e adota um arquivo "Hello, World!" sempre que algo novo é feito. Além disso, ele adota que esse arquivo fique na pasta ``scr`` - que significa Source Code (Código-Fonte, em português). O Cargo espera que seus arquivos de origem fiquem dentro do diretório ``src``. O diretório do projeto de nível superior é apenas para arquivos README, informações de licença, arquivos de configuração e qualquer outra coisa não relacionada ao seu código.
+
+Agora vamos ver o que é diferente quando construímos e executamos o "Hello, world!" programa com Cargo! No diretório hello_cargo, construa seu projeto digitando o seguinte comando:
+
+```
+cargo build
+```
+
+Você verá algo semelhante:
+
+![](/Imagens/HD02/CargoBuild1.png)
+
+e depois
+
+![](/Imagens/HD02/CargoBuild2.png)
+
+Este comando cria um arquivo executável em target/debug/hello_cargo (ou target\debug\hello_cargo.exe no Windows) em vez de em seu diretório atual. Você pode executar o executável com este comando:
+
+```
+./target/debug/hello_cargo # Linux / macOS
+```
+
+ou
+
+```
+.\target\debug\hello_cargo.exe # Windows
+```
+
+Rodar o ``Cargo build`` pela primeira vez faz com que seja criado um arquivo chamado ``Cargo.lock``. Este arquivo acompanha as versões exatas das dependências em seu projeto. Como esse projeto criado não tem dependências, então o arquivo é um pouco esparso. Você nunca precisará alterar esse arquivo manualmente; A Cargo gerencia seu conteúdo para você automaticamente.
+
+Uma alternativa ao ``Cargo build`` é o ``Cargo run``. O Cargo run serve para compilar o código e, em seguida, executar o executável resultante em um único comando. Isso faz com que tempo seja poupado, pois não será mais necessário compilar para depois abrir o arquivo executável. Na verdade, Usar o comando *run* é mais conveniente do que ter que se lembrar de executar a *build* e, em seguida, usar todo o caminho para o binário, então a maioria dos desenvolvedores usa o comando *run*.
+
+![](/Imagens/HD02/CargoRun.png)
+
+Cargo também fornece um comando chamado ``Cargo check``. Este comando verifica rapidamente seu código para garantir que ele seja compilado, mas não produz um executável.
+
+![](/Imagens/HD02/CargoCheck.png)
+
+
+**Recaptulando:**
+
+- Podemos criar um projeto usando ``cargo new``.
+- Podemos construir um projeto usando ``cargo build``.
+- Podemos construir e executar um projeto em uma única etapa usando o ``cargo run``.
+- Podemos construir um projeto sem produzir um binário para verificar erros usando o ``cargo check``.
+- Em vez de salvar o resultado da compilação no mesmo diretório que nosso código, o Cargo o armazena no diretório *target/debug*.
+
+Para mais informações sobre o Cargo, acesse https://doc.rust-lang.org/cargo/
 
 ## **REFERÊNCIAS BIBLIOGRÁFICAS**
 
