@@ -22,28 +22,28 @@ Este repositório é destinado para o aprendizado da linguagem de programação 
   </tr>
   <tr>
     <td>3</td>
-    <td><a href="/HandsOn/HD03/">Variáveis e Mutabilidade</a></td>
+    <td><a href="/HandsOn/HD03/">Variáveis, Mutabilidade e Data Types</a></td>
   </tr>
   <tr>
     <td>4</td>
-    <td><a href="/HandsOn/HD04/">Data Types</a></td>
+    <td><a href="/HandsOn/HD04/">Funções</a></td>
   </tr>
   <tr>
     <td>5</td>
-    <td><a href="/HandsOn/HD05/">Funções</a></td>
+    <td><a href="/HandsOn/HD05/">Comentários e Controle de Fluxo</a></td>
   </tr>
   <tr>
     <td>6</td>
-    <td><a href="/HandsOn/HD06/">Comentários</a></td>
+    <td><a href="/HandsOn/HD06/">Ownership</a></td>
   </tr>
   <tr>
     <td>7</td>
-    <td><a href="/HandsOn/HD07/">Controle de Fluxo</a></td>
+    <td><a href="/HandsOn/HD07/">Referências e empréstimo</a></td>
   </tr>
   <tr>
     <td>8</td>
-    <td><a href="/HandsOn/HD08/">Entendendo Ownership</a></td>
-  </tr>  
+    <td><a href="/HandsOn/HD08/">O Slice</a></td>
+  </tr>
 </tbody>
 </table>
 

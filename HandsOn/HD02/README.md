@@ -176,6 +176,8 @@ Cargo também fornece um comando chamado ``Cargo check``. Este comando verifica 
 
 Para mais informações sobre o Cargo, acesse https://doc.rust-lang.org/cargo/
 
+### Acesse o código Hello, World! clicando [aqui](/Codes/HelloWorld.rs)
+
 ## **REFERÊNCIAS BIBLIOGRÁFICAS**
 
 [1] - Hello, World!. The Rust Programming Language - doc.rust-lang.org. Disponível em: <https://doc.rust-lang.org/book/ch01-02-hello-world.html>. Acesso em 09/09/2022.
