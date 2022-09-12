@@ -34,15 +34,15 @@ Este repositório é destinado para o aprendizado da linguagem de programação 
   </tr>
   <tr>
     <td>6</td>
-    <td><a href="/HandsOn/HD06/">Ownership</a></td>
+    <td><a href="/HandsOn/HD06/">EXERCICIOS 01</a></td>
   </tr>
   <tr>
     <td>7</td>
-    <td><a href="/HandsOn/HD07/">Referências e empréstimo</a></td>
+    <td><a href="/HandsOn/HD07/">Ownership</a></td>
   </tr>
   <tr>
     <td>8</td>
-    <td><a href="/HandsOn/HD08/">O Slice</a></td>
+    <td><a href="/HandsOn/HD08/">Referencias e Empréstimos</a></td>
   </tr>
 </tbody>
 </table>
