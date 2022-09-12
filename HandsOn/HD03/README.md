@@ -136,7 +136,7 @@ Um tipo escalar representa um único valor. Rust tem quatro tipos escalares prim
 
 Um inteiro é um número sem um componente fracionário. Existem dois tipos de inteiros no Rust. *Signed* e *Unsigned* refere-se à possibilidade do número ser negativo ou positivo - em outras palavras, se o número precisa de um sinal com ele (signed) ou se sempre for positivo pode ser representado sem um sinal (unsigned). Devido a essa característica, é utilizado ``i`` para representar singed e ``u`` para unsigned.
 
-Cada variante com sinal pode armazenar números de $-(2^{n - 1})$ até $(2^{n - 1}) - 1$ incluso, sendo ``n`` o número de bits que varia de acordo com o uso. Então, um ``i8`` pode armazenar números de $-(2^7)$ até $2^7 - 1$, que é igual a -$128$ até $127$. Variantes sem sinal pode armazenar números de $0$ até $2^n - 1$, entao um ``u8`` pode armazenar números de $0$ até $2^8 - 1$, que é de $0$ até $255$.
+Cada variante com sinal pode armazenar números de $-(2^{n - 1})$ até $(2^{n - 1}) - 1$ incluso, sendo ``n`` o número de bits que varia de acordo com o uso. Então, um ``i8`` pode armazenar números de $-(2^7)$ até $2^7 - 1$, que é igual a $-128$ até $127$. Variantes sem sinal pode armazenar números de $0$ até $2^n - 1$, entao um ``u8`` pode armazenar números de $0$ até $2^8 - 1$, que é de $0$ até $255$.
 
 Podemos pensar em termos das tabelas abaixo:
 
@@ -274,7 +274,7 @@ fn main() {
 
 Até agora trabalhamos apenas com números, mas Rust também suporta letras. O ``char`` é o tipo mais primitivo da linguaguem e o seguinte código mostra uma forma de utilizá-lo. (Observe que o char é específicado com aspas simples, é o oposto de strings, que usa aspas duplas.) 
 
-OBS: O tipo ``char`` representa um valor unicode, o que quer dizer que você pode armazenar muito mais que apenas ASCII. Os valores Unicode vão de U+0000 até U+D7FF e U+E000 até U+10FFFF incluso.
+OBS: O tipo ``char`` representa um valor unicode, o que quer dizer que você pode armazenar muito mais que apenas ASCII. Os valores Unicode vão de ``U+0000`` até ``U+D7FF`` e ``U+E000`` até ``U+10FFFF`` incluso.
 
 Veja o exemplo abaixo:
 
@@ -302,7 +302,7 @@ fn main() {
 }
 ```
 
-variável ``tup`` liga-se a tupla, porque uma tupla é considerada um único elemento composto. Além de desestruturar através da correspondência de padrões, podemos acessar diretamente um elemento da tupla usando um ponto (.) como índice do valor que queremos acessar. Por exemplo:
+variável ``tup`` liga-se a tupla, porque uma tupla é considerada um único elemento composto. Além de desestruturar através da correspondência de padrões, podemos acessar diretamente um elemento da tupla usando um ponto ``(.)`` como índice do valor que queremos acessar. Por exemplo:
 
 ```
 fn main() {
