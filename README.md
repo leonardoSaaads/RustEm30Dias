@@ -9,40 +9,54 @@ Este repositório é destinado para o aprendizado da linguagem de programação 
   <tr>
     <th> HANDS-ON </th>
     <th> LINK </th>
+    <th> NÍVEL </th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td>1</td>
     <td><a href="/HandsOn/HD01/">Conhecendo o Rust</a></td>
+    <td>ESSENCIAL</td>
   </tr>
   <tr>
     <td>2</td>
     <td><a href="/HandsOn/HD02/">Hello World, Hello Cargo</a></td>
+    <td>ESSENCIAL</td>
   </tr>
   <tr>
     <td>3</td>
     <td><a href="/HandsOn/HD03/">Variáveis, Mutabilidade e Data Types</a></td>
+    <td>ESSENCIAL</td>
   </tr>
   <tr>
     <td>4</td>
     <td><a href="/HandsOn/HD04/">Funções</a></td>
+    <td>ESSENCIAL</td>
   </tr>
   <tr>
     <td>5</td>
     <td><a href="/HandsOn/HD05/">Comentários e Controle de Fluxo</a></td>
+    <td>ESSENCIAL</td>
   </tr>
   <tr>
     <td>6</td>
     <td><a href="/HandsOn/HD06/">EXERCICIOS 01</a></td>
+    <td>ESSENCIAL</td>
   </tr>
   <tr>
     <td>7</td>
     <td><a href="/HandsOn/HD07/">Ownership</a></td>
+    <td>BÁSICO</td>
   </tr>
   <tr>
     <td>8</td>
     <td><a href="/HandsOn/HD08/">Referencias e Empréstimos</a></td>
+    <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td><a href="/HandsOn/HD09/">Slices</a></td>
+    <td>BÁSICO</td>
   </tr>
 </tbody>
 </table>
