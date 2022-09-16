@@ -1,4 +1,4 @@
-# **APRENDENDO RUST - LINGUAGEM DE PROGRAMAÇÃO 5G/6G**
+# **APRENDENDO RUST - LINGUAGEM DA INDUSTRIA 4.0**
 
 Este repositório é destinado para o aprendizado da linguagem de programação Rust. Rust é uma linguagem de programação multiparadigma compilada desenvolvida pela Mozilla Research. É projetada para ser "segura, concorrente e prática", mas diferente de outras linguagens seguras, Rust não usa coletor de lixo. Possui suporte nativo ao WebAssembly.
 
