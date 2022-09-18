@@ -14,8 +14,8 @@ Mas você verá com mais frequência essas palavras nesse formato, com o coment�
 
 ```
 fn main() {
-    // Estou com sorte hoje.
-    let numero_da_sorte = 7;
+    // Estou com sorte, jogarei na mega-sena
+    let numeros = 734891;
 }
 ```
 
@@ -165,6 +165,133 @@ Quando executamos temos a seguinte saída:
     Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
      Running `target/debug/branches`
 O valor do número é: 5
+```
+Devemos nos lembrar que em Rust o tipo de dado importa. Caso seja utilizado dentro de um "let if" dois dados de tipos diferentes, a linguagem retornará um erro. Isso significa que os valores que têm o potencial de serem resultados de cada braço do if e que devem ser do mesmo tipo; 
+
+Veja o seguinte exemplo:
+
+```
+fn main() {
+    let condicao = true;
+
+    let numero = if condicao {
+        5
+    } else {
+        "seis"
+    };
+
+    println!("O valor do número é: {}", numero);
+}
+```
+
+Se compilarmos esse código, será exibido o erro "^ expected integral variable, found &str".
+
+### Laços loop.
+
+A palavra-chave ``loop`` diz ao Rust para executar um bloco de código várias vezes para sempre ou até que você diga explicitamente para parar. Você pode utilizar o **terminal apertando Ctrl + C** para finalizar a tarefa (Na maioria dos terminais funciona) ou utilizar o comando ``break``. Veja o exemplo abaixo: 
+
+```
+fn main() {
+    let mut repeticoes = 10;
+    loop {
+        println!("novamente!");
+        repeticoes = repeticoes - 1;
+        if repeticoes == 0{
+            break;
+        }
+    }
+}
+```
+
+O número de repetições começa em 10 e vai diminuindo a cada iteração do loop. Com isso, será printado a palavra "novamente!".
+
+```
+ Compiling playground v0.0.1 (/playground)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.54s
+     Running `target/debug/playground`
+
+novamente!
+novamente!
+novamente!
+novamente!
+novamente!
+novamente!
+novamente!
+novamente!
+novamente!
+novamente!
+```
+
+**PARA PENSAR 01:** Caso fosse adicionada uma linha abaixo do laço ``loop`` onde fosse printada a variável mutável``repeticoes``, qual seria o seu valor? 
+
+**Código de para pensar 01:**
+
+```
+fn main() {
+    let mut repeticoes = 10;
+    loop {
+        println!("novamente!");
+        repeticoes = repeticoes - 1;
+        if repeticoes == 0{
+            break;
+        }
+    }
+    println!("{}", repeticoes);
+}
+```
+Em engenharia de software, essa construção é de suma importância, pois é com o ``loop`` que são feitos softwares robustos. Um exemplo hipotético abaixo de um jogo:
+
+```
+fn main() {
+    loop{
+        let sair: bool = false;   // opção de sair do jogo
+        let frames: u8 = 60;      //frames por segundo
+        
+        // Comandos do jogo...
+        
+        if sair == true{
+            break;
+        }
+    }
+}
+```
+
+### Laços com While
+
+Geralmente, é útil para um programa avaliar uma condição dentro de um loop. Enquanto a condição é verdadeira, o loop é executado. Quando a condição deixa de ser verdadeira, o programa chama o ``break``, parando o ``loop``. Veja o exemplo abaixo:
+
+```
+fn main() {
+    let mut numero = 3;
+
+    while numero != 0 {
+        println!("{}!", numero);
+
+        numero = numero - 1;
+    }
+
+    println!("LIFTOFF!!!");
+}
+```
+
+Semelhantemente a um programa já feito em loop, esse programa faz o loop três vezes, a contagem decrescente de cada vez e, depois do ciclo, imprime outra mensagem e sai. 
+
+### Laço com For
+
+Muitas das vezes quando utilizamos o laço ``for``, também poderiamos utilizar o laço ``while`` ou ``loop``, contudo, essa abordagem é propensa a erros; poderíamos fazer o programa entrar em pânico se o o comprimento do índice estivesse incorreto. Também é lento, porque o compilador adiciona código de tempo de execução para executar a verificação condicional em cada elemento em cada iteração através do loop.
+
+Como uma alternativa mais concisa, você pode usar um laço for e executar algum código para cada item de uma coleção.
+
+veja o exemplo abaixo:
+
+```
+fn main() {
+    let a = [10, 20, 30, 40, 50];
+
+    for elemento in a.iter() {
+        println!("O valor é: {}", elemento);
+    }
+}
 ```
 
 
