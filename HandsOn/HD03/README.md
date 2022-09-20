@@ -272,7 +272,7 @@ fn main() {
 
 **CARACTERES**
 
-Até agora trabalhamos apenas com números, mas Rust também suporta letras. O ``char`` é o tipo mais primitivo da linguaguem e o seguinte código mostra uma forma de utilizá-lo. (Observe que o char é específicado com aspas simples, é o oposto de strings, que usa aspas duplas.) 
+Até agora trabalhamos apenas com números, mas Rust também suporta letras. O ``char`` é o tipo mais primitivo da linguaguem e o seguinte código mostra uma forma de utilizá-lo. (Observe que o char é específicado com **aspas simples**, é o oposto de strings, que usa **aspas duplas**.) 
 
 OBS: O tipo ``char`` representa um valor unicode, o que quer dizer que você pode armazenar muito mais que apenas ASCII. Os valores Unicode vão de ``U+0000`` até ``U+D7FF`` e ``U+E000`` até ``U+10FFFF`` incluso.
 

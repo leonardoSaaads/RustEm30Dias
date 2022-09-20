@@ -196,7 +196,7 @@ fn main() {
     loop {
         println!("novamente!");
         repeticoes = repeticoes - 1;
-        if repeticoes == 0{
+        if repeticoes{
             break;
         }
     }

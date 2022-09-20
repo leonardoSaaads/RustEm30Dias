@@ -46,7 +46,7 @@ Este repositório é destinado para o aprendizado da linguagem de programação 
   <tr>
     <td>7</td>
     <td><a href="/HandsOn/HD07/">Ownership</a></td>
-    <td>BÁSICO</td>
+    <td>ESSENCIAL</td>
   </tr>
   <tr>
     <td>8</td>
@@ -56,6 +56,21 @@ Este repositório é destinado para o aprendizado da linguagem de programação 
   <tr>
     <td>9</td>
     <td><a href="/HandsOn/HD09/">Slices</a></td>
+    <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td><a href="/HandsOn/HD10/">Structs - parte 01</a></td>
+    <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td><a href="/HandsOn/HD11/">Structs - parte 02</a></td>
+    <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td><a href="/HandsOn/HD10/">EXERCÍCIOS 02</a></td>
     <td>BÁSICO</td>
   </tr>
 </tbody>

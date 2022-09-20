@@ -1,1 +1,1 @@
-# **SLICES**
+# **Slices**
