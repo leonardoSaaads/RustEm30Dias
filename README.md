@@ -1,6 +1,8 @@
 # **APRENDENDO RUST - LINGUAGEM DA INDUSTRIA 4.0**
 
-Este repositório é destinado para o aprendizado da linguagem de programação Rust. Rust é uma linguagem de programação multiparadigma compilada desenvolvida pela Mozilla Research. É projetada para ser "segura, concorrente e prática", mas diferente de outras linguagens seguras, Rust não usa coletor de lixo. Possui suporte nativo ao WebAssembly.
+Este repositório é destinado para o aprendizado da linguagem de programação Rust. Rust é uma linguagem de programação multiparadigma compilada desenvolvida pela Mozilla Research. É projetada para ser "segura, concorrente e prática", mas diferente de outras linguagens seguras, Rust não usa coletor de lixo. Possui suporte nativo ao WebAssembly e está se expandindo para diversas outras áreas ligadas à industria 4.0. Não fique de fora!
+
+Sugerimos um Hands-On por dia durante 30 dias.
 
 ## **Tabela de Aprendizado Rust**
 
@@ -76,6 +78,25 @@ Este repositório é destinado para o aprendizado da linguagem de programação 
 </tbody>
 </table>
 
+
+## **Status das atividades**
+
+<label for="rust">❤️ Rust ❤️:</label>
+<progress id="rust" value="99" max="100">99% </progress>
+<br>
+
+<label for="hdon">HANDS-ON:</label>
+<progress id="hdon" value="23" max="100"> 23% </progress>
+<br>
+
+<label for="bugs">CORREÇÃO DE BUGS:</label>
+<progress id="bugs" value="0" max="100"> 0% </progress>
+<br>
+
+<label for="discuss">NOVAS DISCUSSÕES:</label>
+<progress id="discuss" value="0" max="100"> 0% </progress>
+<br>
+
 ## **Instalação do Rust (Windows)**
 
 Para realizar o download de Rust, acesse: [Rust Lang Org](https://www.rust-lang.org/tools/install).
@@ -109,6 +130,7 @@ OBS: ``sudo apt  install rustc``
 
 ## **Integração com Visual Studio Code**
 
+(Necessário fazer)
 
 ## **Apoiadores**
 

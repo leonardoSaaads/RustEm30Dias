@@ -59,5 +59,7 @@ Assim como as três leis da robotica, essas três leis determinam como a linguag
 [1] - Stack vs Heap Memory Allocation - Geeks for Geeks. Disponível em: <https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/>. Acesso em 21/09/2022.
 
 
+
 Imagem 01 - <https://blog.pantuza.com/artigos/heap-vs-stack>. Acesso em 21/09/2022.
+
 Imagem 02 - <https://www.oowgnoj.dev/review/js-remember>. Acesso em 21/09/2022.
