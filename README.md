@@ -80,6 +80,7 @@ Sugerimos um Hands-On por dia durante 30 dias.
 
 
 ## **Status das atividades**
+<html>
 <body>
 <label for="rust">❤️ Rust ❤️:</label>
 <progress id="rust" value="99" max="100">99% </progress>
@@ -98,6 +99,7 @@ Sugerimos um Hands-On por dia durante 30 dias.
 <br>
 
 </body>
+</html>
 
 ## **Instalação do Rust (Windows)**
 
