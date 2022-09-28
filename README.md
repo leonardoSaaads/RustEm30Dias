@@ -80,26 +80,18 @@ Sugerimos um Hands-On por dia durante 30 dias.
 
 
 ## **Status das atividades**
-<html>
-<body>
-<label for="rust">❤️ Rust ❤️:</label>
+
+<label for="rust">RUST LANG ❤️:</label>
 <progress id="rust" value="99" max="100">99% </progress>
-<br>
 
 <label for="hdon">HANDS-ON:</label>
 <progress id="hdon" value="23" max="100"> 23% </progress>
-<br>
 
 <label for="bugs">CORREÇÃO DE BUGS:</label>
 <progress id="bugs" value="0" max="100"> 0% </progress>
-<br>
 
 <label for="discuss">NOVAS DISCUSSÕES:</label>
 <progress id="discuss" value="0" max="100"> 0% </progress>
-<br>
-
-</body>
-</html>
 
 ## **Instalação do Rust (Windows)**
 

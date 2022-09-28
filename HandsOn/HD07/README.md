@@ -53,13 +53,158 @@ Com base no que foi esclarecido sobre *heap* e *stack*, podemos descrever melhor
 
 Assim como as três leis da robotica, essas três leis determinam como a linguagem Rust se relaciona com suas variáveis.
 
+Como um primeiro exemplo de ownership, vamos olhar para o escopo de algumas variáveis. Um escopo é a área dentro de um programa para a qual um item é válido. Digamos que nós temos uma variável como esta:
+
+```
+// nada na memória aqui
+
+fn main() {
+let algo = "algo";  // um dado na memória dentro do escopo da função main
+}
+
+// nada na memória aqui
+```
+
+A variável é válida do ponto em que é declarada até o fim do atual escopo. Outro exemplo abaixo:
+
+```
+fn main() {
+{                      // s não é válida aqui, ainda não está declarada.
+    let s = "texto";   // s é válida deste ponto em diante.
+                        // faz alguma coisa com s.
+}                      // agora este escopo terminou, e s não é mais válida.
+}
+```
+
+Em outras palavras, existem dois pontos no tempo que são importantes aqui:
+
+1) Quando s entra no escopo, ela é válida.
+2) Permanece dessa maneira até que ela saia de escopo.
+
+Neste ponto, a relação entre escopos e quando variáveis são válidas é similar a outras linguagens de programação. Agora vamos construir sobre este entendimento, apresentando o tipo String.
+
+## As strings (Uma Introdução)
+
+Para demonstrarmos as regras de Ownership, iremos olhar para como o Rust entende as ``strings``. TYeremos de olhar para esse tipo com um modelo diferenciado pois os tipos abordados na seção "Tipos de Dados" **são todos armazenados na memória Stack, e retirados dela quando seu escopo termina, mas queremos ver dados que são armazenados na memória Heap e explorar como o Rust faz para saber quando limpar esses dados.**
+
+Já vimos strings literais, em que um valor de string é fixado pelo código do nosso programa. Strings literais são convenientes, mas nem sempre são adequadas para situações em que queremos usar texto. Um motivo é que elas são imutáveis. Outro é que nem todos os valores de string são conhecidos enquanto escrevemos nosso código: por exemplo, o que fazer se queremos obter uma entrada do usuário e armazená-la? Para essas situações, Rust tem um segundo tipo de strings, String. Este tipo é alocado na heap, e como tal, é capaz de armazenar uma quantidade de texto que é desconhecida em tempo de compilação.
+
+Iremos utilizar o tipo ``String`` (para uma string previamente definida), o operador ``::`` (indica o caminho do *namespace*) e o ``from`` (Usado para fazer conversões de valor para valor enquanto consome o valor de entrada.). Mas não precisa se preocupar com essas informações neste momento, iremos explorar mais futuramente. 
+
+```
+fn main() {
+let s = String::from("Algo escrito por aqui ...");
+}
+```
+
+Este tipo de string pode ser alterada:
+
+```
+fn main() {
+let mut s = String::from("Algo escrito por aqui ...");  // Cria String
+s.push_str(" Que o vento levou!"); // push_str() adiciona um literal à String
+println!("{}", s);                 // Isso vai exibir a junção das duas strings
+}
+```
+
+A utilização na memória é responsável pela capacidade de alteração desses valores. Em outras palavras, no caso do tipo ``String``, sabemos o seu conteúdo em tempo de compilação, então o texto é injetado diretamente para dentro do executável final, o que faz strings literais serem rápidas e eficientes - Memória Stack. Essas propriedades provêm apenas devido a sua imutabilidade. Infelizmente, não podemos colocar um segmento de memória dentro do binário para cada texto cujo tamanho é desconhecido em tempo de compilação, e cujo tamanho pode mudar ao longo da execução do programa.
+
+Com o tipo ``String``, para poder acomodar um trecho mutável e expansível de texto, precisamos alocar uma quantidade de memória na heap, que é desconhecida em tempo de compilação, para manter o seu conteúdo. Isto significa que:
+
+- A memória deve ser solicitada ao sistema operacional em tempo de execução.
+
+- Precisamos de uma forma de retornar esta memória ao sistema operacional quando tivermos finalizado nossa ``String``.
+
+quando chamamos ``String::from``, sua implementação solicita a memória de que precisa. Isso é meio que universal em linguagens de programação. Em linguagens com um garbage collector (GC), o GC rastreia e limpa a memória que não está mais sendo usada, e nós, como programadores, não precisamos pensar sobre isso. Contudo, na linguagem Rust, não precisameos nos preocupar tanto com isso!! Parece algo divino, pois em outras linguagens como C/ C++ sempre temos de usar um ``allocate`` ou um ``free`` para a alocação de memória, mas no Rust basta fechamos as chaves (``{}``). 
+
+Quando uma variável sai de escopo, o Rust chama para nós uma função especial. Essa função é chamada ``drop``, e é aí que o autor de ``String`` pode colocar o código que retorna a memória. Rust chama ``drop`` automaticamente ao fechar chaves (``{}``).
+
+Pode parecer simples agora, mas o comportamento do código pode ser inesperado em situações mais complicadas, quando queremos que múltiplas variáveis usem os dados que alocamos na heap. Vamos explorar algumas dessas situações agora.
+
+## A Transfererência de Dados (*Move*)
+
+Veja o seguinte código abaixo:
+
+```
+fn main() {
+    let x = 5;
+    let y = x;
+
+    println!("{}", x);
+}
+```
+
+Ele compila normalmente. Agora iremos ver o seguinte código:
+
+```
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = s1;
+
+    println!("{}", s1);
+}
+```
+
+Apesar de ser muito semelhante ao código anterior, ele não compilará. Aparecerá a seguinte mensagem de erro:
+
+```
+error[E0382]: borrow of moved value: `s1`
+ --> src/main.rs:5:20
+  |
+2 |     let s1 = String::from("hello");
+  |         -- move occurs because `s1` has type `String`, which does not implement the `Copy` trait
+3 |     let s2 = s1;
+  |              -- value moved here
+4 |
+5 |     println!("{}", s1);
+  |                    ^^ value borrowed here after move
+  |
+  = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+For more information about this error, try `rustc --explain E0382`.
+warning: `playground` (bin "playground") generated 1 warning
+error: could not compile `playground` due to previous error; 1 warning emitted
+```
+
+Para entendermos esse erro, iremos ver como a ``String`` funciona. Uma ``String`` é feita de três partes, mostradas à esquerda: um ponteiro para a memória que guarda o conteúdo da string, um tamanho, e uma capacidade. Este grupo de dados é armazenado na **Stack**. No lado direito está a memória na **Heap** que guarda o conteúdo.
+
+![](/Imagens/HD07/String.png)
+
+Quando atribuímos ``s1`` a ``s2``, os dados da String são copiados, o que significa que estamos copiando o ponteiro, o tamanho e a capacidade que estão na pilha. Não estamos copiando os dados que estão na heap, aos quais o ponteiro se refere. Isso é feito para que não haja um custo computacional de memória grande. A Imagem abaixo representa esse fenômeno:
+
+![](/Imagens/HD07/Memoria.png)
+
+Anteriormente, foi estabelecido que, quando uma variável sai de escopo, o Rust automaticamente chama a função ``drop`` e limpa a memória da ``heap`` para esta variável. Vimos na figura acima que que dois ponteiros estão apontados para uma mesma memória na ``Heap``. Isso é uma uma fragilidade grande: quando s2 e s1 saem de escopo, os dois vão tentar liberar a mesma memória. Isso é conhecido como erro de double free (liberação dupla), e é um dos bugs de segurança de memória. 
+
+Em vez de tentar copiar a memória alocada, o Rust considera que ``s1`` deixa de ser válida, e portanto, o Rust não precisa liberar nenhuma memória quando ``s1`` sai de escopo. Se você já ouviu os termos "cópia rasa" e "cópia profunda" (shallow copy e deep copy) enquanto trabalhava com outras linguagens, o conceito de copiar o ponteiro, tamanho e capacidade sem copiar os dados provavelmente parece uma cópia rasa. **Mas como o Rust também invalida a primeira variável, em vez de chamar isto de cópia rasa**, isto é conhecido como um *move*.
+
+Isso é que verdadeiramente ocorre:
+
+![](/Imagens/HD07/Move.png)
+
+Isso retrata uma escolha que o Rust tomou: Rust nunca vai criar deep copies dos seus dados. Logo, para qualquer cópia automática que aconteça, pode-se assumir que ela não será custosa em termos de desempenho em tempo de execução.
+
+## Clone
+
+É utilizado para uma "cópia profunda" (deep copy).
+
+![](/Imagens/HD07/Deep%20Copy.png)
+
+## Copy
+
+É utilizado para uma "cópia rasa" (shallow copy).
+
+![](/Imagens/HD07/Memoria.png)
 
 ## REFERÊNCIAS BIBLIOGRÁFICAS
 
 [1] - Stack vs Heap Memory Allocation - Geeks for Geeks. Disponível em: <https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/>. Acesso em 21/09/2022.
 
+[2] - Ownership. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://rust-br.github.io/rust-book-pt-br/ch04-01-what-is-ownership.html>. Acesso em 28/09/2022.
 
 
 Imagem 01 - <https://blog.pantuza.com/artigos/heap-vs-stack>. Acesso em 21/09/2022.
 
 Imagem 02 - <https://www.oowgnoj.dev/review/js-remember>. Acesso em 21/09/2022.
+
+Demais imagens - <https://rust-br.github.io/rust-book-pt-br/ch04-01-what-is-ownership.html>. Acesso em 28/09/2022.
