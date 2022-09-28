@@ -41,6 +41,11 @@ Acessar dados na heap é mais lento do que acessar dados na Stack, porque você 
 
 ![](/Imagens/HD07/HeapStackGIF.gif)
 
+
+Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/rDoqT-a6UFg/0.jpg)](https://www.youtube.com/watch?v=rDoqT-a6UFg)
+
 ### Fundamentos do Ownership
 
 Com base no que foi esclarecido sobre *heap* e *stack*, podemos descrever melhor o comportamento de posse. Em primeiro lugar, devemos ter em mente as seguintes "Leis de Ownership":

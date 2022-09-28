@@ -53,12 +53,12 @@ Sugerimos um Hands-On por dia durante 30 dias.
   <tr>
     <td>8</td>
     <td><a href="/HandsOn/HD08/">Referencias e Empréstimos</a></td>
-    <td>BÁSICO</td>
+    <td>ESSENCIAL</td>
   </tr>
   <tr>
     <td>9</td>
     <td><a href="/HandsOn/HD09/">Slices</a></td>
-    <td>BÁSICO</td>
+    <td>ESSENCIAL</td>
   </tr>
   <tr>
     <td>10</td>
