@@ -72,8 +72,108 @@ Sugerimos um Hands-On por dia durante 30 dias.
   </tr>
   <tr>
     <td>12</td>
-    <td><a href="/HandsOn/HD10/">EXERCÍCIOS 02</a></td>
+    <td><a href="/HandsOn/HD12/">EXERCÍCIOS 02</a></td>
     <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td><a href="/HandsOn/HD13/">Enums</a></td>
+    <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td><a href="/HandsOn/HD14/">Matchs</a></td>
+    <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>15</td>
+    <td><a href="/HandsOn/HD15/">Moudlos - parte 1</a></td>
+    <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>16</td>
+    <td><a href="/HandsOn/HD16/">Moudlos - parte 2</a></td>
+    <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>17</td>
+    <td><a href="/HandsOn/HD17/">EXERCÍCIOS 03</a></td>
+    <td>BÁSICO</td>
+  </tr>
+  <tr>
+    <td>18</td>
+    <td><a href="/HandsOn/HD18/">Vetores</a></td>
+    <td>INTERMEDIÁRIO</td>
+  </tr>
+  <tr>
+    <td>19</td>
+    <td><a href="/HandsOn/HD19/">Strings</a></td>
+    <td>INTERMEDIÁRIO</td>
+  </tr> 
+  <tr>
+    <td>20</td>
+    <td><a href="/HandsOn/HD20/">Maps</a></td>
+    <td>INTERMEDIÁRIO</td>
+  </tr> 
+  <tr>
+    <td>21</td>
+    <td><a href="/HandsOn/HD21/">EXERCÍCIOS 04</a></td>
+    <td>INTERMEDIÁRIO</td>
+  </tr>
+  <tr>
+    <td>22</td>
+    <td><a href="/HandsOn/HD22/">Tratamento de erros 01</a></td>
+    <td>INTERMEDIÁRIO</td>
+  </tr>
+  <tr>
+    <td>23</td>
+    <td><a href="/HandsOn/HD23/">Tratamento de erros 02</a></td>
+    <td>INTERMEDIÁRIO</td>
+  </tr>
+  <tr>
+    <td>24</td>
+    <td><a href="/HandsOn/HD24/">Lidando com testes 01</a></td>
+    <td>INTERMEDIÁRIO</td>
+  </tr>
+  <tr>
+    <td>25</td>
+    <td><a href="/HandsOn/HD25/">Lidando com testes 02</a></td>
+    <td>INTERMEDIÁRIO</td>
+  </tr>
+  <tr>
+    <td>26</td>
+    <td><a href="/HandsOn/HD26/">EXERCÍCIOS 05</a></td>
+    <td>INTERMEDIÁRIO</td>
+  </tr>
+  <tr>
+    <td>27</td>
+    <td><a href="/HandsOn/HD27/">Ponteiros inteligentes 01</a></td>
+    <td>AVANÇADO</td>
+  </tr>
+  <tr>
+    <td>28</td>
+    <td><a href="/HandsOn/HD28/">Ponteiros inteligentes 01</a></td>
+    <td>AVANÇADO</td>
+  </tr>
+  <tr>
+    <td>29</td>
+    <td><a href="/HandsOn/HD29/">Ponteiros inteligentes 02</a></td>
+    <td>AVANÇADO</td>
+  </tr>
+  <tr>
+    <td>30</td>
+    <td><a href="/HandsOn/HD30/">EXERCÍCIOS FINAL</a></td>
+    <td>AVANÇADO</td>
+  </tr>
+  <tr>
+    <td>31</td>
+    <td><a href="/HandsOn/HD31/">PROJETO FINALIZADOR 01</a></td>
+    <td>AVANÇADO</td>
+  </tr>
+  <tr>
+    <td>32</td>
+    <td><a href="/HandsOn/HD32/">PROJETO FINALIZADOR 02</a></td>
+    <td>AVANÇADO</td>
   </tr>
 </tbody>
 </table>
@@ -126,7 +226,19 @@ OBS: ``sudo apt  install rustc``
 
 ## **Integração com Visual Studio Code**
 
-(Necessário fazer)
+Todas informações disponíveis aqui, estão contidas no site: [Microsoft Ignite](https://learn.microsoft.com/pt-br/windows/dev-environment/rust/setup)
+
+No Windows, o Rust requer certas ferramentas de compilação do C++. Ao instalar o Visual Studio, há várias cargas de trabalho do Windows que recomendamos que você selecione desenvolvimento de área de trabalho .NET, desenvolvimento para área de trabalho com C++ e desenvolvimento de Plataforma Universal do Windows.
+
+Usando o Visual Studio Code (VS Code) como seu editor de texto/Ambiente de Desenvolvimento Integrado (IDE), você pode aproveitar os serviços de linguagem, como completar automaticamente o código, realçar a sintaxe, formatar e depurar.
+
+O VS Code também contém um terminal interno que permite a você emitir argumentos de linha de comando (para emitir comandos para Cargo, por exemplo).
+
+1º) Depois de instalar o VS Code, instale a extensão "rust-analyzer". Você pode instalar a extensão Rust-Analyzer no Visual Studio Marketplace, ou pode abrir o VS Code e pesquisar a Rust-Analyzer no menu extensões (Ctrl + Shift + X).
+
+2º) Para obter compatibilidade com a depuração, instale a extensão CodeLLDB. Você pode instalar a extensão CodeLLDB no Visual Studio Marketplace, ou pode abrir o VS Code e pesquisar a CodeLLDB no menu extensões (Ctrl + Shift + X).
+
+3º) Para abrir o terminal no VS Code, selecione Exibir>Terminal ou, como alternativa, use o atalho Ctrl+` (usando o caractere de acento grave). O terminal padrão é o PowerShell.
 
 ## **Apoiadores**
 
