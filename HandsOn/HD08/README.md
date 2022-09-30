@@ -76,9 +76,77 @@ fn modifica(uma_string: &mut String) {
 }
 ```
 
+Primeiro, temos que fazer com que ``s`` seja mutável. Depois, temos que criar uma referência mutável com ``&mut s`` e aceitar uma referência mutável com ``uma_string: &mut String``.
+
+Apesar de ser extremamente útil para a manipulação via referência, devemos ter um cuidado especial com esse tema. Isso ocorre pois se passarmos mais de uma referência mutável de um dado em um determinado escopo, o código falhará. Veja o exemplo abaixo:
+
+```
+let mut s = String::from("texto");
+
+let r1 = &mut s;   // primeira referência mutável de um dado mutável.
+let r2 = &mut s;   // segunda referência mutável de um dado mutável.
+```
+
+Esta restrição permite a mutação, mas de uma forma bem controlada. O benefício de ter esta restrição é que o Rust previne *data races* (*data races* ocorre quando um *thread* acessa um objeto mutável enquanto outro thread está gravando nele) em tempo de compilação. Um data race é parecido com uma condição de corrida, e acontece quando esses três fatores ocorrem:
+
+1º) Dois ou mais ponteiros acessam o mesmo dado ao mesmo tempo.
+2º) o menos um dos ponteiros é usado para escrever sobre o dado.
+3º) Não há nenhum mecanismo sendo usado para sincronizar o acesso ao dado.
+
+*Data races* causam comportamento indefinido e pode ser difíceis de diagnosticar e corrigir quando você está tentando rastreá-los em tempo de execução. Rust previne este problema de acontecer porque não vai nem deixar compilar um código com *data races*!
+
+___
+
+### Um pouco de história.
+
+O termo condição de corrida (*races*, em inglês), em termos de circuitos lógicos, já estava em uso em 1954, por exemplo, na tese de doutorado de David A. Huffman "A síntese de circuitos de comutação sequenciais". Uma condição de corrida pode ser difícil de reproduzir e depurar porque o **resultado final não é uma característica determinística e depende do tempo relativo entre os encadeamentos dos circuitos**. Problemas dessa natureza podem, portanto, desaparecer ao executar no modo de depuração, adicionando log extra ou anexando um depurador. Um bug que desaparece assim durante as tentativas de depuração é frequentemente chamado de "Heisenbug". Portanto, é melhor evitar condições de corrida por meio de um design de software cuidadoso. [2]
+
+Na neurociência, como o trabalho feito em 2013 dos cientistas Robert Schmidt, Daniel K. Leventhal, Nicolas Mallet, Fujun Chen, e Joshua D. Berke e intitulado *Canceling actions involves a race between basal ganglia pathways* propõe, a noção básica de uma corrida entre processos Go(começar, em português) e Stop(parar, em português) que inicialmente evoluem em circuitos neurais separados e são estimulados ao mesmo tempo em ratinhos, fornecem evidências para múltiplos mecanismos basais de gânglios na inibição do conflituo emtre esses circuitos antagônicos.
+
+___
+
+um jeito de fazermos o código acima compilar é adicionando um novo escopo.
+
+```
+let mut s = String::from("texto");
+
+{
+    let r1 = &mut s;
+
+} // aqui r1 sai de escopo, então já podemos criar uma nova referência sem
+  // problema nenhum.
+
+let r2 = &mut s;
+```
+
+Nós também não podemos ter uma referência mutável enquanto temos uma imutável. Usuários de uma referência imutável não esperam que os valores mudem de repente! Porém, múltiplas referências imutáveis são permitidas, pois ninguém que esteja apenas lendo os dados será capaz de afetar a leitura que está sendo feita em outra parte do código.
+
+Um exemplo do erro:
+
+```
+let mut s = String::from("texto");
+
+let r1 = &s; // sem problema
+let r2 = &s; // sem problema
+let r3 = &mut s; // PROBLEMA GRANDE
+```
+
+Mesmo que esses erros sejam frustrantes às vezes, lembre-se que é o compilador do Rust apontando um bug potencial antecipadamente (em tempo de compilação, em vez de execução), e mostrando exatamente onde está o problema, em vez de você ter que investigar por que algumas vezes os seus dados não são aquilo que você esperava que fosse.
+
+## Em suma
+
+1º) Em um dado momento, você pode ter um ou outro, mas não os dois:
+    - Uma referência mutável.
+    - Qualquer número de referências imutáveis.
+2º) Referências devem ser válidas sempre.
 
 
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD09/README.md)
 
 ## REFERÊNCIAS BIBLIOGRÁFICAS
 
-Referências (C++) - Microsoft Ignite. Disponível em: <https://learn.microsoft.com/pt-br/cpp/cpp/references-cpp?view=msvc-170>. Acesso em 28/09/2022.
+[1] - Referências (C++) - Microsoft Ignite. Disponível em: <https://learn.microsoft.com/pt-br/cpp/cpp/references-cpp?view=msvc-170>. Acesso em 28/09/2022.
+
+[2] - Race Condition - Wikipédia. Disponível em: <https://en.wikipedia.org/wiki/Race_condition>. Acesso em 28/09/2022.
+
+[3] - Referencias e Borrowing. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://rust-br.github.io/rust-book-pt-br/ch04-02-references-and-borrowing.html>. Acesso em 28/09/2022.

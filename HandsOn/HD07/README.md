@@ -201,6 +201,9 @@ Isso retrata uma escolha que o Rust tomou: Rust nunca vai criar deep copies dos 
 
 ![](/Imagens/HD07/Memoria.png)
 
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD08/README.md)
+
 ## REFERÊNCIAS BIBLIOGRÁFICAS
 
 [1] - Stack vs Heap Memory Allocation - Geeks for Geeks. Disponível em: <https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/>. Acesso em 21/09/2022.

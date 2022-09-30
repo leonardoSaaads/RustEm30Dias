@@ -282,3 +282,5 @@ fn print() -> i32 {
    println!("Success!");
 }
 ```
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD07/README.md)

@@ -75,34 +75,7 @@ Nesse sentido, quando olhamos a linguagem Rust, podemos perceber que ela possui 
 
 3. TerminusDB
 
-### AVANÇAR PARA O PRÓXIMO HANDS-ON?
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title>HTML Button Generator</title>
-	<style>
-		button {
-			color: #ffffff;
-			background-color: #818998;
-			font-size: 19px;
-			border: 1px solid #2d63c8;
-			border-radius: 10px;
-			padding: 15px 50px;
-			letter-spacing: 2px;
-			cursor: pointer
-		}
-		button:hover {
-			color: #2d63c8;
-			background-color: #ffffff;
-		}
-	</style>
-</head>
-<body>
-	<button type="button" name="myButton">Hands-On 2</button>
-</body>
-</html>
-
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD02/README.md)
 
 ## **REFERÊNCIAS BIBLIOGRÁFICAS**
 
