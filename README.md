@@ -68,19 +68,19 @@ Sugerimos um Hands-On por dia durante 30 dias.
     <td>9</td>
     <td><a href="/HandsOn/HD09/">Slices</a></td>
     <td>ESSENCIAL</td>
-    <td>✔️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>10</td>
     <td><a href="/HandsOn/HD10/">Structs - parte 01</a></td>
     <td>BÁSICO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>11</td>
     <td><a href="/HandsOn/HD11/">Structs - parte 02</a></td>
     <td>BÁSICO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>12</td>
@@ -273,4 +273,8 @@ O VS Code também contém um terminal interno que permite a você emitir argumen
 3º) Para abrir o terminal no VS Code, selecione Exibir>Terminal ou, como alternativa, use o atalho Ctrl+` (usando o caractere de acento grave). O terminal padrão é o PowerShell.
 ## **Apoiadores**
 
-- [Leonardo Saads Pinto](https://github.com/leonardoSaaads)
+<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo = leonardoSaaads/RustEm30Dias"/>
+</a>
+
+Made with [contributors-img](https://contrib.rocks).
