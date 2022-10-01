@@ -191,9 +191,20 @@ Isso retrata uma escolha que o Rust tomou: Rust nunca vai criar deep copies dos 
 
 ## Clone
 
-É utilizado para uma "cópia profunda" (deep copy).
+É utilizado para uma "cópia profunda" (deep copy). Se nós queremos fazer uma cópia profunda dos dados da String que estão na heap, e não apenas os dados que estão na pilha, podemos usar um método comum chamado ``clone``.
 
 ![](/Imagens/HD07/Deep%20Copy.png)
+
+Veja um exemplo:
+
+```
+fn main() {
+let s1 = String::from("texto");
+let s2 = s1.clone();
+
+println!("s1 = {}, s2 = {}", s1, s2);
+}
+```
 
 ## Copy
 
@@ -201,6 +212,63 @@ Isso retrata uma escolha que o Rust tomou: Rust nunca vai criar deep copies dos 
 
 ![](/Imagens/HD07/Memoria.png)
 
+Veja o seguinte código abaixo:
+
+```
+fn main() {
+let x = 5;
+let y = x;
+
+println!("x = {}, y = {}", x, y);
+}
+```
+
+Este código parece contradizer o que acabamos de aprender: não temos uma chamada ao método ``clone``, mas ``x`` ainda é válido e não foi movido para ``y``. O motivo para esse fenômeno é que tipos como números inteiros têm um tamanho conhecido em tempo de compilação e são armazenados inteiramente na *Stack*, e por isso, cópias desses valores são rápidas de se fazer. Isso significa que não há razão para impedir ``x`` de ser válido após criarmos a variável ``y``. Em outras palavras, não há diferença entre cópia rasa e profunda aqui, então chamar o método clone não faria nada diferente de uma cópia rasa, por isso podemos deixá-lo de lado.
+
+O Rust tem uma anotação especial chamada de trait ``Copy``, que podemos colocar em tipos como números inteiros, que são armazenados na *Stack*. Se um tipo possui o trait ``Copy``, uma variável anterior vai continuar sendo utilizável depois de uma atribuição. O Rust não vai nos deixar anotar um tipo com o trait ``Copy`` se este tipo, ou qualquer uma de suas partes, tiver implementado o trait ``Drop``.
+
+Mas então fica a pergunta: quais tipos são ``Copy``? Bom, os tipos mais simples são ``Copy``.
+
+- Todos os tipos inteiros, como u32.
+- O tipo booleano, bool, com valores true e false.
+- O tipo caractere, char.
+- Todos os tipos de ponto flutuante, como f64.
+- Tuplas, mas apenas aquelas que contém tipos que também são Copy. (i32, i32) é Copy, mas (i32, String) não.
+
+**Veja um exemplo de fixação**
+
+O seguinte código abaixo mostra as regras para os tipos ``Copy``.
+
+```
+fn main() {
+    let s = String::from("texto");  // s entra em escopo.
+
+    toma_posse(s);                  // move o valor de s para dentro da função...
+                                    // ... e ele não é mais válido aqui.
+
+    let x = 5;                      // x entra em escopo.
+
+    faz_uma_copia(x);               // x seria movido para dentro da função,
+                                    // mas i32 é Copy, então está tudo bem em
+                                    // usar x daqui para a frente.
+
+} // Aqui, x sai de escopo, e depois s. Mas como o valor de s foi movido, nada
+  // de especial acontece.
+
+fn toma_posse(uma_string: String) { // uma_string entra em escopo.
+    println!("{}", uma_string);
+} // Aqui, uma_string sai de escopo, e o método `drop` é chamado. A memória que
+  // guarda seus dados é liberada.
+
+fn faz_uma_copia(um_inteiro: i32) { // um_inteiro entra em escopo.
+    println!("{}", um_inteiro);
+} // Aqui, um_inteiro sai de escopo. Nada de especial acontece.
+
+```
+
+O que fazer se queremos deixar uma função usar um valor sem tomar posse dele? É meio irritante saber que qualquer coisa que passemos a uma função também precisa ser passado de volta se quisermos usá-lo novamente, além de algum possível resultado proveniente do corpo da função que também queremos retornar.
+
+Você verá isso no próximo Hands-On, onde falaremos de referências. 
 
 ### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD08/README.md)
 

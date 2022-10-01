@@ -136,8 +136,9 @@ Mesmo que esses erros sejam frustrantes às vezes, lembre-se que é o compilador
 ## Em suma
 
 1º) Em um dado momento, você pode ter um ou outro, mas não os dois:
-    - Uma referência mutável.
-    - Qualquer número de referências imutáveis.
+- Uma referência mutável.
+- Qualquer número de referências imutáveis.
+
 2º) Referências devem ser válidas sempre.
 
 
