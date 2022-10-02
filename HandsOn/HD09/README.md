@@ -41,5 +41,48 @@ let slice = &s[..];
 }
 ```
 
+Slices são poderosos em manipualção de dados. Podemos utilizar eles para separar fatias de dados dentro de Strings. No exemplo abaixo, iremos criar uma função que retorna a primeira palavra.
 
+```
+fn main(){
+    let texto = String::from("Belíssimo dia, meu amigo!!!");
+    let primeira = primeira_palavra(&texto);
+    
+    println!("{}", primeira)
+}
 
+fn primeira_palavra(s: &String) -> &str {
+    // convete cada letra em um byte e adiciona em um array. Exemplo: "papel" -> [112, 97, 112, 101, 108];
+    let bytes = s.as_bytes();  
+
+    // laço for sobre um array de bytes que possui o índice e o item.
+    // Caso o item seja igual ao espaço, a primeira palavra tem o índice equivalente 
+    // ao local de onde estava o primeiro espaço.
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];  // retorna esse resultado desse escopo
+        }
+    }
+    // Utiliza o resultado retornado como retorno da função.
+    &s[..]
+}
+```
+
+Neste código, foram introduzido algum operadores como ``iter()`` e ``enumerate()``. Neste momento, você não precisa se preocupar com isso, mas apenar ter em mente que o operador ``iter()`` retorna cada elemento de um vetor/array e que o operador ``enumarate()``, semelhante ao comando em python, cria uma tupla contendo o índice e o item. O primeiro elemento da tupla é o índice, e o segundo elemento é uma referência ao valor. 
+
+Além de ``Strings``, podemos utilizar slices em outros tipos de dados. Se tomarmos um ``array``, por exemplo, consguimos manipular suas informações igualmente. No código abaixo, pegaremos uma parte de um ``array`` e iremos pegar um intervalo de dados:
+
+```
+fn main() {
+let x = [0, 1, 2, 3, 4, 5];
+let slice = &x[3..1];
+
+println!("{:?}", slice);  // Modelo de print para array.
+}
+```
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD10/README.md)
+
+## REFERÊNCIAS BIBLIOGRÁFICAS
+
+[1] - Slices. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://rust-br.github.io/rust-book-pt-br/ch04-03-slices.html>. Acesso em 28/09/2022.
