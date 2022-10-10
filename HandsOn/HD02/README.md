@@ -174,6 +174,10 @@ Cargo também fornece um comando chamado ``Cargo check``. Este comando verifica 
 - Podemos construir um projeto sem produzir um binário para verificar erros usando o ``cargo check``.
 - Em vez de salvar o resultado da compilação no mesmo diretório que nosso código, o Cargo o armazena no diretório *target/debug*.
 
+Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/2V0JaMVjzws/0.jpg)](https://www.youtube.com/watch?v=2V0JaMVjzws)
+
 Para mais informações sobre o Cargo, acesse https://doc.rust-lang.org/cargo/
 
 ### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD03/README.md)

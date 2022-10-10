@@ -75,6 +75,10 @@ Nesse sentido, quando olhamos a linguagem Rust, podemos perceber que ela possui 
 
 3. TerminusDB
 
+Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/OX9HJsJUDxA/0.jpg)](https://www.youtube.com/watch?v=OX9HJsJUDxA)
+
 ### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD02/README.md)
 
 ## **REFERÊNCIAS BIBLIOGRÁFICAS**

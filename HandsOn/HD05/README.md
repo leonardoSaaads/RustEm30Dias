@@ -294,6 +294,10 @@ fn main() {
 }
 ```
 
+Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/MOa7ulhNYc0/0.jpg)](https://www.youtube.com/watch?v=MOa7ulhNYc0)
+
 ### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD06/README.md)
 
 ## REFERÊNCIAS BIBLIOGRÁFICAS

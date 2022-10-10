@@ -41,11 +41,6 @@ Acessar dados na heap é mais lento do que acessar dados na Stack, porque você 
 
 ![](/Imagens/HD07/HeapStackGIF.gif)
 
-
-Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
-
-[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/rDoqT-a6UFg/0.jpg)](https://www.youtube.com/watch?v=rDoqT-a6UFg)
-
 ### Fundamentos do Ownership
 
 Com base no que foi esclarecido sobre *heap* e *stack*, podemos descrever melhor o comportamento de posse. Em primeiro lugar, devemos ter em mente as seguintes "Leis de Ownership":
@@ -268,7 +263,13 @@ fn faz_uma_copia(um_inteiro: i32) { // um_inteiro entra em escopo.
 
 O que fazer se queremos deixar uma função usar um valor sem tomar posse dele? É meio irritante saber que qualquer coisa que passemos a uma função também precisa ser passado de volta se quisermos usá-lo novamente, além de algum possível resultado proveniente do corpo da função que também queremos retornar.
 
-Você verá isso no próximo Hands-On, onde falaremos de referências. 
+Você verá isso no próximo Hands-On, onde falaremos de referências.
+
+Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/rDoqT-a6UFg/0.jpg)](https://www.youtube.com/watch?v=rDoqT-a6UFg)
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/VFIOSWy93H0/0.jpg)](https://www.youtube.com/watch?v=VFIOSWy93H0)
 
 ### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD08/README.md)
 

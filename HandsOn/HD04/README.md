@@ -236,6 +236,11 @@ fn fizzbuzz_to(n: u32) {
 }
 ```
 
+Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/APrANyLHCtQ/0.jpg)](https://www.youtube.com/watch?v=APrANyLHCtQ)
+
+
 ### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD05/README.md)
 
 ## REFERÊNCIAS BIBLIOGRÁFICAS

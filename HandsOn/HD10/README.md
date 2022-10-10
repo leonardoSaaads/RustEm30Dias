@@ -1,4 +1,4 @@
-# **Structs - parte 01**
+# **Structs - Parte 01**
 
 Uma ``struct``, ou estrutura, é um tipo de dado personalizado que nos permite nomear e criar um conjunto de vários valores relacionados que compõem um grupo de dados. Os conceitos de struct e enum são os blocos necessários para a criação de novos tipos para o seu programa, para tirar o máximo proveito da verificação de tipo no tempo de compilação do Rust. Em outras palavras, podemos falar que seria criar a estrutura de um Objeto e usar seu proveito ao máximo. Alguns autores classificam Rust como sendo Programação Orientada a Objetos (POO) - devido a estruturas como ``Struct``, ``Traits`` e ``Impl``. Vamos mergulhar neste assunto. 
 
@@ -8,7 +8,7 @@ Para definir uma struct, digite a palavra-chave ``struct`` e o nome da struct. O
 struct User {
     username: String,     // Nome de usuário e tipo de dado
     email: String,        // Email do usuário e tipo de dado
-    active: bool,
+    active: bool,         // Status de ativação e tipo de dado
 }
 ```
 
