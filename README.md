@@ -74,7 +74,7 @@ Sugerimos um Hands-On por dia durante 30 dias.
     <td>10</td>
     <td><a href="/HandsOn/HD10/">Structs - parte 01</a></td>
     <td>BÁSICO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>11</td>

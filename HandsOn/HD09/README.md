@@ -85,4 +85,4 @@ println!("{:?}", slice);  // Modelo de print para array.
 
 ## REFERÊNCIAS BIBLIOGRÁFICAS
 
-[1] - Slices. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://rust-br.github.io/rust-book-pt-br/ch04-03-slices.html>. Acesso em 28/09/2022.
+[1] - Slices. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://rust-br.github.io/rust-book-pt-br/ch04-03-slices.html>. Acesso em 07/10/2022.
