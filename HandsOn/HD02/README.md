@@ -77,6 +77,19 @@ rustc main.rs
 
 Se **Hello, World!** apareceu em seu terminal, parabéns! Você escreveu oficialmente um programa Rust.Agora, você será um aspirante a programador em Rust e possui um potencial enorme. Siga os próximos Hands-On para continuar a sua jornada :)
 
+Em Rust, existem alguns tipos de ``print``. Resumindo bastante, veja abaixos alguns tipos:
+
+* ``print!``: o texto é impresso no console
+* ``println!``: o mesmo que print! mas uma nova linha é acrescentada.
+* ``eprint!``: o mesmo que print! mas usado apenas para mensagens de erro e progresso (io::stderr).
+* ``eprintln!``: o mesmo que eprint! mas uma nova linha é acrescentada.
+
+Além disso, você pode usar uma formatação que possibilite a designação da posição.
+
+```
+println!("{0}, this is {1}. {1}, this is {0}", "Alice", "Bob");
+```
+
 **Algumas Observações Importantes!**
 
 - O programa criado executa uma função chamada "main". Dentro dessa função main, é executado o comando ``println!("Hello, world!")`` que chama a macro do Rust - As macros fornecem funcionalidade semelhante às funções, mas sem o custo de tempo de execução. No entanto, há algum custo em tempo de compilação, pois as macros são expandidas durante o tempo de compilação.
