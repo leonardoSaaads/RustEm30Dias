@@ -4,9 +4,7 @@ Methods (métodos) são semelhantes às funções: são declarados com a chave `
 
 Neste primeiro exemplo, iremos fazer um método que retorna a área de um triangulo dado 3 pontos. |Como sabemos, a área de um triângulo é dado por:
 
-$$
-\displaystyle \begin{align*} Area &= \frac{1}{2} \begin{Vmatrix} x_1 & y_1 & 1 \\ x_2 & y_2 & 1 \\  x_3 & y_3 & 1 \end{Vmatrix} \end{align*}
-$$
+$$ \displaystyle \begin{align*} Area &= \frac{1}{2} \begin{Vmatrix} x_1 & y_1 & 1 \\ x_2 & y_2 & 1 \\  x_3 & y_3 & 1 \end{Vmatrix} \end{align*} $$
 
 No caso deste exemplo, iremos utilizar os pontos (1.0, 8.0), (9.0, 5.0), (8.4, 43.2).
 
@@ -51,6 +49,10 @@ fn main() {
 Para definir a função dentro do contexto de ``Triangle``, vamos iniciar um bloco ``impl`` (Implementação). Depois movemos a função area dentro do corpo ({}) do ``impl`` e alteramos o primeiro (e neste caso, unico) parâmetro a ser self na assinatura e em todos os lugares dentro do corpo.  Em ``main``, onde chamamos a função ``area`` e passamos ``triangle`` como um argumento, podemos usar a sintaxe de método (method sintax) para chamar o método área na nossa instância ``Rectangle``. A sintaxe de método vem em seguida a uma instância: adicionamos um ponto seguido pelo nome do método, parênteses e os argumentos.
 
 Na assinatura de ``area``, usamos ``&self`` em vez de ``triangule: &Triangule`` porque Rust sabe que o tipo de ``self`` é ``Triangle`` devido a este método estar dentro do contexto do ``impl Triangle``. Escolhemos ``&selft`` aqui pela mesma razão usamos ``&Triangle`` na versão função: nós não queremos tomar posse, nós apenas queremos ler os dados da struct, e não escrever nela.
+
+A principal vantagem do uso de métodos em vez de funções, além de usar a sintaxe do método e não ter de repetir o tipo de ``self`` em cada assinatura do método, é a organização. Nós colocamos todas as coisas que nós podemos fazer com uma instância de um tipo em um bloco ``impl`` em vez de fazer os futuros utilizadores do nosso código procurar as capacidades de ``Triangle`` em vários lugares na biblioteca que fornecemos.
+
+
 
 ## REFERÊNCIAS BIBLIOGRÁFICAS
 
