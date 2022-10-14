@@ -18,175 +18,175 @@ Sugerimos um Hands-On por dia durante 30 dias.
 <tbody>
   <tr>
     <td>1</td>
-    <td><a href="/HandsOn/HD01/">Conhecendo o Rust</a></td>
+    <td><a href="/HandsOn/HD01/README.md">Conhecendo o Rust</a></td>
     <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>2</td>
-    <td><a href="/HandsOn/HD02/">Hello World, Hello Cargo</a></td>
+    <td><a href="/HandsOn/HD02/README.md">Hello World, Hello Cargo</a></td>
     <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>3</td>
-    <td><a href="/HandsOn/HD03/">Variáveis, Mutabilidade e Data Types</a></td>
+    <td><a href="/HandsOn/HD03/README.md">Variáveis, Mutabilidade e Data Types</a></td>
     <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>4</td>
-    <td><a href="/HandsOn/HD04/">Funções</a></td>
+    <td><a href="/HandsOn/HD04/README.md">Funções</a></td>
     <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>5</td>
-    <td><a href="/HandsOn/HD05/">Comentários e Controle de Fluxo</a></td>
+    <td><a href="/HandsOn/HD05/README.md">Comentários e Controle de Fluxo</a></td>
     <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>6</td>
-    <td><a href="/HandsOn/HD06/">EXERCICIOS 01</a></td>
+    <td><a href="/HandsOn/HD06/README.md">EXERCICIOS 01</a></td>
     <td>ESSENCIAL</td>
     <td>🚧</td>
   </tr>
   <tr>
     <td>7</td>
-    <td><a href="/HandsOn/HD07/">Ownership</a></td>
+    <td><a href="/HandsOn/HD07/README.md">Ownership</a></td>
     <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>8</td>
-    <td><a href="/HandsOn/HD08/">Referencias e Empréstimos</a></td>
+    <td><a href="/HandsOn/HD08/README.md">Referencias e Empréstimos</a></td>
     <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>9</td>
-    <td><a href="/HandsOn/HD09/">Slices</a></td>
+    <td><a href="/HandsOn/HD09/README.md">Slices</a></td>
     <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>10</td>
-    <td><a href="/HandsOn/HD10/">Structs - parte 01</a></td>
+    <td><a href="/HandsOn/HD10/README.md">Structs - parte 01</a></td>
     <td>BÁSICO</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>11</td>
-    <td><a href="/HandsOn/HD11/">Structs - parte 02</a></td>
+    <td><a href="/HandsOn/HD11/README.md">Structs - parte 02</a></td>
     <td>BÁSICO</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>12</td>
-    <td><a href="/HandsOn/HD12/">EXERCÍCIOS 02</a></td>
+    <td><a href="/HandsOn/HD12/README.md">EXERCÍCIOS 02</a></td>
     <td>BÁSICO</td>
     <td>🚧</td>
   </tr>
   <tr>
     <td>13</td>
-    <td><a href="/HandsOn/HD13/">Enums</a></td>
+    <td><a href="/HandsOn/HD13/README.md">Enums</a></td>
     <td>BÁSICO</td>
     <td>🚧</td>
   </tr>
   <tr>
     <td>14</td>
-    <td><a href="/HandsOn/HD14/">Matchs</a></td>
+    <td><a href="/HandsOn/HD14/README.md">Matchs</a></td>
     <td>BÁSICO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>15</td>
-    <td><a href="/HandsOn/HD15/">Módulos - parte 1</a></td>
+    <td><a href="/HandsOn/HD15/README.md">Módulos - parte 1</a></td>
     <td>BÁSICO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>16</td>
-    <td><a href="/HandsOn/HD16/">Módulos - parte 2</a></td>
+    <td><a href="/HandsOn/HD16/README.md">Módulos - parte 2</a></td>
     <td>BÁSICO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>17</td>
-    <td><a href="/HandsOn/HD17/">EXERCÍCIOS 03</a></td>
+    <td><a href="/HandsOn/HD17/README.md">EXERCÍCIOS 03</a></td>
     <td>BÁSICO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>18</td>
-    <td><a href="/HandsOn/HD18/">Vetores</a></td>
+    <td><a href="/HandsOn/HD18/README.md">Vetores</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>19</td>
-    <td><a href="/HandsOn/HD19/">Strings</a></td>
+    <td><a href="/HandsOn/HD19/README.md">Strings</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr> 
   <tr>
     <td>20</td>
-    <td><a href="/HandsOn/HD20/">Maps</a></td>
+    <td><a href="/HandsOn/HD20/README.md">Maps</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr> 
   <tr>
     <td>21</td>
-    <td><a href="/HandsOn/HD21/">EXERCÍCIOS 04</a></td>
+    <td><a href="/HandsOn/HD21/README.md">EXERCÍCIOS 04</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>22</td>
-    <td><a href="/HandsOn/HD22/">Tratamento de erros 01</a></td>
+    <td><a href="/HandsOn/HD22/README.md">Tratamento de erros 01</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>23</td>
-    <td><a href="/HandsOn/HD23/">Tratamento de erros 02</a></td>
+    <td><a href="/HandsOn/HD23/README.md">Tratamento de erros 02</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>24</td>
-    <td><a href="/HandsOn/HD24/">Lidando com testes 01</a></td>
+    <td><a href="/HandsOn/HD24/README.md">Lidando com testes 01</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>25</td>
-    <td><a href="/HandsOn/HD25/">Lidando com testes 02</a></td>
+    <td><a href="/HandsOn/HD25/README.md">Lidando com testes 02</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>26</td>
-    <td><a href="/HandsOn/HD26/">EXERCÍCIOS 05</a></td>
+    <td><a href="/HandsOn/HD26/README.md">EXERCÍCIOS 05</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>27</td>
-    <td><a href="/HandsOn/HD27/">Ponteiros</a></td>
+    <td><a href="/HandsOn/HD27/README.md">Ponteiros</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>28</td>
-    <td><a href="/HandsOn/HD28/">Ponteiros inteligentes 02</a></td>
+    <td><a href="/HandsOn/HD28/README.md">Ponteiros inteligentes 02</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>29</td>
-    <td><a href="/HandsOn/HD29/">Ponteiros inteligentes 03</a></td>
+    <td><a href="/HandsOn/HD29/README.md">Ponteiros inteligentes 03</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>

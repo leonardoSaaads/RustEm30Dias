@@ -348,6 +348,26 @@ fn main() {
     let segundo = meses[1];
 }
 ```
+## Conversão de Data-Types (Exemplos: u8 -> f32 / f64 -> i32)
+
+Em Rust, algo importante a ser ressaltado é que podemos realizar a mudança de um tipo em outro tipo. Usualmente, o compilado Rust não permite que diferentes tipos realizem operações. Em outras palavras, se desejarmos fazer uma divisão de um tipo ``i32`` por outro ``u8``, como exemplo, o compilador não permitirá. Por isso, podemos utilizar o ``as``(como, em português) para tratar essas transformações.
+
+````
+let a: u8 = 10;
+let b: i32 = 100;
+print!("{}", b/a);  // Não é possível fazer a divisão
+```
+
+Agora utilizando o ``as``:
+
+```
+fn main(){
+    let a: u8 = 10;
+    let b: i32 = 100;
+    print!("{}", b/a as i32);  // Possivel usar a divisão
+    // Rust lê o resultado de b/a como sendo uma variável i32 
+}
+```
 
 Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
 

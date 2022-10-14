@@ -209,6 +209,12 @@ Usando ``structs``, podemos manter pedaços de dados associados ligados uns aos 
 
 Mas structs não são a única maneira que nós podemos criar tipos personalizados: vamos ao recurso do Rust, ``enum``, para adicionar uma outra ferramenta à nossa caixa de ferramentas.
 
+Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/gi0AQ78diSA/0.jpg)](https://www.youtube.com/watch?v=gi0AQ78diSA)
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD12/README.md)
+
 ## REFERÊNCIAS BIBLIOGRÁFICAS
 
 [1] - WolframAlpha. Disponível em: <https://www.wolframalpha.com/input?i=area+of+%281.0%2C+8.0%29%2C+%289.0%2C+5.0%29%2C+%288.4%2C+43.2%29>. Acesso em 13 de outubro de 2022.
