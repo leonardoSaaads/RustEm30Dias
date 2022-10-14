@@ -80,7 +80,7 @@ Sugerimos um Hands-On por dia durante 30 dias.
     <td>11</td>
     <td><a href="/HandsOn/HD11/">Structs - parte 02</a></td>
     <td>BÁSICO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>12</td>
@@ -92,7 +92,7 @@ Sugerimos um Hands-On por dia durante 30 dias.
     <td>13</td>
     <td><a href="/HandsOn/HD13/">Enums</a></td>
     <td>BÁSICO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>14</td>
@@ -271,6 +271,7 @@ O VS Code também contém um terminal interno que permite a você emitir argumen
 2º) Para obter compatibilidade com a depuração, instale a extensão CodeLLDB. Você pode instalar a extensão CodeLLDB no Visual Studio Marketplace, ou pode abrir o VS Code e pesquisar a CodeLLDB no menu extensões (Ctrl + Shift + X).
 
 3º) Para abrir o terminal no VS Code, selecione Exibir>Terminal ou, como alternativa, use o atalho Ctrl+` (usando o caractere de acento grave). O terminal padrão é o PowerShell.
+
 ## **Apoiadores**
 
 <a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
@@ -278,3 +279,7 @@ O VS Code também contém um terminal interno que permite a você emitir argumen
 </a>
 
 Made with [contributors-img](https://contrib.rocks).
+
+## Agradecimentos
+
+Steve Klabnik &  Carol Nichols e a comunidade Rust, que forneceram um excelente material online.

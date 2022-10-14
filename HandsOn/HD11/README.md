@@ -4,7 +4,7 @@ Methods (métodos) são semelhantes às funções: são declarados com a chave `
 
 Neste primeiro exemplo, iremos fazer um método que retorna a área de um triangulo dado 3 pontos. |Como sabemos, a área de um triângulo é dado por:
 
-$$ \displaystyle \begin{align*} Area &= \frac{1}{2} \begin{Vmatrix} x_1 & y_1 & 1 \\ x_2 & y_2 & 1 \\  x_3 & y_3 & 1 \end{Vmatrix} \end{align*} $$
+$$ \displaystyle  Area = \frac{1}{2} \begin{Vmatrix} x_1 & y_1 & 1 \\ x_2 & y_2 & 1 \\  x_3 & y_3 & 1 \end{Vmatrix} $$
 
 No caso deste exemplo, iremos utilizar os pontos (1.0, 8.0), (9.0, 5.0), (8.4, 43.2).
 
@@ -126,7 +126,91 @@ impl Rectangle {
 
 Outro recurso útil dos blocos ``impl`` é que podemos definir funções dentro dos blocos ``impl`` que não recebem ``self`` como um parâmetro. Estas são chamadas de funções associadas porque elas estão associados com a struct. Elas ainda são funções, não métodos, porque elas não têm uma instância da struct para trabalhar. Você já usou a função associada ``String::from``.
 
+Funções associadas são usados frequentemente para construtores que retornam uma nova instância da struct. Poderíamos, por exemplo, fornecer uma função associada que teria um parametro dimensão e usar esse parâmetro como comprimento e largura, tornando assim mais fácil criar um retângulo ``Rectangle`` em vez de ter que especificar o mesmo valor duas vezes:
+
+```
+fn main() {
+struct Rectangle {
+    length: u32,
+    width: u32,
+}
+
+// NOTE QUE ESTÁ SEM O self.
+impl Rectangle {
+    fn square(size: u32) -> Rectangle {
+        Rectangle { length: size, width: size }
+    }
+}
+}
+```
+
+Para chamar esta função associada, usamos a sintaxe ``::`` com o nome da struct, como ``let sq = Rectangle::square(3);``, por exemplo. Esta função é nomeada pela struct: a sintaxe ``::`` é utilizada tanto para funções associadas e ``namespaces`` criados por módulos.
+
+Veja um exemplo abaixo:
+
+```
+// Cria a estrutura Pascal - recebe o número do triãngulo de pascal
+struct Pascal{
+    number: usize,
+}
+
+// Cria os métodos para se calcular o triãngulo de Pascal.
+impl Pascal{
+
+    // Calcula o fatorial.
+    fn fatorial(numero: usize) -> usize{
+    let mut fatorial = 1;
+        for valor in 1..(numero+1){
+            fatorial = fatorial * valor;
+        }
+    fatorial
+    }
+    
+    // Calcula a combinação.
+    // OBS: Note que é utilizado a função faotiral, definida acima.
+    // Devido a Isso, usamos a notação "Self::"
+    fn combinacao(n: usize, k: usize) -> usize{
+         Self::fatorial(n)/( Self::fatorial(k) *  Self::fatorial(n - k))
+    }
+    
+    // Calcula o triângulo de Pascal.
+    fn triangulo(&self){
+        for linha in 0..(self.number+1){
+            for valor in 0..(linha+1){
+                print!("{} ", Self::combinacao(linha, valor));
+            }
+            println!()
+        }
+    }
+}
+
+fn main(){
+    // Printa o fatorial de um número.
+    print!("Fatorial de 7: {} \n", Pascal::fatorial(7));
+    // Printa a combinação de dois números.
+    print!("Combinação de 12 em 3: {} \n", Pascal::combinacao(12, 3));
+    // Cria uma instância "a".
+    let a = Pascal{number: 6};
+    // Executa o triângulo de pascal da instância criada.
+    a.triangulo()
+}
+```
+
+Veja o resultado da chamada:
+
+![](/Imagens/HD11/pascal.png)
+
+
+**OBS:** Cada struct pode ter vários blocos ``impl``. É importante frisarmos essa característica, pois futuramente será necessário a aplicação em *lifetimes*
+
+## Para finalizar
+
+Usando ``structs``, podemos manter pedaços de dados associados ligados uns aos outros e nomear cada pedaço para fazer nosso código claro. Métodos ajudam-nos a especificar o comportamento que as instâncias das nossas structs têm, funções associadas dão-nos a funcionalidade de namespace que é particular à nossa struct sem ter uma instância disponível.
+
+Mas structs não são a única maneira que nós podemos criar tipos personalizados: vamos ao recurso do Rust, ``enum``, para adicionar uma outra ferramenta à nossa caixa de ferramentas.
 
 ## REFERÊNCIAS BIBLIOGRÁFICAS
 
 [1] - WolframAlpha. Disponível em: <https://www.wolframalpha.com/input?i=area+of+%281.0%2C+8.0%29%2C+%289.0%2C+5.0%29%2C+%288.4%2C+43.2%29>. Acesso em 13 de outubro de 2022.
+
+[2] - Sintaxe do Método. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://rust-br.github.io/rust-book-pt-br/ch05-03-method-syntax.html>. Acesso em 13/10/2022.
