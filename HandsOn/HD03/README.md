@@ -228,7 +228,7 @@ Para Unsigned
 
 Além disso, os tipos isize e usize dependem do computador em que seu programa está rodando: 64 bits se estiver em uma arquitetura de 64-bit e 32 bits se sua arquitetura for 32-bit. Um caso mais raro é para processadores 128 bits.
 
-Também podemos utilizar um outro sistema de numeração, como octal ou hexadecimal:
+Os inteiros podem, alternativamente, ser expressos usando notação hexadecimal, octal ou binária usando estes prefixos respectivamente: ``0x``, ``0o`` ou ``0b``. Em outras palavras, também podemos utilizar um outro sistema de numeração, como octal ou hexadecimal:
 
 <table><thead><tr><th>Números literais</th><th>Exemplo</th></tr></thead><tbody>
 <tr><td>Decimal</td><td><code class="hljs">98_222</code></td></tr>

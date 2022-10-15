@@ -92,7 +92,7 @@ Sugerimos um Hands-On por dia durante 30 dias.
     <td>13</td>
     <td><a href="/HandsOn/HD13/README.md">Enums</a></td>
     <td>BÁSICO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>14</td>
