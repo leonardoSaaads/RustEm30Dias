@@ -21,7 +21,7 @@ Uma linha do tempo pode ser desenvolvida:
 
 - 1992: Muitas redes foram desenvolvidas sobre o TCP/IP, novas aplicações criadas e um conjunto de serviços desenvolvidos de forma a melhorar e a diferenciar o tráfego que circula na Internet.
 
-- 2012: Foi criada a sexta versão do protocolo da internet. A versão 6 é a mais atual e sucede a anterior, IPV4. A longo prazo, o IPv6 tem como objetivo substituir o IPv4, que suporta somente cerca de 4 bilhões $4x10^9$ de endereços IP, contra cerca de 340 undecilhões $3,4x10^{38}$ de endereços do novo protocolo. Em termos mais exatos, o IPv4 suporta 4294967296 endereços, enquanto o IPv6 suporta 340282366920938463463374607431768211456 endereços.
+- 2012: Foi criada a sexta versão do protocolo da internet. A versão 6 é a mais atual e sucede a anterior, IPV4. A longo prazo, o IPv6 tem como objetivo substituir o IPv4, que suporta somente cerca de 4 bilhões $4 \times 10^9$ de endereços IP, contra cerca de 340 undecilhões $3,4 \times 10^{38}$ de endereços do novo protocolo. Em termos mais exatos, o IPv4 suporta 4294967296 endereços, enquanto o IPv6 suporta 340282366920938463463374607431768211456 endereços.
 
 Enquanto os endereços IPv4 possuem a formatação de apenas quatro octetos de bits, os endereços de IPv6 possuem 16 octetos de bits. Cada octeto é um conjunto de oito bits. Logo, no IPv4, temos 32 bits disponíveis para escrever um endereço, enquanto no IPv6 temos 128 bits.
 
@@ -157,8 +157,45 @@ struct MensagemMudarCor(i32, i32, i32); // tuple struct
 }
 ```
 
+Há mais uma similaridade entre enums e structs: da mesma forma como podemos definir métodos em structs usando impl, também podemos definir métodos em enums. Aqui está um método chamado invocar, que poderia ser definido na nossa enum Mensagem:
 
+```
+fn main() {
+enum Mensagem {
+    Sair,
+    Mover { x: i32, y: i32 },
+    Escrever(String),
+    MudarCor(i32, i32, i32),
+}
 
+impl Mensagem {
+    fn invocar(&self) {
+        // o corpo do método é definido aqui
+    }
+}
+
+let m = Mensagem::Escrever(String::from("olá"));
+m.invocar();
+}
+```
+
+O corpo do método usaria o valor ``self`` para obter a mensagem sobre a qual o método foi chamado. Neste exemplo, criamos a variável ``m``, que contém o valor ``Mensagem::Escrever(String::from("olá"))``, e é isso que self vai ser no corpo do método invocar quando ``m.invocar()`` for executado.
+
+Vamos ver agora outra enum da biblioteca padrão que também é muito útil e comum: ``Option``.
+
+## A Enum Option e Null
+
+Sir Charles Antony Richard Hoare, comumente conhecido como Tony Hoare, é um cientista da computação britânico, provavelmente mais conhecido pelo desenvolvimento em 1960, aos 26 anos, do Quicksort. Ele também desenvolveu a lógica Hoare, a linguagem formal de comunicação de processos sequenciais (CSP), e inspirou a linguagem de programação Occam.
+
+Em sua apresentação de 2009 “Null References: The Billion Dollar Mistake”, Tony Hoare, o inventor do null, diz o seguinte:
+
+"Eu chamo isso de meu erro de um bilhão de dólares. Naquela época, eu estava projetando o primeiro sistema de tipos abrangente para referências em uma linguagem orientada a objetos. Meu objetivo era garantir que todo uso de referências fosse absolutamente seguro, com a verificação realizada automaticamente pelo compilador. Mas não resisti à tentação de colocar uma referência nula, simplesmente porque era muito fácil de implementar. Isso levou a inúmeros erros, vulnerabilidades e falhas no sistema, que provavelmente causaram um bilhão de dólares de dor e danos nos últimos quarenta anos."
+
+O problema com valores nulos é que, se você tentar usar um valor nulo como um valor não nulo, receberá algum tipo de erro. Como essa propriedade nula ou não nula é generalizada, é extremamente fácil cometer esse tipo de erro.
+
+No entanto, o conceito que null está tentando expressar ainda é útil: um null é um valor atualmente inválido ou ausente por algum motivo.
+
+O problema não está realmente no conceito, mas na implementação específica. Como tal, Rust não possui nulos, mas possui uma enumeração que pode codificar o conceito de um valor estar presente ou ausente.
 
 Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
 
@@ -172,6 +209,8 @@ Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
 
 [2] - Pequena história da Internet. Faculdade de Engenharia da Universidade do Porto. Disponível em: <https://paginas.fe.up.pt/~mrs01003/TCP_IP.htm>. Acesso em 15/09/2022.
 
-[3] - Data Types. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://doc.rust-lang.org/book/ch03-02-data-types.html>. Acesso em 10/09/2022.
+[3] - Definindo uma Enum. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://rust-br.github.io/rust-book-pt-br/ch06-01-defining-an-enum.html>. Acesso em 15/09/2022.
+
+Null References: The Billion Dollar Mistake. infoQ. Disponível em:<https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/>. Acesso em 15/09/2022.
 
 Imagens 01 - https://e3z7c6v7.rocketcdn.me/blog/wp-content/uploads/2015/02/ipv6.jpg.webp
