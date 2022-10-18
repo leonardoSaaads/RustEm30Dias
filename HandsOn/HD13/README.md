@@ -195,7 +195,36 @@ O problema com valores nulos é que, se você tentar usar um valor nulo como um 
 
 No entanto, o conceito que null está tentando expressar ainda é útil: um null é um valor atualmente inválido ou ausente por algum motivo.
 
-O problema não está realmente no conceito, mas na implementação específica. Como tal, Rust não possui nulos, mas possui uma enumeração que pode codificar o conceito de um valor estar presente ou ausente.
+O problema não está realmente no conceito, mas na implementação específica. Como tal, Rust não possui nulos, mas possui uma enumeração que pode codificar o conceito de um valor estar presente ou ausente. Esta enum é a ``Option<T>``, que está definida na biblioteca padrão da seguinte forma:
+
+```
+fn main() {
+enum Option<T> {
+    Some(T), // algum valor
+    None,    // nenhum valor
+    }
+}
+```
+
+Você pode usar ``Some`` e ``None`` diretamente sem prefixá-las com ``Option::``. A estrutura ``Option<T>`` continua sendo uma enum como qualquer outra, e ``Some(T)`` e ``None`` ainda são variantes do tipo ``Option<T>``.
+
+A sintaxe do ``<T>`` é uma característica do Rust de que não falamos ainda. Trata-se de um parâmetro de tipo genérico, vamos abordá-lo com mais detalhe futuramente. Por ora, tudo que você precisa saber é que ``<T>`` significa que a variante ``Some`` da enum Option pode conter um dado de qualquer tipo.
+
+Você pode se perguntar: Por que devemos utilizar o Oprtion<T> ao invés de um nulo qualquer?
+
+Isso está relacionado com a segurança da limguagem. Por exemplo, o código seguinte não vai compilar, porque ele está tentando somar um i8 a um Option<i8>:
+
+```
+let x: i8 = 5;
+let y: Option<i8> = Some(5);
+
+let soma = x + y;
+```
+
+Ao tentamos executar esse código, Rust exibirá um erro. O que quer dizer que o Rust não consegue entender como somar um i8 e um Option<i8>, porque eles são de tipos diferentes.
+
+Em outras palavras, você tem que converter um ``Option<T>`` em um ``T`` antes de poder executar operações com ele. Geralmente, isso ajuda a detectar um dos problemas mais comuns com valores nulos: assumir que algo não é nulo quando, na verdade, ele é. Só de não ter que se preocupar com a possibilidade de ter deixado um valor nulo escapar já lhe dá mais confiança em seu código.
+
 
 Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
 
