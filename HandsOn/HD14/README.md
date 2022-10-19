@@ -116,7 +116,44 @@ Se executarmos ``valor_do_refri(Refrigerante::CocaCola(Evento::Beijing))``, refr
 
 Na seção anterior, queríamos obter o valor ``T`` contido em um ``Some`` quando era o caso em uma ``Option<T>``. Também podemos manipular uma ``Option<T>`` usando match, assim como fizemos com a enum Refrigerante! Em vez de comparar moedas, vamos comparar as variantes de ``Option``, mas a forma de trabalhar com a expressão match continua a mesma.
 
+Digamos que queremos escrever uma função que recebe um ``Option<i32>``, e se houver um valor embutido nele, soma um a esse valor. Se não houver um valor, a função deve retornar ``None``, e nem tentar executar nenhuma operação.
 
+Essa função é bem fácil de implementar, graças ao match, e vai ficar semelhante ao código abaixo:
+
+```
+fn main() {
+fn mais_um(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
+}
+
+let cinco = Some(5);
+let seis = mais_um(cinco);
+let nenhum = mais_um(None);
+}
+```
+
+OBS: O Rust sabe que nós não cobrimos todos os casos possíveis, e sabe até de qual padrão nos esquecemos! Matches em Rust são exaustivos: precisamos extinguir até a última possibilidade pra que o nosso código seja válido. Especialmente no caso de uma Option<T>, em que o Rust não nos deixa esquecer de tratar explicitamente o caso None. Ele nos impede de assumir que temos um valor válido quando possivelmente temos um valor nulo, e portanto, cometer o erro de um bilhão de dólares que vimos mais cedo.
+
+A linguagem também tem um padrão que podemos usar em situações em que não queremos listar todos os valores possíveis. Por exemplo, um ``u8`` pode ter valores válidos de 0 a 255. Se nos importamos apenas com os valores 1, 3, 5 e 7, não queremos ser obrigados a listar o 0, 2, 4, 6, 8, 9, e assim por diante até 255. Felizmente, nem precisamos: em vez disso, podemos usar o padrão especial ``_``.
+
+```
+fn main() {
+
+let algum_valor_u8 = 0u8;
+match algum_valor_u8 {
+    1 => println!("um"),
+    3 => println!("três"),
+    5 => println!("cinco"),
+    7 => println!("sete"),
+    _ => (),
+    }
+}
+```
+
+O padrão ``_`` casa com qualquer valor. Colocando ele depois dos demais braços, o ``_`` vai casar com todos os casos possíveis que não foram especificados antes dele. O ``()`` é só o valor-unidade, pra que nada aconteça no caso ``_``. Como resultado, podemos dizer que não queremos fazer nada com os possíveis valores que não listamos antes do *placeholder* ``_``.
 
 ## REFERÊNCIAS BIBLIOGRÁICAS
 

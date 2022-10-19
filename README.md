@@ -104,13 +104,13 @@ Sugerimos um Hands-On por dia durante 30 dias.
     <td>15</td>
     <td><a href="/HandsOn/HD15/README.md">Módulos - parte 1</a></td>
     <td>BÁSICO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>16</td>
     <td><a href="/HandsOn/HD16/README.md">Módulos - parte 2</a></td>
     <td>BÁSICO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>17</td>
