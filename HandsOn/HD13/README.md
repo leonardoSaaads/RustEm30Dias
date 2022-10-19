@@ -230,7 +230,7 @@ Para entender um pouco mais sobre o tema, veja o vídeo abaixo:
 
 [![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/DSZqIJhkNCM/0.jpg)](https://www.youtube.com/watch?v=DSZqIJhkNCM)
 
-### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD04/README.md)
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD14/README.md)
 
 **REFERÊNCIAS BIBLIOGRÁFICAS**
 

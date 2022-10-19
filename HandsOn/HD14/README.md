@@ -67,10 +67,61 @@ fn valor_do_refri(refri: Refrigerante) -> f32 {
 
 Outra característica útil dos braços do match é que eles podem ser atrelados a partes dos valores que se encaixam no padrão. É assim que podemos extrair valores dentro de uma variante de uma enum.
 
+Por exemplo, vamos alterar uma das nossas variantes, inserindo dados dentro dela. Como exemplo, iremos utilizar a Coca-Cola. A bebeida surgiu em 1886, quando o farmacêutico americano John S Pemberton desenvolveu uma fórmula para um xarope. Foi na Jacob ‘s Pharmacy que o xarope começou a ser misturado com água gaseificada e oferecido para que as pessoas experimentassem. Essa mistura deu tão certo que chamou a atenção de Frank Robinson, o contador da farmácia, e idealizador do refrigerante da Coca-Cola Company, 2 anos depois da morte de John Pemberton, em 1891.
+
+A popularidade da bebida aconteceu nos Estados Unidos, após a segunda guerra mundial. Foi inclusive nessa época que surgiram as latinhas. Os refrigerantes eram todos comercializados em garrafas de vidro e as latinhas tinham o objetivo de facilitar o transporte com seu material mais resistente que o vidro.
+
+Com a expensão da empresa de bebidas e a diversificação de produtos, alguns modelos de Coca-Cola ficaram marcados como sendo raros. Dentre esses produtos Raros, podemos citar as garrafas da copa de 2006 e a promoção com os nomes das pessoas. Podemos adicionar essa informação à nossa ``enum`` alterando a variante ``CocaCola`` para incluir o atributo
+ ``Evento``.
+
+```
+#![allow(unused)]
+fn main() {
+#[derive(Debug)]
+enum Evento {
+    Copa,
+    Cha,
+    Beijing,
+    // ... etc
+}
+
+enum Refrigerante {
+    CocaCola(Evento),
+    Guarana,
+    FantaLaranja,
+    FantaUva,
+    H2O,
+    }
+```
+
+Vamos imaginar que um amigo nosso está tentando colecionar todas as Coca-Colas raras de todos os Eventos. Enquanto separamos nosso refri por tipo de marca, vamos também dizer o nome do eventos associado a cada Coca-Cola. Se for um dos que o nosso amigo ainda não tem, ele pode colocá-lo na sua coleção.
+
+Na expressão match desse código, vamos adicionar uma variável chamada evento ao padrão que casa com os valores da variante ``Refrigerante::CocaCola``. Quando um ``Refrigerante::CocaCola`` é testada, a variável ``evento`` vai ser atrelada ao valor do evento daquela Coca. Assim vamos poder usar o evento no código do braço, desse jeito:
+
+```
+fn valor_do_refri(refri: Refrigerante) -> f32 {
+    match refri {
+        Refrigerante::CocaCola(evento)    => {print!("Coca do evento: {:?}", evento); 3.22},
+        Refrigerante::Guarana             => 2.32,
+        Refrigerante::FantaLaranja        => 6.37,
+        Refrigerante::FantaUva            => 3.93,
+        Refrigerante::H2O                 => 3.19,
+    }
+}
+```
+
+Se executarmos ``valor_do_refri(Refrigerante::CocaCola(Evento::Beijing))``, refri corresponde a ``Refrigerante::CocaCola(Evento::Beijing)``.
+
+## Usando match com Option<T>
+
+Na seção anterior, queríamos obter o valor ``T`` contido em um ``Some`` quando era o caso em uma ``Option<T>``. Também podemos manipular uma ``Option<T>`` usando match, assim como fizemos com a enum Refrigerante! Em vez de comparar moedas, vamos comparar as variantes de ``Option``, mas a forma de trabalhar com a expressão match continua a mesma.
+
 
 
 ## REFERÊNCIAS BIBLIOGRÁICAS
 
 [1] - Operador match de Controle de Fluxo. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://rust-br.github.io/rust-book-pt-br/ch06-02-match.html>. Acesso em 18/09/2022.
+
+[2] - TIPOS DE COCA COLA: CONHEÇA E EXPERIMENTE OS SABORES EXÓTICOS!. Disponível em: <hhttps://blog.tabacariadamata.com.br/tipos-de-coca-cola-conheca-e-experimente-os-sabores-exoticos/>. Acesso em 18/09/2022.
 
 IMAGEM 02 - https://www.researchgate.net/figure/a-32-QAM-b-64-QAM-c-128-QAM-constellation-maps-in-the-case-of-1100mV-driving_fig6_344313794
