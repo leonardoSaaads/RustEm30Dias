@@ -98,7 +98,7 @@ Sugerimos um Hands-On por dia durante 30 dias.
     <td>14</td>
     <td><a href="/HandsOn/HD14/README.md">Matchs</a></td>
     <td>BÁSICO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>15</td>
