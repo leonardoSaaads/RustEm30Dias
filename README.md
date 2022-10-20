@@ -217,7 +217,7 @@ Sugerimos um Hands-On por dia durante 30 dias.
 <progress id="rust" value="99" max="100">99% </progress>
 
 <label for="hdon">HANDS-ON:</label>
-<progress id="hdon" value="30" max="100"> 30% </progress>
+<progress id="hdon" value="50" max="100"> 50% </progress>
 
 <label for="bugs">CORREÇÃO DE BUGS:</label>
 <progress id="bugs" value="0" max="100"> 0% </progress>

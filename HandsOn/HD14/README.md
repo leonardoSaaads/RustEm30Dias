@@ -155,6 +155,10 @@ match algum_valor_u8 {
 
 O padrão ``_`` casa com qualquer valor. Colocando ele depois dos demais braços, o ``_`` vai casar com todos os casos possíveis que não foram especificados antes dele. O ``()`` é só o valor-unidade, pra que nada aconteça no caso ``_``. Como resultado, podemos dizer que não queremos fazer nada com os possíveis valores que não listamos antes do *placeholder* ``_``.
 
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/DSZqIJhkNCM/0.jpg)](https://www.youtube.com/watch?v=DSZqIJhkNCM?t=412)
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD15/README.md)
+
 ## REFERÊNCIAS BIBLIOGRÁICAS
 
 [1] - Operador match de Controle de Fluxo. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://rust-br.github.io/rust-book-pt-br/ch06-02-match.html>. Acesso em 18/09/2022.
