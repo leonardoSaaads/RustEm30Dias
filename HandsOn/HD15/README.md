@@ -1,4 +1,4 @@
-# **Módulos - Parte 1**
+# **Módulos - Parte 1 (``Mod``, ``pub`` e ``use``)**
 ## Para que serve Módulos?
 
 Os programas que escrevemos até agora foram em um módulo em um arquivo. À medida que um projeto cresce, você deve organizar o código dividindo-o em vários módulos e, em seguida, vários arquivos. Um pacote pode conter várias caixas e, opcionalmente, uma caixa biblioteca. À medida que um pacote cresce, você pode extrair peças em caixas separadas que se tornam dependências externas. Este capítulo abrange todas essas técnicas. Para projetos muito grandes que compõem um conjunto de pacotes interrelacionados que evoluem juntos, o ``Cargo`` fornece espaços de trabalho. Vamos definir alguns conceitos: 
@@ -40,7 +40,7 @@ Nessa seção, falaremos sobre módulos e outras partes do sistema de módulos, 
 
 Nesta sequência, iremos utilizar uma série de comandos e mostrar como eles são repercutidos em nosso pacote. Para melhor aprendizado, todos os códigos serão comentados.
 
-- **1º Criando uma Biblioteca**
+**Criando uma Biblioteca**
 
 CARGO NEW: Tenha em mente que ao criar um novo pacote com ``cargo new (Nome Do Projeto) --lib``, essa será a arvore que o Cargo irá forncer:
 
@@ -73,7 +73,7 @@ mod tests {
 
 Poderemos mudar esse arquivo para inserir ``mod``, como veremos abaixo.
 
-- **2º Usando Módulos com MOD** 
+## Usando Módulos com ``mod``
 
 Diferentemente de outras linguagens de programação, Rust não utiliza um arquivo como módulo. Nesta linguagem de programação, você pode ter um único arquivo com centenas e até milhares de módulos e submodulos em um único arquivo. Em python, por exemplo, ao criarmos um script *carros.py*, ele será considerado um módulo. Veja o que diz a documentação oficial de Python:
 
@@ -171,12 +171,100 @@ lib.rs                         // root.
 
 Projetos mais complicados podem ter muitos módulos, é necessário organizá-los logicamente para mantê-los sob controle. O que "logicamente" significa em seu projeto fica a seu critério, e depende do que você e os usuários da sua biblioteca pensam sobre o domínio do seu projeto.
 
+Para mostrar ao Rust onde encontrar um item em uma árvore de módulo, usamos um caminho da mesma forma que usamos um caminho ao navegar em um sistema de arquivos. Para chamar uma função, precisamos saber seu caminho.
+
+Um caminho pode tomar duas formas:
+
+- Um caminho absoluto é o caminho completo a partir de uma raiz de caixa; para código de uma caixa externa, o caminho absoluto começa com o nome da caixa, e para o código da caixa atual, ele começa com o ``create``. 
+
+- Um caminho relativo começa a partir do módulo atual e usa ``self``,``super`` ou um identificador no módulo atual. Ambos os caminhos absolutos e relativos são seguidos por um ou mais identificadores separados por cólons duplos (``::``).
+
+Veja um exemplo:
+
+```
+// Absolute path
+crate::fazenda::animais::cachorro();
+// Relative path
+fazenda::animais::cachorro();
+```
+
+No caminho absoluto, começamos com o ``create``, a raiz da árvore de módulos do nosso programa. Com o caminho relativo, não é feito esse procedimento.
+
+Se você planeja compartilhar sua grade de biblioteca para que outros projetos possam usar seu código, sua API pública é seu contrato com os usuários de sua grade que determina como eles podem interagir com seu código. Há muitas considerações sobre o gerenciamento de alterações em sua API pública para tornar mais fácil para as pessoas dependerem de sua grade. Essas considerações estão fora do escopo deste livro; se você estiver interessado neste tópico, consulte [The Rust API Guidelines](https://rust-lang.github.io/api-guidelines/).
+
+## Métodos Públicos com ``pub``
+
+Como foi falado anteriormente, os métodos definidos em módulos são privados por *Default*. Isso significa que, caso você tente chamar um método em um módulo que não esteja público, um erro será exibido. Vamos retornar ao exemplo da fazenda. Iremos criar uma função main e iremos tentar chamar a função ``colocar_comida``.
+
+```
+mod fazenda{
+    mod animais{
+        fn cachorro(){
+            println!("au au au!!!");
+        }
+        fn marreco(){
+            println!("quac quac!!!");
+        }
+    // outros animais ...
+    }
+
+    fn colocar_comida(){
+        println!("Colocando comida para os animais...");
+    }
+}
+
+fn main(){
+    fazenda::colocar_comida();
+}
+```
+
+Teremos o seguinte erro:
+
+```
+error[E0603]: function `colocar_comida` is private
+  --> src/main.rs:18:14
+   |
+18 |     fazenda::colocar_comida();
+   |              ^^^^^^^^^^^^^^ private function
+   |
+note: the function `colocar_comida` is defined here
+  --> src/main.rs:12:5
+   |
+12 |     fn colocar_comida(){
+   |     ^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0603`.
+error: could not compile `playground` due to previous error
+```
+
+Devido a isso, temos utilizar métodos públicos. Para controlar se as interfaces podem ser usadas entre os módulos, o Rust verifica cada uso de um item para ver se deve ser permitido ou não. É aqui que os avisos de privacidade são gerados ou, de outra forma, "você usou um item privado de outro módulo e não teve permissão para isso".
+
+Com duas exceções para métodos privados, temos: Itens associados em um ``pub Trait`` são públicos por padrão; As variantes de enumeração em um ``pub enum`` também são públicas por padrão. Quando um item é declarado como ``pub``, significa que ele **pode ser considerado acessível ao mundo exterior**. Por exemplo:
+
+```
+// Quando colocamos pub, essa função poderá ser acessível fora do namespace "fazenda".
+pub fn colocar_comida(){
+    println!("Colocando comida para os animais...");
+}
+```
+
+Isso fará com que o código compile corretamente. Note que ``pub`` são um pilar fundamental para a criação de módulos e bibliotecas - tendo em vista que eles são controladores de segurança. A palavra-chave ``pub`` em um módulo apenas permite que o código em seus módulos ancestrais se refiram a ela, não acesse seu código interno. Como os módulos são contêineres, não há muito que possamos fazer apenas tornando o módulo público; precisamos ir além e optar por tornar um ou mais itens do módulo públicos também.
+
+Veja mais em relação em métodos públicos clicando-se [aqui](https://doc.rust-lang.org/book/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html)
+
+## Utilizando modulos com ``use``
+
+Adicionar ``use`` e um caminho em um escopo é semelhante a criar um link simbólico no sistema de arquivos. Ao adicionar use ``crate::front_of_house::hosting`` na raiz da grade, ``hosting`` agora é um nome válido nesse escopo, como se o módulo de hospedagem tivesse sido definido na raiz da grade. Os caminhos trazidos ao escopo com o uso também verificam a privacidade, como qualquer outro caminho.
+
+Observe que o ``use`` cria apenas o atalho para o escopo específico em que o ``use`` ocorre.
+
+
 ## REFERÊNCIAS BIBLIOGRÁFICAS:
 
-[1] - https://doc.rust-lang.org/book/ch07-01-packages-and-crates.html
+[1] - Packages and Crates. The Rust Programming Language - doc.rust-lan.org. Disponível em: <https://doc.rust-lang.org/book/ch07-01-packages-and-crates.html>. Acesso em 20/10/2022
 
-[2] - https://doc.rust-lang.org/book/ch07-02-defining-modules-to-control-scope-and-privacy.html
+[2] - Defining Modules to Control Scope and Privacy. The Rust Programming Language - doc.rust-lan.org. Disponível em: <https://doc.rust-lang.org/book/ch07-02-defining-modules-to-control-scope-and-privacy.html>. Acesso em 20/10/2022
 
-[3] - https://doc.rust-lang.org/book/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html
+[3] - Paths for Referring to an Item in the Module Tree. The Rust Programming Language - doc.rust-lan.org. Disponível em: <https://doc.rust-lang.org/book/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html>. Acesso em 20/10/2022
 
-[4] - 
+[4] - Visibility and Privacy. The Rust Reference  - doc.rust-lang.org. Disponível em: <https://doc.rust-lang.org/reference/visibility-and-privacy.html>. Acesso em 22/10/2022
