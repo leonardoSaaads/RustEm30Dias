@@ -1,8 +1,8 @@
 # **APRENDENDO RUST - LINGUAGEM DA INDUSTRIA 4.0**
 
-Este repositório é destinado para o aprendizado da linguagem de programação Rust. Rust é uma linguagem de programação multiparadigma compilada desenvolvida pela Mozilla Research. É projetada para ser "segura, concorrente e prática", mas diferente de outras linguagens seguras, Rust não usa coletor de lixo. Possui suporte nativo ao WebAssembly e está se expandindo para diversas outras áreas ligadas à industria 4.0. Não fique de fora!
+Este repositório é destinado para o aprendizado da linguagem de programação Rust. Rust é uma linguagem de programação multiparadigma compilada desenvolvida pela Mozilla Research. É projetada para ser "segura, concorrente e prática", mas diferente de outras linguagens seguras, Rust não usa coletor de lixo. Possui suporte nativo ao WebAssembly e está se expandindo para diversas outras áreas ligadas à industria 4.0. Não deixe de aprender! Ao final dos 30 dias, o objetivo é que você possua um nível bom na linguaguem de programação - apto a entender projetos mais complexos. É importante ressaltar que, com base no material disponbilizado deste minicurso, ainda há uma grande parcela não citada de informações que são de suma importância para programadores que desejam se especializar ainda mais em Rust. Nesse sentido, recomendamos os materiais criados por Steve Klabnik, Carol Nichols e a comunidade Rust em [Aprender Rust](https://www.rust-lang.org/learn). 
 
-Sugerimos um Hands-On por dia durante 30 dias.
+Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On por dia durante 30 dias.
 
 ## **Tabela de Aprendizado Rust**
 
@@ -274,11 +274,11 @@ O VS Code também contém um terminal interno que permite a você emitir argumen
 
 ## **Apoiadores**
 
-<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repo = leonardoSaaads/RustEm30Dias"/>
-</a>
-
-Made with [contributors-img](https://contrib.rocks).
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/leonardoSaaads"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/69808278?v=4" width="100px;" alt=""/><br /><sub><b>Leonardo Saads Pinto</b></sub></a><br /><a href="https://github.com/leonardoSaaads" title="Ready to Work!">👾🤖👾</a></td>
+  </tr>
+</table>
 
 ## Agradecimentos
 
