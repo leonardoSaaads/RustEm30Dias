@@ -250,14 +250,100 @@ pub fn colocar_comida(){
 
 Isso fará com que o código compile corretamente. Note que ``pub`` são um pilar fundamental para a criação de módulos e bibliotecas - tendo em vista que eles são controladores de segurança. A palavra-chave ``pub`` em um módulo apenas permite que o código em seus módulos ancestrais se refiram a ela, não acesse seu código interno. Como os módulos são contêineres, não há muito que possamos fazer apenas tornando o módulo público; precisamos ir além e optar por tornar um ou mais itens do módulo públicos também.
 
+No geral, estas são as regras para a visibilidade do item:
+
+- Se um item for público, ele pode ser acessado através de qualquer um dos seus módulos pais.
+
+- Se um item é privado, ele só pode ser acessado por seu módulo pai imediato e qualquer um dos módulos filhos do pai.
+
 Veja mais em relação em métodos públicos clicando-se [aqui](https://doc.rust-lang.org/book/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html)
 
 ## Utilizando modulos com ``use``
 
-Adicionar ``use`` e um caminho em um escopo é semelhante a criar um link simbólico no sistema de arquivos. Ao adicionar use ``crate::front_of_house::hosting`` na raiz da grade, ``hosting`` agora é um nome válido nesse escopo, como se o módulo de hospedagem tivesse sido definido na raiz da grade. Os caminhos trazidos ao escopo com o uso também verificam a privacidade, como qualquer outro caminho.
+Adicionar ``use`` e um caminho em um escopo é semelhante a criar um link simbólico no sistema de arquivos. Ao adicionar use ``crate::front_of_house::hosting`` na raiz da grade, ``hosting`` agora é um nome válido nesse escopo, como se o módulo de hospedagem tivesse sido definido na raiz da grade. Os caminhos trazidos ao escopo com o uso também verificam a privacidade, como qualquer outro caminho. Observe que o ``use`` cria apenas o atalho para o escopo específico em que o ``use`` ocorre.
 
-Observe que o ``use`` cria apenas o atalho para o escopo específico em que o ``use`` ocorre.
+Em Python, usamos uma formatação semelhante a seguinte:
 
+```
+import numpy.fft.fft as algum_nome
+```
+
+Em rust, a operação é semelhante. Usamos, quase que com própositos iguais em relação ao python, a seguinte formatação:
+
+```
+use numpy::fft::fft as algum_nome;
+```
+
+A palavra-chave use de Rust encurta as chamadas de função longas, trazendo os módulos e a função que deseja chamar para o escopo. A palavra-chave use traz apenas o que especificamos no escopo: ela não leva os filhos dos módulos ao escopo. Veja um exemplo abaixo:
+
+```
+pub mod primeiro {
+    pub mod segundo {
+        pub mod terceiro {
+            pub fn funcao_0(){
+                // realiza alguma função
+                println!("Operação Completa!");
+            }
+            pub fn funcao_1(){
+                // realiza outra funcao
+                println!("Operação Completa!");
+            }
+        }
+    }
+}
+
+use primeiro::segundo::terceiro;
+
+fn main() {
+    // note que ainda precisamos puxar a função 0
+    terceiro::funcao_0();
+
+    // mesma coisa para a função 1
+    terceiro::funcao_1();
+}
+```
+
+Como as enums também formam uma espécie de *namespace*, assim como os módulos, podemos trazer as variantes de uma enum para o escopo com ``use`` também. Para qualquer tipo de declaração de use se você estiver trazendo vários itens de um namespace para o escopo, você pode listá-los usando chaves e vírgulas na última posição, assim:
+
+```
+enum TrafficLight {
+    Red,
+    Yellow,
+    Green,
+}
+
+use TrafficLight::{Red, Yellow};
+
+fn main() {
+    let red = Red;
+    let yellow = Yellow;
+    let green = TrafficLight::Green;
+}
+
+```
+
+## Trazendo implementações com *gLob*
+
+Para trazer todos os itens de um *namespace* para o escopo ao mesmo tempo, podemos usar a sintaxe ``*`` que é chamada de operador *glob*. Você deve usar globs com moderação: eles são convenientes, mas isso pode também trazer mais itens do que se esperava e causar conflitos de nomeação.
+
+Veja um exemplo:
+
+```
+enum Point{
+    x,
+    y,
+    z,
+}
+
+use Point::*;  // Traz toda as características contidas 
+               // contidas no namespace Point
+
+fn main() {
+    let x_position = x;
+    let y_position = y;
+    let z_position = z;
+}
+```
 
 ## REFERÊNCIAS BIBLIOGRÁFICAS:
 
