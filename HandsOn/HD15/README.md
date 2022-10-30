@@ -175,7 +175,7 @@ Para mostrar ao Rust onde encontrar um item em uma árvore de módulo, usamos um
 
 Um caminho pode tomar duas formas:
 
-- Um caminho absoluto é o caminho completo a partir de uma raiz de caixa; para código de uma caixa externa, o caminho absoluto começa com o nome da caixa, e para o código da caixa atual, ele começa com o ``create``. 
+- Um caminho absoluto é o caminho completo a partir de uma raiz de caixa; para código de uma caixa externa, o caminho absoluto começa com o nome da caixa, e para o código da caixa atual, ele começa com o ``crate``. 
 
 - Um caminho relativo começa a partir do módulo atual e usa ``self``,``super`` ou um identificador no módulo atual. Ambos os caminhos absolutos e relativos são seguidos por um ou mais identificadores separados por cólons duplos (``::``).
 
@@ -188,7 +188,7 @@ crate::fazenda::animais::cachorro();
 fazenda::animais::cachorro();
 ```
 
-No caminho absoluto, começamos com o ``create``, a raiz da árvore de módulos do nosso programa. Com o caminho relativo, não é feito esse procedimento.
+No caminho absoluto, começamos com o ``crate``, a raiz da árvore de módulos do nosso programa. Com o caminho relativo, não é feito esse procedimento.
 
 Se você planeja compartilhar sua grade de biblioteca para que outros projetos possam usar seu código, sua API pública é seu contrato com os usuários de sua grade que determina como eles podem interagir com seu código. Há muitas considerações sobre o gerenciamento de alterações em sua API pública para tornar mais fácil para as pessoas dependerem de sua grade. Essas considerações estão fora do escopo deste livro; se você estiver interessado neste tópico, consulte [The Rust API Guidelines](https://rust-lang.github.io/api-guidelines/).
 
@@ -255,6 +255,40 @@ No geral, estas são as regras para a visibilidade do item:
 - Se um item for público, ele pode ser acessado através de qualquer um dos seus módulos pais.
 
 - Se um item é privado, ele só pode ser acessado por seu módulo pai imediato e qualquer um dos módulos filhos do pai.
+
+Também podemos usar pub para designar structs e enums como públicos, mas há alguns detalhes extras para o uso de pub com structs e enums. Se usarmos pub antes de uma definição de struct, tornamos o struct público, mas os campos do struct ainda serão privados.
+
+Veja o exemplo abaixo:
+
+```
+mod back_of_house {
+    pub struct Breakfast {
+        pub toast: String,
+        seasonal_fruit: String,
+    }
+
+    impl Breakfast {
+        pub fn summer(toast: &str) -> Breakfast {
+            Breakfast {
+                toast: String::from(toast),
+                seasonal_fruit: String::from("peaches"),
+            }
+        }
+    }
+}
+
+pub fn eat_at_restaurant() {
+    // Order a breakfast in the summer with Rye toast
+    let mut meal = back_of_house::Breakfast::summer("Rye");
+    // Change our mind about what bread we'd like
+    meal.toast = String::from("Wheat");
+    println!("I'd like {} toast please", meal.toast);
+
+    // The next line won't compile if we uncomment it; we're not allowed
+    // to see or modify the seasonal fruit that comes with the meal
+    // meal.seasonal_fruit = String::from("blueberries");
+}
+```
 
 Veja mais em relação em métodos públicos clicando-se [aqui](https://doc.rust-lang.org/book/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html)
 
@@ -344,6 +378,10 @@ fn main() {
     let z_position = z;
 }
 ```
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/969j0qnJGi8/0.jpg)](https://www.youtube.com/watch?v=969j0qnJGi8)
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD16/README.md)
 
 ## REFERÊNCIAS BIBLIOGRÁFICAS:
 
