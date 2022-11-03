@@ -128,4 +128,14 @@ Updating crates.io index
 
 Por padrão, o Cargo vai procurar as versões maiores que 1.0.100 e menores que 1.1.0. Na próxima vez que você executar ``cargo build``, depois mudar para a versão mais nova, o Cargo vai atualizar o registro de crates disponíveis e reavaliar os seus requisitos sobre o ``syn`` de acordo com a nova versão que você especificou.
 
-Há muito mais a ser dito sobre Cargo e o seu ecossistema que vai ser discutido no, mas por ora isto é tudo que você precisa saber. Cargo facilita muito reutilizar bibliotecas, de forma que os rustáceos consigam escrever projetos menores que são montados a partir de diversos pacotes.
+Há muito mais a ser dito sobre Cargo e o seu ecossistema que vai ser discutido no, mas por ora isto é tudo que você precisa saber. Cargo facilita muito reutilizar bibliotecas, de forma que os esudiosos da linguagem consigam escrever projetos menores que são montados a partir de diversos pacotes.
+
+## Separando Módulos em Diferentes Arquivos
+
+Até agora, todos os exemplos neste capítulo definiram vários módulos em um arquivo. Quando os módulos ficam grandes, você pode querer mover suas definições para um separado arquivo para tornar o código mais fácil de navegar.
+
+Neste exemplo, criaremos uma novo projeto chamado "projeto_rust" com o comando ``cargo new projeto_rust``. Ao usarmos o comando, o cargo gerará os arquivos usuais. Adicone um aquivo chamado ``lib.rs`` em branco no diretório "projeto_rust". Com isso, ficaremos com os seguintes arquivos abaixo:
+
+![](/Imagens/HD16/exemplo_projeto.png)
+
+Como vimos anteriormente, podemos utilizar bibliotecas externas e bibliotecas que moldamos para expandirmos o nosso projeto. Iremos simular essa situação com a utilização dos dois tipos de bibliotecas. Primeiro, iremos entender um pouco sobre 

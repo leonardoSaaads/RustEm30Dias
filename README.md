@@ -110,19 +110,19 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>16</td>
     <td><a href="/HandsOn/HD16/README.md">Módulos - parte 2</a></td>
     <td>BÁSICO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>17</td>
     <td><a href="/HandsOn/HD17/README.md">EXERCÍCIOS 03</a></td>
     <td>BÁSICO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>18</td>
     <td><a href="/HandsOn/HD18/README.md">Vetores</a></td>
     <td>INTERMEDIÁRIO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>19</td>

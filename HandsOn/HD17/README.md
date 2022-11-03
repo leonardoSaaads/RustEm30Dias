@@ -8,23 +8,20 @@ Com isso, agora podemos iniciar os exercícios sem amiores esforços. Além diss
 
 **CONTEUDO**
 
-- Ownership
-- Referencias e Empréstimos(Borrowing)
-- Slices
-- Structs
+- Enums
+- Matchs
+- Módulos
 
 Veja as listas na ordem de cima para baixo e Vamos lá!!
 
-## [Exercícios de Ownership](/HandsOn/HD06/Ownership.md)
+## [Exercícios de Enums](/HandsOn/HD06/Enums.md)
 
-## [Exercícios de Referências e Empréstimos](/HandsOn/HD06/Ref_and_bor.md)
+## [Exercícios de Matchs](/HandsOn/HD06/Matchs.md)
 
-## [Exercícios de Slices](/HandsOn/HD06/Slices.md)
-
-## [Exercícios de Structs](/HandsOn/HD06/Structs.md)
+## [Exercícios de Módulos](/HandsOn/HD06/Modulos.md)
 
 Os Gabaritos dos exercícios estarão disponíveis aqui:
 
 # [Gabarito](/Codes/)
 
-### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD13/README.md)
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD18/README.md)
