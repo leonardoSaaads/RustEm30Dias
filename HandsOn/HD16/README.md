@@ -138,4 +138,56 @@ Neste exemplo, criaremos uma novo projeto chamado "projeto_rust" com o comando `
 
 ![](/Imagens/HD16/exemplo_projeto.png)
 
-Como vimos anteriormente, podemos utilizar bibliotecas externas e bibliotecas que moldamos para expandirmos o nosso projeto. Iremos simular essa situação com a utilização dos dois tipos de bibliotecas. Primeiro, iremos entender um pouco sobre 
+Como vimos anteriormente, podemos utilizar bibliotecas externas e bibliotecas que moldamos para expandirmos o nosso projeto. Iremos simular essa situação com a utilização dos dois tipos de bibliotecas. Primeiro, no arquivo ``cargo.toml`` adicione a dependência 
+
+```
+[dependencies]
+chrono = "0.4"
+```
+
+Depois, em ``src/main.rs``, coloe o código abaixo:
+
+```
+use chrono::{Local};
+
+// https://www.w3.org/TR/xml-entity-names/025.html
+const DIGITS : [[&str; 11]; 7] = [
+    ["┏━┓ ","  ╻  "," ┏━┓ ", " ┏━┓ "," ╻ ╻ "," ┏━┓ "," ┏   "," ┏━┓ "," ┏━┓ "," ┏━┓ ","   "],
+    ["┃ ┃ ","  ┃  ","   ┃ ", "   ┃ "," ┃ ┃ "," ┃   "," ┃   ","   ┃ "," ┃ ┃ "," ┃ ┃ "," ╻ "],
+    ["┃ ┃ ","  ┃  ","   ┃ ", "   ┃ "," ┃ ┃ "," ┃   "," ┃   ","   ┃ "," ┃ ┃ "," ┃ ┃ ","   "],
+    ["┃ ┃ ","  ┃  "," ┏━┛ ", " ┣━┫ "," ┗━┫ "," ┗━┓ "," ┣━┓ ","   ┃ "," ┣━┫ "," ┗━┫ ","   "],
+    ["┃ ┃ ","  ┃  "," ┃   ", "   ┃ ","   ┃ ","   ┃ "," ┃ ┃ ","   ┃ "," ┃ ┃ ","   ┃ ","   "],
+    ["┃ ┃ ","  ┃  "," ┃   ", "   ┃ ","   ┃ ","   ┃ "," ┃ ┃ ","   ┃ "," ┃ ┃ ","   ┃ "," ╹ "],
+    ["┗━┛ ","  ╹  "," ┗━━ ", " ┗━┛ ","   ╹ "," ┗━┛ "," ┗━┛ ","   ╹ "," ┗━┛ "," ┗━┛ ","   "],
+];
+
+
+
+fn main() {
+    print!("\x1b[2J");
+    print!("\x1b[?25l");
+    loop {
+        let t = Local::now();
+        let time = t.format("%H:%M:%S").to_string();
+        for row in &DIGITS {
+            for c in time.chars() {
+                let col = match c {
+                    '0'..='9' => c as usize - '0' as usize,
+                    ':' => 10,
+                    _ => 10,
+                };
+                print!("{} ", row[col]);
+            }
+            println!();
+        }
+        std::thread::sleep(std::time::Duration::from_millis(999));
+        print!("\x1b[7A");
+    }
+}
+
+// Esse código está disponível em:
+// https://github.com/simple-rust-projects/simple-rust-clock/blob/main/src/main.rs
+
+// O Vídeo abaixo comenta um pouco sobre o código:
+// https://www.youtube.com/watch?v=gX6EFBICIcY
+```
