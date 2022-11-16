@@ -2,6 +2,8 @@
 
 O primeiro tipo de coleção que vamos olhar são ``Vec <T>``, também conhecidos como *vetores*. Vetores permitem armazenar mais de um valor em uma única estrutura de dados que coloca todos os valores um ao lado do outro na memória. Vetores **só podem armazenar valores do mesmo tipo**. Em outras palavras, eles são úteis quando você tem uma lista de itens da mesma espécie, como números enfileirados, letras em uma frase ou dados criados para serem utilizados em uma aplicação de *machine learning*.
 
+![Vetores](https://qph.cf2.quoracdn.net/main-qimg-50bdb3b5f0e5f324b421c5a79ea968db)
+
 ## Criando um vetor
 
 Para criarmos um vetor, primeiramente teremos de criar uma variável e especifirmacmos com que tipo de dado estamos lidando. Veja abaixo como criamos um vetor um novo vetor vazio:
@@ -53,17 +55,85 @@ fn main() {
 }
 ```
 
-Observe alguns detalhes aqui. Usamos o valor de índice de 2 para obter o terceiro elemento porque os vetores são indexados por número, começando em zero. Usar & e [] nos dá uma referência ao elemento no valor do índice. Quando usamos o método get com o índice passado como argumento, obtemos uma Option<&T> que podemos usar com match.
+Observe alguns detalhes aqui. Usamos o valor de índice de 2 para obter o terceiro elemento porque os vetores são indexados por número, começando em zero. Usar ``&`` e ``[]`` nos dá uma referência ao elemento no valor do índice. Quando usamos o método get com o índice passado como argumento, obtemos uma ``Option<&T>`` que podemos usar com ``match``.
+
+A razão pela qual Rust fornece essas duas maneiras de referenciar um elemento é para que você possa escolher como o programa se comporta quando você tenta usar um valor de índice fora do intervalo de elementos existentes. Como exemplo, vamos ver o que acontece quando temos um vetor de cinco elementos e então tentamos acessar um elemento no índice 100 com cada técnica:
+
+```
+fn main() {
+    let v = vec![1, 2, 3, 4, 5];
+
+    let does_not_exist = &v[100];
+    let does_not_exist = v.get(100);
+}
+```
+
+O resultado de saída, desconsiderando o aviso de variáveis não utilizadas, será que o primeiro método fará com que o programa entre em pânico (``panic!``, veremos mais na frente) porque faz referência a um elemento inexistente. Este método é melhor usado quando você deseja que seu programa trave se houver uma tentativa de acessar um elemento após o final do vetor.
+
+No segundo método, quando o método ``get`` recebe um índice que está fora do vetor, ele retorna ``None`` sem entrar em pânico. Você usaria este método se o acesso a um elemento além do alcance do vetor pudesse acontecer ocasionalmente em circunstâncias normais. Por exemplo, o índice pode vir de uma pessoa digitando um número. Se eles inserirem acidentalmente um número muito grande e o programa obtiver um valor ``None``, você poderá informar ao usuário quantos itens existem no vetor atual e dar a eles outra chance de inserir um valor válido. Isso seria mais fácil de usar do que travar o programa devido a um erro de digitação!
+
+Quando o programa tem uma referência válida, o verificador de empréstimo aplica as regras de  Referencias e Empréstimos para garantir que essa referência e quaisquer outras referências ao conteúdo do vetor são válidas. Lembre-se da regra que afirma que você não pode ter referências mutáveis ​​e imutáveis ​​no mesmo escopo. Veja o exenplo abaixo:
+
+```
+    let mut v = vec![1, 2, 3, 4, 5];
+
+    let first = &v[0];
+
+    v.push(6);
+
+    println!("The first element is: {}", first);
+```
+
+Em um primeiro momento, você pode achar que o conteúdo programado está consistente, contudo, quando compilamos e executamos o programa, temos a seguinte saída:
+
+```
+  |
+4 |     let first = &v[0];
+  |                  - immutable borrow occurs here
+5 | 
+6 |     v.push(6);
+  |     ^^^^^^^^^ mutable borrow occurs here
+7 | 
+8 |     println!("The first element is: {}", first);
+  |                                          ----- immutable borrow later used here
+```
+
+**Por que uma referência ao primeiro elemento deveria se preocupar com mudanças no final do vetor?** Este erro é devido à maneira como os vetores funcionam: como os vetores colocam os valores um ao lado do outro na memória, adicionar um novo elemento no final do vetor pode exigir a alocação de nova memória e copiar os elementos antigos para o novo espaço, se não houver não há espaço suficiente para colocar todos os elementos próximos uns dos outros onde o vetor está armazenado no momento. Nesse caso, a referência ao primeiro elemento estaria apontando para a memória desalocada. As regras de empréstimo impedem que os programas cheguem a essa situação.
+
+## Iterando em vetores
+
+Para acessar cada elemento em um vetor por vez, deveríamos iterar por todos os elementos em vez de usar índices para acessar um de cada vez. O código abaixo mostra como usar um loop for para obter referências imutáveis ​​para cada elemento em um vetor de valores ``i32`` e imprimi-los.
+
+```
+fn main() {
+    let v = vec![100, 32, 57, 179, 106, 7, 65, 135, 22, 13, 26, 149];
+    for i in &v {
+        println!("{}", i);
+    }
+}
+```
+
+Também podemos iterar sobre referências mutáveis ​​para cada elemento em um vetor mutável para fazer alterações em todos os elementos. O loop for no código abaixo adicionará 50 a cada elemento.
+
+```
+fn main() {
+    let mut v = vec![100, 32, 57];
+    for i in &mut v {
+        *i += 50;
+    }
+}
+```
+
+Para alterar o valor ao qual a referência mutável se refere, temos que usar o operador de desreferência ``*`` para obter o valor em ``i`` antes de podermos usar o operador ``+=``. A iteração sobre um vetor, seja imutável ou mutável, é segura por causa das regras do verificador de empréstimo.
 
 
-[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/DSZqIJhkNCM/0.jpg)](https://www.youtube.com/watch?v=DSZqIJhkNCM?t=412)
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/Zs-pS-egQSs/0.jpg)](https://www.youtube.com/watch?v=Zs-pS-egQSs?t=30)
+
 
 ### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD19/README.md)
 
 ## REFERÊNCIAS BIBLIOGRÁICAS
 
-[1] - 
+[1] - Vectors. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://doc.rust-lang.org/book/ch08-01-vectors.html>. Acesso em 07/10/2022.
 
-[2] - 
-
-IMAGEM 01 -
+IMAGEM 01 - https://qr.ae/pvQk54
