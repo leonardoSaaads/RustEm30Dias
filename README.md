@@ -122,13 +122,13 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>18</td>
     <td><a href="/HandsOn/HD18/README.md">Vetores</a></td>
     <td>INTERMEDIÁRIO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>19</td>
     <td><a href="/HandsOn/HD19/README.md">Strings</a></td>
     <td>INTERMEDIÁRIO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr> 
   <tr>
     <td>20</td>

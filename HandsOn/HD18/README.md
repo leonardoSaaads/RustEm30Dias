@@ -126,6 +126,43 @@ fn main() {
 
 Para alterar o valor ao qual a referência mutável se refere, temos que usar o operador de desreferência ``*`` para obter o valor em ``i`` antes de podermos usar o operador ``+=``. A iteração sobre um vetor, seja imutável ou mutável, é segura por causa das regras do verificador de empréstimo.
 
+## Usando um Enum para armazenar vários tipos
+
+Os vetores só podem armazenar valores do mesmo tipo. Isso pode ser inconveniente; Definitivamente há casos de uso para a necessidade de armazenar uma lista de itens de diferentes tipos. Felizmente, as variantes de um enum são definidas sob o mesmo tipo de ``enum``, portanto, quando precisamos de um tipo para representar elementos de tipos diferentes, podemos definir e usar uma ``enum``!
+
+Por exemplo, digamos que queremos obter valores de uma linha em uma planilha na qual algumas das colunas da linha contenham números inteiros, alguns números de ponto flutuante e algumas strings. Podemos definir uma ``enum`` cujas variantes conterão os diferentes tipos de valor, e todas as variantes do ``enum`` serão consideradas do mesmo tipo: o da ``enum``.
+
+```
+enum SpreadsheetCell {
+        Int(i32),
+        Float(f64),
+        Text(String),
+    }
+
+    let row = vec![
+        SpreadsheetCell::Int(3),
+        SpreadsheetCell::Text(String::from("blue")),
+        SpreadsheetCell::Float(10.12),
+    ];
+```
+
+O Rust precisa saber quais tipos estarão no vetor em tempo de compilação para saber exatamente quanta memória na heap será necessária para armazenar cada elemento. Também devemos ser explícitos sobre quais tipos são permitidos neste vetor. Se Rust permitir que um vetor contenha qualquer tipo, haverá uma chance de que um ou mais tipos causem erros com as operações executadas nos elementos do vetor. Usar uma enum`` mais uma expressão de correspondência significa que o Rust garantirá em tempo de compilação que todos os casos possíveis sejam tratados.
+
+Agora que discutimos algumas das formas mais comuns de usar vetores, certifique-se de revisar a [documentação da API](https://doc.rust-lang.org/std/vec/struct.Vec.html) para todos os muitos métodos úteis definidos em ``Vec<T>`` pela biblioteca padrão. Por exemplo, além de ``push``, um método ``pop`` remove e retorna o último elemento.]
+
+Além disso, como qualquer outro ``struct`` um vetor é liberado assim quando sai do escopo.
+
+```
+fn main() {
+    {
+        let v = vec![1, 2, 3, 4];
+
+        // do stuff with v
+    } // <- v goes out of scope and is freed here
+}
+```
+
+Quando o vetor é descartado, todo o seu conteúdo também é descartado, o que significa que os inteiros que ele contém serão limpos. O verificador de empréstimo garante que qualquer referência ao conteúdo de um vetor seja usada apenas enquanto o próprio vetor for válido.
 
 [![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/Zs-pS-egQSs/0.jpg)](https://www.youtube.com/watch?v=Zs-pS-egQSs?t=30)
 
