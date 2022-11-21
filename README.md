@@ -50,7 +50,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>6</td>
     <td><a href="/HandsOn/HD06/README.md">EXERCICIOS 01</a></td>
     <td>ESSENCIAL</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>7</td>
