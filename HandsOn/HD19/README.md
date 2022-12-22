@@ -54,6 +54,109 @@ fn main() {
 Uma ``String`` pode aumentar de tamanho e seu conteúdo pode mudar, assim como o conteúdo de um ``Vec<T>``, se você inserir mais dados nele. Além disso, você pode usar convenientemente o operador ``+`` ou o macro ``format!`` para concatenar valores String.
 
 
+### **Anexando a uma String com push_str e push**
+
+Podemos aumentar uma String usando o método push_str para anexar uma fatia de string.
+
+```
+let mut s = String::from("foo");
+s.push_str("bar");
+```
+
+Após essas duas linhas, ``s`` conterá ``foobar``. O método ``push_str`` pega uma fatia de string porque não queremos necessariamente nos apropriar(ownership) do parâmetro. Neste exemplo abaixo, queremos poder usar ``s2`` depois de anexar seu conteúdo a ``s1``.
+
+```
+let mut s1 = String::from("foo");
+    let s2 = "bar";
+    s1.push_str(s2);
+    println!("s2 is {s2}");
+```
+
+Se o método ``push_str`` tomasse posse de ``s2``, não poderíamos imprimir seu valor na última linha. No entanto, esse código funciona como esperávamos!
+
+O método ``push`` pega um único caractere como parâmetro e o adiciona ao String. Veja o exemplo abaixo:
+
+```
+\\ bit transmitido, mas falta o identificador.
+let mut transmitido = String::from("001001010010101")
+transmitido.push("1");  // adiciona identificador.
+// O resultado fica: 0010010100101011
+```
+
+### Concatenação com o Operador ``+`` ou o ``format!`` Macro
+
+Frequentemente, você desejará combinar duas strings existentes. Uma maneira de fazer isso é usar o operador ``+``, conforme mostrado abaixo:
+
+```
+let s1 = String::from("Isso é");
+    let s2 = String::from(" um teste!");
+    let s3 = s1 + &s2; // s1 foi movida e não poderá mais ser utilizada.
+```
+
+Note que com esse método, pelo menos uma variável deixará de existir. Caso você tente Borrowing, isso também não dará certo. Veja o erro abaixo:
+
+```
+let s1 = String::from("Isso é ");
+let s2 = String::from("um teste.");
+let s3 = &s1 + &s2;
+print!("{}", s3);
+
+error[E0369]: cannot add `&String` to `&String`
+  |
+4 |     let s3 = &s1 + &s2;
+  |              --- ^ --- &String
+  |              |   |
+  |              |   `+` cannot be used to concatenate two `&str` strings
+  |              &String
+  |
+  = note: string concatenation requires an owned `String` on the left
+help: remove the borrow to obtain an owned `String`
+  |
+4 -     let s3 = &s1 + &s2;
+4 +     let s3 = s1 + &s2;
+  |
+
+For more information about this error, try `rustc --explain E0369`.
+```
+
+A razão pela qual s1 não é mais válido após a adição, e a razão pela qual usamos uma referência a s2, tem a ver com a assinatura do método que é chamado quando usamos o operador +. O operador + usa o método add, cuja assinatura é mais ou menos assim:
+
+```
+fn add(self, s: &str) -> String {
+        └──> Utiliza pelo menos um termo sem empréstimo (Borrowing).
+```
+
+Na biblioteca padrão, você verá ``add`` definido usando genéricos e tipos associados. Aqui, substituímos tipos concretos, que é o que acontece quando chamamos esse método com valores String. Discutiremos os genéricos nos capítulos à frente. Essa assinatura nos dá as pistas de que precisamos para entender as partes complicadas do operador ``+``.
+
+Primeiro, ``s2`` tem um ``&``, o que significa que estamos adicionando uma referência da segunda string à primeira string. Isso ocorre por causa do parâmetro ``s`` na função add: só podemos adicionar um &str a uma String; não podemos adicionar dois valores String juntos. Mas espere — o tipo de &s2 é &String, não &str, conforme especificado no segundo parâmetro a ser adicionado. Mas então por que raios isso funciona? Então... A razão pela qual podemos usar &s2 na chamada para adicionar é que o compilador pode forçar o argumento ``&String`` em um tipo ``&str``.
+
+Veja outro exemplo:
+
+```
+let s1 = String::from("Oi");
+let s2 = String::from("Olá");
+let s3 = String::from("Hello!");
+let s = s1 + "-" + &s2 + "-" + &s3;
+
+// Isso fica: Oi-Olá-Hello!
+```
+
+Essa é uma saída boa, mas para Strings mais compridas usamos o macro ``format!`` (lembre-se disso, é muito importante!!!). 
+
+```
+let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+let s = format!("{s1}-{s2}-{s3}");
+
+// Isso ficará tic-tac-toe
+```
+
+A macro ``format!`` funciona como ``println!``, mas ao invés de imprimir a saída na tela, ela retorna uma String com o conteúdo. A versão do código usando o ``format!`` é muito mais fácil de ler, e o código gerado pelo ``format!`` macro **usa referências para que esta chamada não se aproprie de nenhum de seus parâmetros**.
+
+
+
+
 ## REFERÊNCIAS BIBLIOGRÀFICAS
 
 [1] - Crate wrapper - <https://docs.rs/wrapper/latest/wrapper/>. Acesso em 21 de novembro de 2022.
