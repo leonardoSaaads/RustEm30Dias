@@ -1,0 +1,5 @@
+# **Hash Maps**
+
+A última das nossas coleções comuns é o hash map. O tipo ``HashMap <K, V>`` armazena um mapeamento de chaves do tipo ``K`` para valores do tipo ``V``. Ele faz isso através de um hashing function, que determina como ele coloca essas chaves e valores em memória. Muitas linguagens de programação diferentes suportam este tipo de estrutura de dados, mas muitas vezes com um nome diferente: hash, map, object, hash table ou associative array, apenas para citar alguns.
+
+Os Hash maps são úteis para quando você deseja poder procurar dados sem uso de índice, como você pode com vetores, mas usando uma chave que pode ser de qualquer tipo. Por exemplo, em um jogo, você poderia acompanhar a pontuação de cada equipe em um hash map onde cada chave é o nome de uma equipe e os valores são cada pontuação da equipe. Dado um nome da equipe, você pode recuperar sua pontuação.

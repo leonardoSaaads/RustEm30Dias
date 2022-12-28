@@ -154,9 +154,99 @@ let s = format!("{s1}-{s2}-{s3}");
 
 A macro ``format!`` funciona como ``println!``, mas ao invés de imprimir a saída na tela, ela retorna uma String com o conteúdo. A versão do código usando o ``format!`` é muito mais fácil de ler, e o código gerado pelo ``format!`` macro **usa referências para que esta chamada não se aproprie de nenhum de seus parâmetros**.
 
+### ** A Indexação e acesso a uma ``char``.
 
+Em várias letras podemos acessar diretamente uma variável ``char``. Um exemplo disso é a linguagem de programação Pyton, onde você consegue acessar uma determinada letra através dos colchetes. Como exemplo, se tivermos uma variavel ``s = 'isso é uma string em python'``, podemos fazer a operação ``s[0]`` e isso nos retornaria ``i``. Contudo, em Rust isso não é possível justamente pelo comportamento de armazenamento na memória e seu relacionamento com o compilador.
 
+Uma String é um *wrapper* sobre um ``Vec<u8>``. Vejamos algumas de nossas strings de exemplo UTF-8 devidamente codificadas. Primeiro, este:
+
+```
+fn main(){
+let len = String::from("Telecomunicacoes eh show").len();
+print!("{}", len)}
+```
+
+Neste caso, ``len`` terá valor de 24, o que significa que o ``Vec`` armazena a string ”Hola” tem 24 bytes de comprimento: cada uma dessas letras leva um byte quando codificado em UTF-8. Vamos a outro exemplo
+
+```
+fn main(){
+let len = String::from("電信是作秀").len();
+print!("{}", len)
+}
+```
+
+Entretanto, neste caso, ``len`` terá valor de 15, o que significa que o ``Vec`` armazena a string ”電信是作秀” tem 15 bytes de comprimento. Como foi monstrado acima, cada uma dessas "letras" não ocupa necessariamente uma relação de uma letra para um byte. Isso fez com que a linguagem tenha três formas de enxegar as Strings da perspectiva do Rust: como bytes, valores escalares e clusters de grafemas (a coisa mais próxima do que as pessoas chamariam letras).
+
+Se olharmos para a palavra Hindi “नमस्ते” escrita na escrita Devanagari, é em última instância, armazenada como um Vec de valores u8 que se parece com isto:
+
+**Primeira visão - Bytes**
+```
+[224, 164, 168, 224, 164, 174, 224, 164, 184, 224, 165, 141, 224, 164, 164,
+224, 165, 135]
+```
+
+ Se olharmos para eles como valores escalares Unicode, que são o tipo char de Rust, aqueles bytes se parecem com isto:
+
+ **Segundo Tipo - Char**
+```
+['न', 'म', 'स', '्', 'त', 'े']
+```
+
+Eles são diacríticos que não fazem sentido por conta própria. Finalmente, se olharmos para eles como clusters de grafemas, teríamos o que uma pessoa chamaria as quatro letras que compõem esta palavra:
+
+**Terceiro Tipo - Clusters**
+```
+["न", "म", "स्", "ते"]
+```
+
+Rust fornece diferentes maneiras de interpretar os dados de uma string bruta que os computadores armazenem para que cada programa possa escolher a interpretação que necessite, não importa em que idioma humano os dados estão.
+
+Especialmente em teoria da informação, essa escolha da linguagem se torna interessante - tendo em vista que os valores podem corresponder a amontoados de informações.
+
+![](/Imagens/HD19/ascii-codes.gif)
+
+Devido a esses motivos, existem várias formas de iterar sobre Strings, Veremos duas formas aqui e no próximo capitulo abordaremos ``Hash Maps``.
+
+**Operando sobre ``chars``**
+
+```
+for c in "नमस्ते".chars() {
+    println!("{}", c);
+}
+
+// deve imprimir algo como:
+//न
+//म
+//स
+//्
+//त
+//े
+```
+
+**Operando sobre ``bytes``**
+```
+for c in "नमस्ते".bytes() {
+    println!("{}", c);
+}
+
+// deve imprimir algo como:
+// 224
+// 164
+// 168
+// ...
+
+```
+
+Obter clusters de grafemas de strings é complexo, então esta funcionalidade não é fornecida pela biblioteca padrão (o que é meio bizarro hahaha).
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/Mcuqzx3rBWc/0.jpg)](https://www.youtube.com/watch?v=Mcuqzx3rBWc)
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD20/README.md)
 
 ## REFERÊNCIAS BIBLIOGRÀFICAS
 
 [1] - Crate wrapper - <https://docs.rs/wrapper/latest/wrapper/>. Acesso em 21 de novembro de 2022.
+
+[2] - Storing UTF-8 Encoded Text with Strings. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://doc.rust-lang.org/book/ch08-02-strings.html>. Acesso em 28/12/2022.
+
+Imagem - https://naveenr.net/content/images/2017/03/ascii-codes.gif
