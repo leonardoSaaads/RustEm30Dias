@@ -8,20 +8,20 @@ Com isso, agora podemos iniciar os exercícios sem amiores esforços. Além diss
 
 **CONTEUDO**
 
-- Enums
-- Matchs
-- Módulos
+- Vetores
+- Strings
+- Maps (Hash Maps e BTree Maps)
 
 Veja as listas na ordem de cima para baixo e Vamos lá!!
 
-## [Exercícios de Enums](/HandsOn/HD17/Enums.md)
+## [Exercícios de Vetores](/HandsOn/HD21/Vetores.md)
 
-## [Exercícios de Matchs](/HandsOn/HD17/Matchs.md)
+## [Exercícios de Strings](/HandsOn/HD21/Strings.md)
 
-## [Exercícios de Módulos](/HandsOn/HD17/Modulos.md)
+## [Exercícios de Maps](/HandsOn/HD21/Maps.md)
 
 Os Gabaritos dos exercícios estarão disponíveis aqui:
 
 # [Gabarito](/Codes/)
 
-### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD18/README.md)
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️ [Clique Aqui](/HandsOn/HD22/README.md)
