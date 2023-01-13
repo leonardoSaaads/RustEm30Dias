@@ -134,7 +134,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>20</td>
     <td><a href="/HandsOn/HD20/README.md">Maps</a></td>
     <td>INTERMEDIÁRIO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr> 
   <tr>
     <td>21</td>
