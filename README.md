@@ -217,7 +217,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
 <progress id="rust" value="99" max="100">99% </progress>
 
 <label for="hdon">HANDS-ON:</label>
-<progress id="hdon" value="50" max="100"> 68% </progress>
+<progress id="hdon" value="68" max="100"> 68% </progress>
 
 <label for="bugs">CORREÇÃO DE BUGS:</label>
 <progress id="bugs" value="0" max="100"> 0% </progress>
@@ -272,7 +272,7 @@ O VS Code também contém um terminal interno que permite a você emitir argumen
 
 3º) Para abrir o terminal no VS Code, selecione Exibir>Terminal ou, como alternativa, use o atalho Ctrl+` (usando o caractere de acento grave). O terminal padrão é o PowerShell.
 
-OBS Imporante: A extensão rust-analyzer funciona corretamente para uma pasta moldada com base no cargo. Em outras palavras, é necessário ter arquivos no diretório como toml e outros. Veja no Hands-On 2 como criar um arquivo com Cargo e utilize essa importante ferramenta para maximizar o seu aprendizado.
+**OBS Imporante:** A extensão rust-analyzer funciona corretamente para uma pasta moldada com base no cargo. Em outras palavras, é necessário ter arquivos no diretório como toml e outros. Veja no Hands-On 2 como criar um arquivo com Cargo e utilize essa importante ferramenta para maximizar o seu aprendizado.
 
 ## **Apoiadores**
 
