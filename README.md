@@ -146,13 +146,13 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>22</td>
     <td><a href="/HandsOn/HD22/README.md">Tratamento de erros 01</a></td>
     <td>INTERMEDIÁRIO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>23</td>
     <td><a href="/HandsOn/HD23/README.md">Tratamento de erros 02</a></td>
     <td>INTERMEDIÁRIO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>24</td>
@@ -174,37 +174,37 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   </tr>
   <tr>
     <td>27</td>
-    <td><a href="/HandsOn/HD27/README.md">Ponteiros</a></td>
+    <td><a href="/HandsOn/HD27/README.md">Tipos Genéricos</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>28</td>
-    <td><a href="/HandsOn/HD28/README.md">Ponteiros inteligentes 02</a></td>
+    <td><a href="/HandsOn/HD28/README.md">Traits</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>29</td>
-    <td><a href="/HandsOn/HD29/README.md">Ponteiros inteligentes 03</a></td>
+    <td><a href="/HandsOn/HD29/README.md">Lifetimes</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>30</td>
-    <td><a href="/HandsOn/HD30/">EXERCÍCIOS FINAL</a></td>
+    <td><a href="/HandsOn/HD30/">Closures</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>31</td>
-    <td><a href="/HandsOn/HD31/">PROJETO FINALIZADOR 01</a></td>
+    <td><a href="/HandsOn/HD31/">Lidando com arquivos 01</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>32</td>
-    <td><a href="/HandsOn/HD32/">PROJETO FINALIZADOR 02</a></td>
+    <td><a href="/HandsOn/HD32/">Lidando com arquivos 02</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
