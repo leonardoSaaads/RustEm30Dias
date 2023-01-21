@@ -73,13 +73,13 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   <tr>
     <td>10</td>
     <td><a href="/HandsOn/HD10/README.md">Structs - parte 01</a></td>
-    <td>BÁSICO</td>
+    <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>11</td>
     <td><a href="/HandsOn/HD11/README.md">Structs - parte 02</a></td>
-    <td>BÁSICO</td>
+    <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
   <tr>
@@ -121,25 +121,25 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   <tr>
     <td>18</td>
     <td><a href="/HandsOn/HD18/README.md">Vetores</a></td>
-    <td>INTERMEDIÁRIO</td>
+    <td>BÁSICO</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>19</td>
     <td><a href="/HandsOn/HD19/README.md">Strings</a></td>
-    <td>INTERMEDIÁRIO</td>
+    <td>BÁSICO</td>
     <td>✔️</td>
   </tr> 
   <tr>
     <td>20</td>
     <td><a href="/HandsOn/HD20/README.md">Maps</a></td>
-    <td>INTERMEDIÁRIO</td>
+    <td>BÁSICO</td>
     <td>✔️</td>
   </tr> 
   <tr>
     <td>21</td>
     <td><a href="/HandsOn/HD21/README.md">EXERCÍCIOS 04</a></td>
-    <td>INTERMEDIÁRIO</td>
+    <td>BÁSICO</td>
     <td>🚧</td>
   </tr>
   <tr>
@@ -192,19 +192,19 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   </tr>
   <tr>
     <td>30</td>
-    <td><a href="/HandsOn/HD30/">Closures</a></td>
+    <td><a href="/HandsOn/HD30/README.md">Closures</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>31</td>
-    <td><a href="/HandsOn/HD31/">Lidando com arquivos 01</a></td>
+    <td><a href="/HandsOn/HD31/README.md">Iterators</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
   <tr>
     <td>32</td>
-    <td><a href="/HandsOn/HD32/">Lidando com arquivos 02</a></td>
+    <td><a href="/HandsOn/HD32/README.md">Lidando com arquivos</a></td>
     <td>AVANÇADO</td>
     <td>🏗️</td>
   </tr>
