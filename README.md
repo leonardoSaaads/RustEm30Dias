@@ -176,7 +176,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>27</td>
     <td><a href="/HandsOn/HD27/README.md">Tipos Genéricos</a></td>
     <td>AVANÇADO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>28</td>
