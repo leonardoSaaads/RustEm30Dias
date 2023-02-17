@@ -231,11 +231,124 @@ A enumeração ``Result`` é genérica em dois tipos, ``T`` e ``E``, e tem duas 
 
 **Ao reconhecer situações em seu código com várias definições de struct ou enum que diferem apenas nos tipos de valores que contêm, você pode (e deve!) evitar a duplicação usando tipos genéricos.**
 
+Vale a pena ressaltar que você também pode utilizar genéricos na outra formatação de ``struct``. No exemplo abaixo, usaremos genéricos para montar um modelo RGB e HSI
+
+```
+// RGB tem valores de 0 à 255;
+struct Color_RGB (u8, u8, u8);
+
+// Se você for utilizar um novo modelo de cores
+// você poderá utilizar genéricos para definir 
+// como essas novas estruturas de cores serão.
+struct Color_New<F, G, H> (F, G, H);
+```
+
 ## Genéricos em Impl!
 
+Podemos implementar métodos em structs e enums e também usar tipos genéricos em suas definições. Neste primeiro exemplo, veremos como criar ``impl`` simples que utiliza genéricos em sua composição. Iremos comentar mais sobre as estruturas no segundo exemplo:
 
+```
+struct Pilha<T> {
+    dados: Vec<T>,
+}
 
-___
+impl<T> Pilha<T> {
+    fn nova() -> Self {
+        Pilha { dados: Vec::new() }
+    }
+
+    fn adiciona(&mut self, item: T) {
+        self.dados.push(item);
+    }
+
+    fn retira(&mut self) -> Option<T> {
+        self.dados.pop()
+    }
+
+    fn tamanho(&self) -> usize {
+        self.dados.len()
+    }
+}
+
+fn main() {
+    let mut pilha = Pilha::<i32>::nova();
+    pilha.adiciona(1);
+    pilha.adiciona(2);
+    pilha.adiciona(3);
+    println!("Tamanho da pilha: {}", pilha.tamanho());
+
+    while let Some(item) = pilha.retira() {
+        println!("Item retirado: {}", item);
+    }
+}
+```
+
+Em primeiro lugar, criamos a estrutura ``Pilha`` e depois implementamos ``implt<T>``, que contém métodos que operam na pilha. Na função ``main``, criamos uma ``Pilha`` que armazena valores ``i32``, especificando ``Pilha::<i32>::nova()``. Então, empilhamos alguns valores na pilha, imprimimos seu tamanho e desempilhamos todos os valores da pilha.
+
+Vamos ao segundo exemplo, onde definimos um método chamado ``x`` em ``Point<T>`` que retorna uma referência aos dados no campo ``x``.
+
+```
+struct Point<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Point<T> {
+    fn x(&self) -> &T {
+        &self.x
+    }
+}
+
+fn main() {
+    let p = Point { x: 5, y: 10 };
+    println!("p.x = {}", p.x());
+}
+```
+
+Observe que temos que declarar ``T`` logo após ``impl`` para que possamos usar ``T`` para especificar que estamos implementando métodos do tipo ``Point<T>``. Ao declarar ``T`` como um tipo genérico após ``impl``, Rust pode identificar que o tipo entre os colchetes em ``Point`` é um tipo genérico em vez de um tipo concreto. Poderíamos ter escolhido um nome diferente para este parâmetro genérico do parâmetro genérico declarado na definição de ``struct``, mas usar o mesmo nome é convencional. Os métodos escritos dentro de um ``impl`` que declara o tipo genérico serão definidos em qualquer instância do tipo, não importa qual tipo concreto acabe substituindo o tipo genérico.
+
+Também podemos especificar restrições em tipos genéricos ao definir métodos no tipo. Poderíamos, por exemplo, implementar métodos apenas em instâncias ``Point<f32>`` em vez de instâncias ``Point<T>`` com qualquer tipo genérico. Veja esse exemplo abaixo:
+
+```
+// Point deve ser f64
+impl Point<f64> {
+    fn distance_from_origin(&self) -> f64 {
+        (self.x.powi(2) + self.y.powi(2)).sqrt()
+    }
+}
+```
+
+Este código significa que o tipo ``Point<f32>`` terá um método distance_from_origin; outras instâncias de ``Point<T>`` em que ``T`` não é do tipo ``f64`` não terão esse método definido.
+
+Parâmetros de tipo genérico em uma definição de ``struct`` nem sempre são os mesmos que você usa nas mesmas assinaturas de método de struct. O exemplo abaixo usa os tipos genéricos ``X1`` e ``Y1`` para a estrutura ``Point`` e ``X2, Y2`` para a assinatura do método mixup para tornar o exemplo mais claro. O método cria uma nova instância de ``Point`` com o valor ``x`` do próprio Point (do tipo X1) e o valor y do Point passado (do tipo Y2).
+
+```
+struct Point<X1, Y1> {
+    x: X1,
+    y: Y1,
+}
+
+impl<X1, Y1> Point<X1, Y1> {
+    fn mixup<X2, Y2>(self, other: Point<X2, Y2>) -> Point<X1, Y2> {
+        Point {
+            x: self.x,
+            y: other.y,
+        }
+    }
+}
+
+fn main() {
+    let p1 = Point { x: 5, y: 10.4 };
+    let p2 = Point { x: "Hello", y: 'c' };
+
+    let p3 = p1.mixup(p2);
+
+    println!("p3.x = {}, p3.y = {}", p3.x, p3.y);
+}
+
+```
+
+O objetivo deste exemplo é demonstrar uma situação em que alguns parâmetros genéricos são declarados com impl e outros são declarados com a definição do método. Aqui, os parâmetros genéricos X1 e Y1 são declarados após impl porque acompanham a definição de struct. Os parâmetros genéricos X2 e Y2 são declarados após a mistura de fn, porque são relevantes apenas para o método.
 
 ## E a performace do código?
 
@@ -245,3 +358,14 @@ O Rust realiza isso executando a monomorfização do código usando genéricos e
 
 Como Rust compila código genérico em código que especifica o tipo em cada instância, não pagamos nenhum custo de tempo de execução pelo uso de genéricos. Quando o código é executado, ele funciona exatamente como se tivéssemos duplicado cada definição manualmente. O processo de monomorfização torna os genéricos do Rust extremamente eficientes em tempo de execução.
 
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/6rcTSxPJ6Bw/0.jpg)](https://www.youtube.com/watch?v=6rcTSxPJ6Bw)
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD28/README.md)
+
+## REFERÊNCIAS BIBLIOGRÀFICAS
+
+[1] - Generic Data Types. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://doc.rust-lang.org/book/ch10-01-syntax.html>. Acesso em 17 de fevereiro de 2023.
+
+[2] - "O código gerado neste trabalho foi produzido com a ajuda do ChatGPT, um modelo de linguagem treinado pela OpenAI, que utiliza redes neurais para gerar texto natural em diversos idiomas e contextos. Para mais informações sobre o ChatGPT, consulte a documentação oficial da OpenAI."
+
+Imagem - https://www.policymed.com/wp-content/uploads/2013/04/6a00e5520572bb8834017c3875ac22970b.jpg
