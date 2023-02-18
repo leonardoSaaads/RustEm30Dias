@@ -164,6 +164,33 @@ fn main() {
 }
 ```
 
+Vale a pena ressaltar também que genéricos são utilizados para construção de funções de ordem superiores, isto é, funções que utilizam outras funções. Futuramente, iremos estudar iterators, que são uma espécie de "função anônima"- semelhante as funções *lambda* em Python- e são utilizados com essa finalidade, mas neste momento iremos nos ater ao método com Genéricos.
+
+No exemplo abaixo, criaremos uma função chamada ``funcao_01`` e ela será utilizada pela ``funcao_02`` através de genéricos. Veja como podemos fazer isso:
+
+```
+fn oposto(b: bool) -> bool {
+    // Retorna o oposto do bool
+    return !b;
+}
+
+// Observe que utilizamos a notação Fn 
+// para indicarmos que trata-se de uma função!!
+fn printa_oposto<F>(t: bool, func: F)
+    where F: Fn(bool) -> bool
+{
+    println!("O posto de {} é {}", t, func(t));
+}
+
+fn main() {
+    printa_oposto(true, oposto);
+    printa_oposto(false, oposto);
+}
+
+```
+
+Dessa forma, podemos utilizar funções em outras funções e expandirmos as operações através de funções de maiores ordens!
+
 ## Genéricos em Structs!
 
 Também podemos definir structs para usar um parâmetro de tipo genérico em um ou mais campos usando a sintaxe ``<>``. Também podemos definir structs para usar um parâmetro de tipo genérico em um ou mais campos usando a sintaxe ``<>``. Vejamos um exemplo para ponto:

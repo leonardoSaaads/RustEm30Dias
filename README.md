@@ -175,14 +175,14 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   <tr>
     <td>27</td>
     <td><a href="/HandsOn/HD27/README.md">Tipos Genéricos</a></td>
-    <td>AVANÇADO</td>
+    <td>INTERMEDIÁRIO</td>
     <td>✔️</td>
   </tr>
   <tr>
     <td>28</td>
     <td><a href="/HandsOn/HD28/README.md">Traits</a></td>
     <td>AVANÇADO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>29</td>

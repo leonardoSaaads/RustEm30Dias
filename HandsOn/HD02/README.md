@@ -168,15 +168,17 @@ ou
 .\target\debug\hello_cargo.exe # Windows
 ```
 
-Rodar o ``Cargo build`` pela primeira vez faz com que seja criado um arquivo chamado ``Cargo.lock``. Este arquivo acompanha as versões exatas das dependências em seu projeto. Como esse projeto criado não tem dependências, então o arquivo é um pouco esparso. Você nunca precisará alterar esse arquivo manualmente; A Cargo gerencia seu conteúdo para você automaticamente.
+Rodar o ``cargo build`` pela primeira vez faz com que seja criado um arquivo chamado ``cargo.lock``. Este arquivo acompanha as versões exatas das dependências em seu projeto. Como esse projeto criado não tem dependências, então o arquivo é um pouco esparso. Você nunca precisará alterar esse arquivo manualmente; A Cargo gerencia seu conteúdo para você automaticamente.
 
-Uma alternativa ao ``Cargo build`` é o ``Cargo run``. O Cargo run serve para compilar o código e, em seguida, executar o executável resultante em um único comando. Isso faz com que tempo seja poupado, pois não será mais necessário compilar para depois abrir o arquivo executável. Na verdade, Usar o comando *run* é mais conveniente do que ter que se lembrar de executar a *build* e, em seguida, usar todo o caminho para o binário, então a maioria dos desenvolvedores usa o comando *run*.
+Uma alternativa ao ``cargo build`` é o ``cargo run``. O Cargo run serve para compilar o código e, em seguida, executar o executável resultante em um único comando. Isso faz com que tempo seja poupado, pois não será mais necessário compilar para depois abrir o arquivo executável. Na verdade, Usar o comando *run* é mais conveniente do que ter que se lembrar de executar a *build* e, em seguida, usar todo o caminho para o binário, então a maioria dos desenvolvedores usa o comando *run*.
 
 ![](/Imagens/HD02/CargoRun.png)
 
-Cargo também fornece um comando chamado ``Cargo check``. Este comando verifica rapidamente seu código para garantir que ele seja compilado, mas não produz um executável.
+Cargo também fornece um comando chamado ``cargo check``. Este comando verifica rapidamente seu código para garantir que ele seja compilado, mas não produz um executável.
 
 ![](/Imagens/HD02/CargoCheck.png)
+
+Além disso, **caso o seu código não esteja formatado**, podemos utilizar o comando ``cargo fmt`` para formatar o código-fonte Rust. Esse comando é muito útil em projetos grandes e com muitos contribuidores, pois eventualmente uma parte do código passa a não estar corretamente formatada.
 
 
 **Recaptulando:**
