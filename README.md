@@ -194,7 +194,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>30</td>
     <td><a href="/HandsOn/HD30/README.md">Closures</a></td>
     <td>AVANÇADO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>31</td>
