@@ -87,3 +87,79 @@ Mas não podemos implementar traits externos em tipos externos. Por exemplo, nã
 
 ## Implementações Default (Padrão)
 
+Às vezes é útil ter um comportamento padrão para alguns ou todos os métodos de um trait em vez de exigir implementações para todos os métodos em cada tipo. Então, à medida que implementamos o trait em um tipo específico, podemos manter ou substituir o comportamento padrão de cada método.
+
+No código baixo, especificamos uma string padrão para o método summarize do trait Summary em vez de apenas definir a assinatura do método.
+
+```
+pub trait Summary {
+    fn summarize(&self) -> String {
+        String::from("(Read more...)")
+    }
+}
+
+```
+
+Para usar uma implementação padrão para resumir instâncias de ``NewsArticle``, especificamos um bloco ``impl`` vazio com ``impl Summary for NewsArticle {}``.
+
+Mesmo que não estejamos mais definindo o método ``summarize`` em ``NewsArticle`` diretamente, fornecemos uma implementação padrão e especificamos que ``NewsArticle`` implementa o ``trait Summary``. Como resultado, ainda podemos chamar o método ``summarize`` em uma instância de ``NewsArticle``, assim:
+
+```
+    let article = NewsArticle {
+        headline: String::from("Penguins win the Stanley Cup Championship!"),
+        location: String::from("Pittsburgh, PA, USA"),
+        author: String::from("Iceburgh"),
+        content: String::from(
+            "The Pittsburgh Penguins once again are the best \
+             hockey team in the NHL.",
+        ),
+    };
+
+    println!("New article available! {}", article.summarize());
+```
+
+A criação de uma implementação padrão não exige que mudemos nada sobre a implementação do Summary de OpiniaoTexto no código já demonstrado acima. O motivo é que a sintaxe para substituir uma implementação padrão é a mesma que a sintaxe para implementar um método de traço que não tem uma implementação padrão.
+
+ Implementações padrão podem chamar outros métodos no mesmo trait, mesmo que esses outros métodos não tenham uma implementação padrão. Dessa forma, um trait pode fornecer muita funcionalidade útil e exigir apenas que os implementadores especifiquem uma pequena parte dele. Por exemplo, poderíamos definir o trait ``Summary`` para ter um método ``summarize_author`` cuja implementação é obrigatória e, em seguida, definir um método ``summarize`` que tem uma implementação padrão que chama o método ``summary_author``:
+
+ ```
+ pub trait Summary {
+    fn summarize_author(&self) -> String;
+
+    fn summarize(&self) -> String {
+        format!("(Read more from {}...)", self.summarize_author())
+    }
+}
+ ```
+
+ Para usar esta versão do ``Summary``, só precisamos definir ``summary_author`` quando implementamos o trait em um tipo:
+
+ ``` 
+impl Summary for OpiniaoTexto {
+    fn summarize_author(&self) -> String {
+        format!("@{}", self.username)
+    }
+}
+ ```
+
+Depois de definirmos resumir_autor, podemos chamar resumir em instâncias da estrutura ``OpiniaoTexto``, e a implementação padrão de ``summarize`` chamará a definição de ``summary_author`` que fornecemos. Como implementamos ``summary_author``, o trait ``Summary`` nos deu o comportamento do método resumir sem exigir que escrevêssemos mais código.
+
+```
+    let tweet = OpiniaoTexto {
+        username: String::from("horse_ebooks"),
+        content: String::from(
+            "of course, as you probably already know, people",
+        ),
+        reply: false,
+        shareable: false,
+    };
+
+    println!("1 new tweet: {}", tweet.summarize());
+
+```
+
+ Observe que não é possível chamar a implementação padrão a partir de uma implementação substituta desse mesmo método.
+
+ ## Traits como parâmetros
+
+ 
