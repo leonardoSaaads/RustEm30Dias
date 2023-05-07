@@ -118,29 +118,29 @@ Mesmo que não estejamos mais definindo o método ``summarize`` em ``NewsArticle
     println!("New article available! {}", article.summarize());
 ```
 
-A criação de uma implementação padrão não exige que mudemos nada sobre a implementação do Summary de OpiniaoTexto no código já demonstrado acima. O motivo é que a sintaxe para substituir uma implementação padrão é a mesma que a sintaxe para implementar um método de traço que não tem uma implementação padrão.
+A criação de uma implementação padrão não exige que mudemos nada sobre a implementação do Summary de OpiniaoTexto no código já demonstrado acima. O motivo é que a sintaxe para substituir uma implementação padrão é a mesma que a sintaxe para implementar um método de traits que não tem uma implementação padrão.
 
- Implementações padrão podem chamar outros métodos no mesmo trait, mesmo que esses outros métodos não tenham uma implementação padrão. Dessa forma, um trait pode fornecer muita funcionalidade útil e exigir apenas que os implementadores especifiquem uma pequena parte dele. Por exemplo, poderíamos definir o trait ``Summary`` para ter um método ``summarize_author`` cuja implementação é obrigatória e, em seguida, definir um método ``summarize`` que tem uma implementação padrão que chama o método ``summary_author``:
+Implementações padrão podem chamar outros métodos no mesmo trait, mesmo que esses outros métodos não tenham uma implementação padrão. Dessa forma, um trait pode fornecer muita funcionalidade útil e exigir apenas que os implementadores especifiquem uma pequena parte dele. Por exemplo, poderíamos definir o trait ``Summary`` para ter um método ``summarize_author`` cuja implementação é obrigatória e, em seguida, definir um método ``summarize`` que tem uma implementação padrão que chama o método ``summary_author``:
 
- ```
- pub trait Summary {
+```
+pub trait Summary {
     fn summarize_author(&self) -> String;
 
     fn summarize(&self) -> String {
         format!("(Read more from {}...)", self.summarize_author())
     }
 }
- ```
+```
 
- Para usar esta versão do ``Summary``, só precisamos definir ``summary_author`` quando implementamos o trait em um tipo:
+Para usar esta versão do ``Summary``, só precisamos definir ``summary_author`` quando implementamos o trait em um tipo:
 
- ``` 
+``` 
 impl Summary for OpiniaoTexto {
     fn summarize_author(&self) -> String {
         format!("@{}", self.username)
     }
 }
- ```
+```
 
 Depois de definirmos resumir_autor, podemos chamar resumir em instâncias da estrutura ``OpiniaoTexto``, e a implementação padrão de ``summarize`` chamará a definição de ``summary_author`` que fornecemos. Como implementamos ``summary_author``, o trait ``Summary`` nos deu o comportamento do método resumir sem exigir que escrevêssemos mais código.
 
@@ -158,8 +158,122 @@ Depois de definirmos resumir_autor, podemos chamar resumir em instâncias da est
 
 ```
 
- Observe que não é possível chamar a implementação padrão a partir de uma implementação substituta desse mesmo método.
+Observe que não é possível chamar a implementação padrão a partir de uma implementação substituta desse mesmo método.
 
- ## Traits como parâmetros
+## Traits como parâmetros
 
- 
+Agora que você já sabe como definir e implementar traits, podemos explorar como usar traits para definir funções que aceitam muitos tipos diferentes. Usaremos o traits ``Summary`` que implementamos nos tipos ``NewsArticle`` e ``OpiniaoTexto`` no código abaixo para definir uma função de notificação que chama o método ``summarize`` em seu parâmetro item, que é de algum tipo que implementa o traits ``Summary``. Para fazer isso, usamos a sintaxe ``impl Trait``, assim:
+
+```
+ pub fn notify(item: &impl Summary) {
+    println!("Breaking news! {}", item.summarize());
+}
+```
+
+Em vez de um tipo concreto para o parâmetro do ``item``, especificamos a palavra-chave ``impl`` e o nome da trait. Este parâmetro aceita qualquer tipo que implemente a característica especificada. No corpo de ``notify``, podemos chamar qualquer método no item que vem do trait ``Summary``, como ``summarize``. Podemos chamar ``notify`` e passar em qualquer instância de ``NewsArticle`` ou ``OpiniaoTexto``. O código que chama a função com qualquer outro tipo, como String ou i32, não será compilado porque esses tipos não implementam ``Summary``.
+
+## **Sintaxe das Traits**
+
+A sintaxe ``impl Trait`` funciona para casos diretos, mas na verdade é uma variação extremanente útil de sintaxe para uma forma mais longa conhecida como limite de traits; Se parece com isso:
+
+```
+ pub fn notify<T: Summary>(item: &T) {
+    println!("Breaking news! {}", item.summarize());
+}
+```
+
+Essa forma mais longa é equivalente ao exemplo da seção anterior, mas é mais detalhada. Colocamos traits de característica com a declaração do parâmetro de **tipo genérico** após dois pontos e dentro de colchetes.
+
+A sintaxe ``impl Trait`` é conveniente e torna o código mais conciso em casos simples, enquanto a sintaxe mais completa pode expressar mais complexidade em outros casos. Por exemplo, podemos ter dois parâmetros que implementam ``Summary``. Fazendo isso com a sintaxe ``impl Trait``, fica assim:
+
+```
+pub fn notify(item1: &impl Summary, item2: &impl Summary) {
+```
+
+Usar ``impl Trait`` é apropriado se quisermos que esta função permita que ``item1`` e ``item2`` tenham tipos diferentes (desde que ambos os tipos implementem ``Summary``). Se quisermos forçar ambos os parâmetros a terem o mesmo tipo, porém, devemos usar um limite de traço, como este:
+
+```
+pub fn notify<T: Summary>(item1: &T, item2: &T) {
+```
+
+O tipo genérico T especificado como o tipo dos parâmetros item1 e item2 restringe a função de forma que o tipo concreto do valor passado como um argumento para item1 e item2 deve ser o mesmo.
+
+## Multiplas Traits
+
+Usar muitos traits de característica tem suas desvantagens. Cada genérico tem seus próprios traits de traço. Por esta razão, Rust tem uma sintaxe alternativa para especificar traits de características dentro de uma cláusula ``where`` após a assinatura da função. Então ao invés de escrever isso:
+
+```
+fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 {
+```
+
+podemos usar uma cláusula where, assim:
+
+```
+fn some_function<T, U>(t: &T, u: &U) -> i32
+where
+    T: Display + Clone,
+    U: Clone + Debug,
+{
+
+```
+
+A assinatura dessa função é menos confusa: o nome da função, a lista de parâmetros e o tipo de retorno estão próximos, semelhante a uma função sem muitos limites de característica.
+
+Veja um exemplo:
+
+```
+fn jogo_contar_palavras<T, U>(texto: T, numero: U) -> bool
+where
+    T: AsRef<str>,
+    U: Into<usize> + PartialEq<usize>,
+{
+    // Inicializa o contador
+    let mut count = 0;
+    // Itera por cada palavra no texto fornecido
+    for palavra_atual in texto.as_ref().split_whitespace() {
+        // Incrementa o contador se a palavra atual for "correto"
+        if palavra_atual == "correto" {
+            count += 1;
+        }
+    }
+    // Verifica se o contador é igual ao número fornecido
+    count == numero.into()
+}
+```
+
+A função conta_palavras tem dois parâmetros genéricos: texto e numero. O primeiro parâmetro, texto, é uma referência a uma string, que implementa o trait ``AsRef<str>``. O segundo parâmetro, numero, é uma quantidade que pode ser convertida em um número inteiro e comparada com o número de palavras **"correto"** no texto.
+
+Em outras palavras, se você acertar quantas vezes a palavra "correto" tem em uma texto, você ganha!. Veja uma potencial função main para o código feito acima.
+
+```
+fn main() {
+    let texto = "o resultado do jogo foi correto, mas ele não foi jogado corretamente";
+    let numero_palavras_corretas = 2;
+
+    if conta_palavras(texto, numero_palavras_corretas) {
+        println!("Você acertou!");
+    } else {
+        println!("Você perdeu!");
+    }
+}
+```
+
+O resultado deve ser "Você perdeu", pois a palavra **"correto"** apareceu apenas uma vez.
+
+## Retornando tipos que implementam traits
+
+Também podemos usar a sintaxe ``impl Trait`` na posição de retorno para retornar um valor de algum tipo que implementa uma trait, como mostrado aqui:
+
+```
+fn returns_summarizable() -> impl Summary {
+    Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from(
+            "of course, as you probably already know, people",
+        ),
+        reply: false,
+        retweet: false,
+    }
+}
+```
+
