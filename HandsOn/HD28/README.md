@@ -250,7 +250,7 @@ fn main() {
     let texto = "o resultado do jogo foi correto, mas ele não foi jogado corretamente";
     let numero_palavras_corretas = 2;
 
-    if conta_palavras(texto, numero_palavras_corretas) {
+    if jogo_contar_palavras(texto, numero_palavras_corretas) {
         println!("Você acertou!");
     } else {
         println!("Você perdeu!");
@@ -266,14 +266,141 @@ Também podemos usar a sintaxe ``impl Trait`` na posição de retorno para retor
 
 ```
 fn returns_summarizable() -> impl Summary {
-    Tweet {
+    OpiniaoTexto {
         username: String::from("horse_ebooks"),
         content: String::from(
             "of course, as you probably already know, people",
         ),
         reply: false,
-        retweet: false,
+        shareable: false,
     }
 }
 ```
 
+Usando ``impl Summary`` para o tipo de retorno, especificamos que a função ``returns_summarizable`` retorna algum tipo que implementa o trait ``Summary`` sem nomear o tipo concreto. Nesse caso, ``returns_summarizable`` retorna um ``OpiniaoTexto``, mas o código que chama essa função não precisa saber disso.
+
+A capacidade de especificar um tipo de retorno apenas pela característica que ele implementa é especialmente útil no **contexto de closures e iteradores**, que abordaremos futuramente. Closures e iteradores criam tipos que somente o compilador conhece ou tipos que são muito longos para especificar. A sintaxe ``imp Trait`` permite especificar de forma concisa que uma função retorna algum tipo que implementa o traço Iterator sem precisar escrever um tipo muito longo.
+
+## Usando limites de traits para implementar métodos condicionalmente
+
+Usando um trait vinculado a um bloco ``impl`` que usa parâmetros de tipo genérico, podemos implementar métodos condicionalmente para tipos que implementam os traits especificados. Por exemplo, o tipo ````Pair<T>```` sempre implementa a nova função para retornar um nova instância de ````Pair<T>```` (lembre-se da seção “Definindo Métodos” dos capítulos anteriores que Self é um alias de tipo para o tipo do bloco impl, que neste caso é ``Pair<T>``). ````Pair<T>```` só implementa o método ````cmp_display```` se seu tipo interno ``T`` implementa o traço ````PartialOrd```` que habilita a comparação e o traço ``Display`` que habilita a impressão. Se não lembrar, não se preocupe, faremos exemplos abaixo.
+
+Em outras palavras, quando escrevemos código que utiliza tipos genéricos, é possível que alguns desses tipos genéricos precisem ter um comportamento específico, como implementar um determinado trait ou ter um método específico. Por exemplo, podemos querer implementar um método que compare dois valores de um tipo genérico, mas isso só é possível se esse tipo implementar o trait ``PartialOrd``.
+
+Para especificar esse comportamento específico, usamos o que é chamado de "trait bounds" ou limites de característica. Os limites de característica são especificados usando a sintaxe <T: Trait>, onde T é o tipo genérico e Trait é o trait que o tipo genérico deve implementar.
+
+Além disso, podemos usar o bloco impl para definir a implementação de um método condicionalmente para tipos que implementam os traits especificados. Para isso, usamos o mesmo limite de característica na declaração do bloco impl.
+
+Veja o exemplo abaixo
+
+```
+use std::fmt::Display;
+
+struct ``Pair<T>`` {
+    x: T,
+    y: T,
+}
+
+impl<T> ``Pair<T>`` {
+    fn new(x: T, y: T) -> Self {
+        Self { x, y }
+    }
+}
+
+impl<T: Display + ``PartialOrd``> ``Pair<T>`` {
+    fn ``cmp_display``(&self) {
+        if self.x >= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest member is y = {}", self.y);
+        }
+    }
+}
+```
+
+Nesse exemplo, definimos uma struct chamada ``Pair<T>`` que contém dois valores do mesmo tipo ``T``. Na primeira declaração do bloco impl, definimos um método new que sempre retorna uma nova instância da ``Pair<T>``.
+
+Na segunda declaração do bloco impl, definimos o método ``cmp_display``, mas apenas para tipos ``T`` que implementam os traits ``Display`` e ``PartialOrd``. Isso significa que só podemos chamar esse método em instâncias de ``Pair<T>`` onde ``T`` implementa esses dois traits. Se tentarmos chamar ``cmp_display`` em uma instância de ``Pair<T>`` onde ``T`` não implementa esses dois traits, o compilador irá gerar um erro.
+
+Dessa forma, estamos condicionalmente implementando o método ``cmp_display`` para tipos que implementam os traits ``Display`` e ``PartialOrd``. Isso nos permite escrever um código genérico que funciona apenas para tipos que têm o comportamento específico que precisamos.
+
+Veja o exemplo 02 abaixo:
+
+```
+trait Shape {
+    fn area(&self) -> f64;
+}
+
+struct Circle {
+    radius: f64,
+}
+
+impl Shape for Circle {
+    fn area(&self) -> f64 {
+        std::f64::consts::PI * self.radius.powf(2.0)
+    }
+}
+
+struct Square {
+    side_length: f64,
+}
+
+impl Shape for Square {
+    fn area(&self) -> f64 {
+        self.side_length.powf(2.0)
+    }
+}
+
+struct Triangle {
+    base: f64,
+    height: f64,
+}
+
+impl Shape for Triangle {
+    fn area(&self) -> f64 {
+        0.5 * self.base * self.height
+    }
+}
+
+fn print_area<T: Shape>(shape: &T) {
+    println!("The area is: {}", shape.area());
+}
+
+fn main() {
+    let circle = Circle { radius: 5.0 };
+    let square = Square { side_length: 3.0 };
+    let triangle = Triangle { base: 4.0, height: 2.0 };
+
+    print_area(&circle);
+    print_area(&square);
+    print_area(&triangle);
+}
+```
+
+Nesse exemplo, temos um trait Shape que define um método area para calcular a área da forma geométrica. Em seguida, temos três tipos de formas geométricas: Circle, Square e Triangle, que implementam o trait Shape.
+
+Também podemos implementar condicionalmente uma característica para qualquer tipo que implemente outra característica. As implementações de uma característica em qualquer tipo que satisfaça os limites da característica são chamadas de implementações gerais e são amplamente usadas na biblioteca padrão do Rust. Por exemplo, a biblioteca padrão implementa o atributo ``ToString`` em qualquer tipo que implemente o atributo ``Display``. O bloco impl na biblioteca padrão é semelhante a este código:
+
+```
+impl<T: Display> ToString for T {
+    // --snip--
+}
+```
+
+Como a biblioteca padrão tem essa implementação geral, podemos chamar o método ``to_string`` definido pelo atributo ``ToString`` em qualquer tipo que implemente o atributo ``Display``. Por exemplo, podemos transformar números inteiros em seus valores ``String`` correspondentes assim porque os inteiros implementam ``Display``:
+
+```
+let s = 3.to_string();
+```
+
+Traits e trait de característica nos permitem **escrever código que usa parâmetros de tipo genérico para reduzir a duplicação**, mas também especificar ao compilador que queremos que o tipo genérico tenha um comportamento específico. O compilador pode, então, usar as informações associadas ao traço para verificar se todos os tipos concretos usados ​​com nosso código fornecem o comportamento correto. Em linguagens com tipagem dinâmica, obteríamos um erro em tempo de execução se chamássemos um método em um tipo que não definisse o método. Mas o Rust move esses erros para o tempo de compilação, então somos forçados a corrigir os problemas antes que nosso código seja capaz de executar. Além disso, não precisamos escrever código que verifique o comportamento em tempo de execução porque já verificamos em tempo de compilação.**Isso melhora o desempenho sem abrir mão da flexibilidade dos genéricos.**
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/T0Xfltu4h3A/0.jpg)](https://www.youtube.com/watch?v=T0Xfltu4h3A)
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD29/README.md)
+
+## REFERÊNCIAS BIBLIOGRÁFICAS
+
+[1] - Traits. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://doc.rust-lang.org/book/ch10-02-traits.html>. Acesso em 07/05/2023
+
+[2] - BING. Conversa com o assistente de busca Bing. [S.l.], 03 mai. 2023. Disponível em: https://www.bing.com. Acesso em: 07 mai. 2023.

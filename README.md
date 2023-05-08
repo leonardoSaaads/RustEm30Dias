@@ -182,7 +182,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>28</td>
     <td><a href="/HandsOn/HD28/README.md">Traits</a></td>
     <td>AVANÇADO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>29</td>
@@ -200,7 +200,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>31</td>
     <td><a href="/HandsOn/HD31/README.md">Iterators</a></td>
     <td>AVANÇADO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
   <tr>
     <td>32</td>
@@ -217,7 +217,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
 <progress id="rust" value="99" max="100">99% </progress>
 
 <label for="hdon">HANDS-ON:</label>
-<progress id="hdon" value="68" max="100"> 68% </progress>
+<progress id="hdon" value="78" max="100"> 78% </progress>
 
 <label for="bugs">CORREÇÃO DE BUGS:</label>
 <progress id="bugs" value="0" max="100"> 0% </progress>
