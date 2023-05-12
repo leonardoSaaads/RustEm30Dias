@@ -1,4 +1,4 @@
-# **``Iterator``s: Dando um *Boost* em seu código**
+# **Iterators: Dando um *Boost* em seu código**
 
 Iteradores são uma ferramenta utilizada em programação para percorrer sequências de dados de forma ordenada, executando uma tarefa específica em cada item dessa sequência. Em Rust, os iteradores são preguiçosos, o que significa que eles não são executados imediatamente, mas somente quando você chama um método que consome o iterador.
 
@@ -173,6 +173,26 @@ fn shoes_in_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
     shoes.into_iter().filter(|s| s.size == shoe_size).collect()
 }
 
+//... 
+// DADOS DE SAPATOS
+//...
 // Esse código pega somente aqueles sapatos cujo o tamnho é aquele especificado em shoes_in_size. 
 ```
 
+A função ``shoes_in_size`` toma posse de um vetor de sapatos e um tamanho de sapato como parâmetros. Ele retorna um vetor contendo apenas sapatos do tamanho especificado.
+
+No corpo de ``shoes_in_size``, chamamos ``into_iter`` para criar um iterador que se aproprie do vetor. Em seguida, chamamos o filtro para adaptar esse iterador em um novo iterador que **contém apenas elementos para os quais o closure retorna true**.
+
+O closure captura o parâmetro ``shoe_size`` do ambiente e compara o valor com o tamanho de cada sapato, mantendo apenas os sapatos do tamanho especificado. Por fim, chamar ``collect`` reúne os valores retornados pelo iterador adaptado em um vetor que é retornado pela função.
+
+O teste mostra que quando chamamos ``shoes_in_size``, recebemos de volta apenas sapatos que tenham o mesmo tamanho que o valor que especificamos.
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/4GcKrj4By8k/0.jpg)](https://www.youtube.com/watch?v=4GcKrj4By8k)
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD32/README.md)
+
+## REFERÊNCIAS BIBLIOGRÁFICAS
+
+[1] - Processing a Series of Items with Iterators. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://doc.rust-lang.org/book/ch13-02-iterators.html>. Acesso em 11/05/2023
+
+[2] - BING. Conversa com o assistente de busca Bing. [S.l.], 11 jun. 2023. Disponível em: https://www.bing.com. Acesso em: 11 jun. 2023.
