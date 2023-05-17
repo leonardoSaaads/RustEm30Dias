@@ -4,7 +4,7 @@ Este repositório é destinado ao aprendizado da linguagem de programação Rust
 
 Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On por dia durante 30 dias.
 
-## **Tabela de Aprendizado Rust**
+## **TABELA DE APRENDIZADO - APRENDENDO RUST**
 
 <table>
 <thead>
@@ -211,7 +211,37 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
 </tbody>
 </table>
 
-## **Status das atividades**
+## **PROJETOS FEITOS EM RUST**
+
+<table>
+<thead>
+  <tr>
+    <th> PROJETOS </th>
+    <th> LINK </th>
+
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>CRIANDO LIVROS COM RUST</td>
+    <td><a href="https://rust-lang.github.io/mdBook/">Criando um web book com mdbook</a></td>
+  </tr>
+  <tr>
+    <td>EXERCÍCIOS DE RUST COM CODEWARS</td>
+    <td><a href="https://www.codewars.com/">Praticando rust com ganho de pontos em codewars</a></td>
+  </tr>
+  <tr>
+    <td>FRAMEWORKWEB PARA CRIAÇÃO DE SITES</td>
+    <td><a href="https://rocket.rs/">Criando sites a partir do framework Rocket</a></td>
+  </tr>
+  <tr>
+    <td>BOT DO TELEGRAM</td>
+    <td><a href="https://github.com/teloxide/teloxide">utilizando teloxide para programar um bot no telegram</a></td>
+  </tr>
+</tbody>
+</table>
+
+## **STATUS**
 
 <label for="rust">RUST LANG ❤️:</label>
 <progress id="rust" value="99" max="100">99% </progress>
@@ -282,6 +312,6 @@ O VS Code também contém um terminal interno que permite a você emitir argumen
   </tr>
 </table>
 
-## Agradecimentos
+## **Agradecimentos**
 
 Steve Klabnik &  Carol Nichols e a comunidade Rust, que forneceram um excelente material online.
