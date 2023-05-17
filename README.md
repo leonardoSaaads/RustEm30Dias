@@ -236,7 +236,11 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   </tr>
   <tr>
     <td>BOT DO TELEGRAM</td>
-    <td><a href="https://github.com/teloxide/teloxide">utilizando teloxide para programar um bot no telegram</a></td>
+    <td><a href="https://github.com/teloxide/teloxide">Utilizando teloxide para programar um bot no telegram</a></td>
+  </tr>
+   <tr>
+    <td>INTEGRANDO PYTHON E RUST</td>
+    <td><a href="https://pyo3.rs/">Utilizando PyO3 para dar um boost em seu código python</a></td>
   </tr>
 </tbody>
 </table>
