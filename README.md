@@ -1,5 +1,7 @@
 # **APRENDENDO RUST - LINGUAGEM DA INDUSTRIA 4.0**
 
+![logo](/Imagens/LogoRust.png)
+
 Este repositório é destinado ao aprendizado da linguagem de programação Rust. Rust é uma linguagem de programação multiparadigma compilada desenvolvida pela Mozilla Research. É projetada para ser "segura, concorrente e prática", mas diferente de outras linguagens seguras, Rust não usa coletor de lixo. Possui suporte nativo ao WebAssembly e está se expandindo para diversas outras áreas ligadas à industria 4.0. Não deixe de aprender! Ao final dos 30 dias, o objetivo é que você possua um nível bom na linguaguem de programação - apto a entender projetos mais complexos. É importante ressaltar que, com base no material disponbilizado deste minicurso, ainda há uma grande parcela não citada de informações que são de suma importância para programadores que desejam se especializar ainda mais em Rust. Nesse sentido, recomendamos os materiais criados por Steve Klabnik, Carol Nichols e a comunidade Rust em [Aprender Rust](https://doc.rust-lang.org/book/title-page.html). 
 
 Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On por dia durante 30 dias.
@@ -241,6 +243,10 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
    <tr>
     <td>INTEGRANDO PYTHON E RUST</td>
     <td><a href="https://pyo3.rs/">Utilizando PyO3 para dar um boost em seu código python</a></td>
+  </tr>
+  <tr>
+    <td>COLEÇÃO DE ALGORITMOS EM RUST</td>
+    <td><a href="https://github.com/TheAlgorithms/Rust">Conheça diversos algoritmos em Rust com TheAlgorithms</a></td>
   </tr>
 </tbody>
 </table>
