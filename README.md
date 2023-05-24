@@ -50,7 +50,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   </tr>
   <tr>
     <td>6</td>
-    <td><a href="/HandsOn/HD06/README.md">EXERCICIOS 01</a></td>
+    <td><a href="/HandsOn/HD06/README.md">APLICAÇÕES UNIDADE 01</a></td>
     <td>ESSENCIAL</td>
     <td>✔️</td>
   </tr>
@@ -86,7 +86,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   </tr>
   <tr>
     <td>12</td>
-    <td><a href="/HandsOn/HD12/README.md">EXERCÍCIOS 02</a></td>
+    <td><a href="/HandsOn/HD12/README.md">APLICAÇÕES UNIDADE 02</a></td>
     <td>BÁSICO</td>
     <td>🚧</td>
   </tr>
@@ -116,7 +116,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   </tr>
   <tr>
     <td>17</td>
-    <td><a href="/HandsOn/HD17/README.md">EXERCÍCIOS 03</a></td>
+    <td><a href="/HandsOn/HD17/README.md">APLICAÇÕES UNIDADE 03</a></td>
     <td>BÁSICO</td>
     <td>🚧</td>
   </tr>
@@ -140,7 +140,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   </tr> 
   <tr>
     <td>21</td>
-    <td><a href="/HandsOn/HD21/README.md">EXERCÍCIOS 04</a></td>
+    <td><a href="/HandsOn/HD21/README.md">APLICAÇÕES UNIDADE 04</a></td>
     <td>BÁSICO</td>
     <td>🚧</td>
   </tr>
@@ -170,7 +170,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
   </tr>
   <tr>
     <td>26</td>
-    <td><a href="/HandsOn/HD26/README.md">EXERCÍCIOS 05</a></td>
+    <td><a href="/HandsOn/HD26/README.md">APLICAÇÕES UNIDADE 05</a></td>
     <td>INTERMEDIÁRIO</td>
     <td>🏗️</td>
   </tr>
