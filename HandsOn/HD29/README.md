@@ -1,5 +1,7 @@
 # **Lifetimes** 
 
+![](/Imagens/HD29/apersistenciadamemoria.jpeg)
+
 Em Rust, os lifetimes (tempo de vida) são uma característica fundamental do sistema de tipos, que ajuda a garantir a segurança da memória. O conceito de lifetimes é usado para garantir que referências a dados (ponteiros) são válidas por tempo suficiente para serem usadas com segurança.
 
 Anotar tempo de vida não é nem mesmo um conceito que a maioria das outras linguagens de programação tem, então isso vai parecer desconhecido e novo. Embora não abordemos os tempos de vida em sua totalidade neste capítulo, discutiremos maneiras comuns de encontrar sintaxe lifetime para que você possa se sentir confortável com o conceito.
@@ -110,6 +112,7 @@ Para solucionar o problema, podemos utilizar a seguinte formatação:
 ```
 // Struct que representa uma chamada telefônica
 struct Call<'a> {
+    // também poderia ser caller: static str
     caller: &'a str,
     duration: u32,
 }
@@ -345,3 +348,157 @@ Comentaremos mais abaixo sobre a ``impl`` em structs nos tópicos abaixo.
 
 ## Lifetime Elision
 
+Você aprendeu que toda referência tem um tempo de vida e que você precisa especificar parâmetros de tempo de vida para funções ou structs que usam referências. Mas tem um detalhe que passou despercebido, relativo a essa função abaixo: 
+
+```
+// retorna a primeira palavra
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+    &s[..]
+}
+```
+
+Por que essa função compila sem a necessidade de lifetimes? 🤔🤔
+
+A razão pela qual essa função compila sem anotações de tempo de vida é histórica: nas versões anteriores (pré-1.0) do Rust, esse código não seria compilado porque cada referência precisava de um tempo de vida explícito.
+
+Depois de escrever muito código Rust, a equipe Rust descobriu que os programadores Rust estavam inserindo as mesmas anotações vitalícias repetidamente em situações específicas. Essas situações eram previsíveis e seguiam alguns padrões determinísticos. Os desenvolvedores programaram esses padrões no código do compilador para que o verificador de empréstimo pudesse inferir os tempos de vida nessas situações e não precisasse de anotações explícitas.
+
+Este pedaço da história do Rust é relevante porque é possível que mais padrões determinísticos surjam e sejam adicionados ao compilador. **No futuro, ainda menos anotações de vida útil podem ser necessárias.**
+
+**Os padrões programados na análise de referências de Rust são chamados de regras de Elision vitalícia (Lifetime Elision)**. Essas não são regras a serem seguidas pelos programadores; eles são um conjunto de casos particulares que o compilador considerará e, se seu código se adequar a esses casos, você não precisará escrever os tempos de vida explicitamente.
+
+As regras de elisão não fornecem inferência completa. Se Rust aplicar as regras de forma determinística, mas ainda houver ambiguidade quanto ao tempo de vida das referências, o compilador não adivinhará qual deve ser o tempo de vida das referências restantes. Em vez de adivinhar, o compilador fornecerá um erro que você pode resolver adicionando as anotações de tempo de vida.
+
+Os tempos de vida em parâmetros de função ou método são chamados de tempos de vida de entrada e tempos de vida em valores de retorno são chamados de tempos de vida de saída.
+
+O compilador usa três regras para descobrir o tempo de vida das referências quando não há anotações explícitas. A primeira regra se aplica aos tempos de vida de entrada, e a segunda e terceira regras se aplicam aos tempos de vida de saída. Se o compilador chegar ao fim das três regras e ainda houver referências para as quais ele não consegue calcular os tempos de vida, o compilador irá parar com um erro. Essas regras se aplicam às definições ``fn``, bem como aos blocos ``impl``.
+
+- A primeira regra é que o compilador atribui um parâmetro de tempo de vida a cada parâmetro que é uma referência. Em outras palavras, uma função com um parâmetro obtém um parâmetro vitalício: ``fn foo<'a>(x: &'a i32)``; uma função com dois parâmetros obtém dois parâmetros de tempo de vida separados: ``fn foo<'a, 'b>(x: &'a i32, y: &'b i32)``; e assim por diante.
+
+- A segunda regra é que, se houver exatamente um parâmetro de tempo de vida de entrada, esse tempo de vida é atribuído a todos os parâmetros de tempo de vida de saída: ``fn foo<'a>(x: &'a i32) -> &'a i32``.
+
+- A terceira regra é que, se houver vários parâmetros de tempo de vida de entrada, mas um deles for ``&self`` ou ``&mut self`` porque este é um método, o tempo de vida de ``self`` é atribuído a todos os parâmetros de tempo de vida de saída. Esta terceira regra torna os métodos muito mais fáceis de ler e escrever porque menos símbolos são necessários.
+
+Se você desejar entender mais sobre lifetimes Elision, [clique aqui](https://doc.rust-lang.org/reference/lifetime-elision.html). Você será redirecionado para o site "The Rust Reference", que fala bastante aprofundado sobre esse conceito. Se preferir o conteúduo do The Rust Programming Language, [clique aqui](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html).
+
+## Anotações de tempo de vida em definições de método
+
+Quando implementamos métodos em uma ``struct`` com tempo de vida, usamos a mesma sintaxe dos parâmetros de tipo genérico mostrados anteriormente em genéricos. Onde declaramos e usamos os parâmetros de tempo de vida depende se eles estão relacionados aos campos ``struct`` ou aos parâmetros do método e valores de retorno.
+
+Nomes de tempo de vida para campos ``struct`` sempre precisam ser declarados após a palavra-chave ``impl`` e então usados ​​após o nome do ``struct``, porque esses tempos de vida fazem parte do tipo do ``struct``.
+
+Nas assinaturas de método dentro do bloco ``impl``, as referências podem estar vinculadas ao tempo de vida das referências nos campos da estrutura ou podem ser independentes. Além disso, as regras de elisão de tempo de vida geralmente fazem com que as anotações de tempo de vida não sejam necessárias nas assinaturas de método. Como exemplo, podemos o citar o código que vimos anteriormente:
+
+```
+impl<'a> TelecommunicationsDevice<'a> {
+    fn new(id: u32, name: &'a str, lifespan: u32) -> TelecommunicationsDevice<'a> {
+        TelecommunicationsDevice {
+            id,
+            name,
+            lifespan,
+        }
+    }
+```
+A declaração do parâmetro de vida útil após ``impl`` e seu uso após o nome do tipo são obrigatórios. Neste caso, a função ``new`` precisa saber qual o tempo de vida paracriar um novo dispositivo de telecomunicações. Veja agora um outro caso:
+
+```
+impl<'a> TelecommunicationsDevice<'a> {
+    fn check_lifespan(&self) {
+        if self.lifespan > 0 {
+            println!("O dispositivo {} está ativo.", self.name);
+        } else {
+            println!("O dispositivo {} atingiu o fim de sua vida útil.", self.name);
+        }
+    }
+}
+```
+
+A declaração do parâmetro de vida útil após ``impl`` e seu uso após o nome do tipo são obrigatórios, mas não somos obrigados a anotar o tempo de vida da referência a ``self`` por causa da primeira regra de elisão.
+
+No caso abaixo, temos o exemplo da terceira regra:
+
+```
+impl<'a> TelecommunicationsDevice<'a> {
+    fn update_lifespan(&mut self, lifespan: u32) {
+            self.lifespan = lifespan;
+        }
+    }
+```
+
+Neste exemplo, a função ``update_lifespan`` tem um único parâmetro de entrada (lifespan) e o tipo de retorno é ``&mut self``. Portanto, a terceira regra de elisão vitalícia se aplica e não precisamos especificar explicitamente a vida útil do parâmetro lifespan.
+
+## O lifetime ``'static``
+
+Um tempo de vida especial que precisamos discutir é o **estático**, o que denota que a referência afetada pode viver por toda a duração do programa. Todos os literais de string têm o lifetime 'static, que podemos anotar da seguinte forma:
+
+```
+let s: &'static str = "I have a static lifetime.";
+
+```
+
+O texto desta string é armazenado diretamente no binário do programa, que está sempre disponível. Portanto, o tempo de vida de todos os literais de cadeia de caracteres é 'estátic'.
+
+Você pode ver sugestões para usar o lifetime ``'static`` em mensagens de erro. Mas antes de especificar ``'static`` como o tempo de vida para uma referência, pense se a referência que você tem realmente vive todo o tempo de vida do seu programa ou não, e se você deseja que isso aconteça. Na maioria das vezes, uma mensagem de erro sugerindo o lifetime ``'static`` resulta da tentativa de criar uma referência pendente ou uma incompatibilidade dos tempos de vida disponíveis. Nesses casos, a solução é corrigir esses problemas, não especificando o lifetime ``'static``'.
+
+Veja um exemplo fictício:
+
+```
+static NOME_DO_SENSOR: &'static str = "sensor-temperatura";
+
+fn main() {
+    let valor_do_sensor = ler_sensor(NOME_DO_SENSOR);
+    println!("O valor do sensor {} é {}", NOME_DO_SENSOR, valor_do_sensor);
+}
+
+fn ler_sensor(nome: &str) -> u32 {
+    // Aqui você pode adicionar o código para ler o valor do sensor
+    // com o nome especificado
+    42 // valor fictício para fins de exemplo
+}
+
+```
+
+Este código define uma variável estática ``NOME_DO_SENSOR`` que contém uma referência a uma string com tempo de vida ``'static``. Isso significa que a string estará disponível durante toda a execução do programa. O código também inclui uma função ``ler_sensor`` que recebe o nome do sensor como parâmetro e retorna um valor fictício para fins de exemplo.
+
+## Jutando Lifetimes, Genéricos e Traits
+
+Esses três conjuntos formam uma grande potencialiade de Rust. Com isso, você conseguirá criar programas robustos e com ampla funcionalidade. Veja um pequeno exemplo abaixo:
+
+```
+use std::fmt::Display;
+
+fn longest_with_an_announcement<'a, T>(
+    x: &'a str,
+    y: &'a str,
+    ann: T,
+) -> &'a str
+where
+    T: Display,
+{
+    println!("Announcement! {}", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+```
+
+A par das considerações feitas, finalizamos essa parte. Agora você está aptor a criar programas com maior cuidado em relação tempo de vida.
+
+[![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/4xoORcc0tUI/0.jpg)](https://www.youtube.com/watch?v=4xoORcc0tUI)
+
+### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD30/README.md)
+
+## REFERÊNCIAS BIBLIOGRÁFICAS
+
+[1] - Validating References with Lifetimes. The Rust Programming Language  - doc.rust-lang.org. Disponível em: <https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html>. Acesso em 26/05/2023
+
+[2] - BING. Conversa com o assistente de busca Bing. [S.l.], 23 mai. 2023. Disponível em: https://www.bing.com. Acesso em: 23 mai. 2023.

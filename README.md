@@ -190,7 +190,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>29</td>
     <td><a href="/HandsOn/HD29/README.md">Lifetimes</a></td>
     <td>AVANÇADO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>30</td>
@@ -208,7 +208,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>32</td>
     <td><a href="/HandsOn/HD32/README.md">Lidando com arquivos</a></td>
     <td>AVANÇADO</td>
-    <td>🏗️</td>
+    <td>🚧</td>
   </tr>
 </tbody>
 </table>
