@@ -251,9 +251,9 @@ fn main() {
 3) TERCEIRO
 
 ```
+// Existem muitas formas de fazer essa questão funcionar.
 fn main() {
-   let v = (let x = 3);
-
+   let v = 3;
    assert!(v == 3);
    println!("Success!");
 }
