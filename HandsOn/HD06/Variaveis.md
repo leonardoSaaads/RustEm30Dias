@@ -1,12 +1,12 @@
 # **VARIÁVEIS**
 
-**QUESTÃO 01**
+**APLICAÇÃO 01**
 
 ```
-// PREENCHA OS ESPAÇOS EM BRANCO PARA FAZER O CÓDIGO COMPILAR
+// Mudando o valor de x
 fn main() {
-    let __ x = 1;
-    __ += 2; 
+    let mut x = 1;
+    x += 2; 
     
     assert_eq!(x, 3);
     println!("Success!");
@@ -14,15 +14,14 @@ fn main() {
 ```
 
 
-**QUESTÃO 02**
+**APLICAÇÃO 02**
 
 ```
-
-// Corrija o erro abaixo com a menor quantidade de modificação.
 fn main() {
+    // Usando namespaces diferentes
     let x: i32 = 10;
+    let y: i32 = 5;
     {
-        let y: i32 = 5;
         println!("O valor de x é {} e o valor de y é {}", x, y);
     }
     println!("O valor de x é {} e o valor de y é {}", x, y); 
@@ -30,44 +29,48 @@ fn main() {
 ```
 
 
-**QUESTÃO 03**
+**APLICAÇÃO 03**
 
 ```
-// Corrija o erro com o uso da função define_hello
 fn main() {
+    // juntando duas strings
+    let x = define_hello();
     println!("{}, world", x); 
 }
 
-fn define_hello() {
+// O campo 'static você pode ver em lifetimes
+// O campo & você pode ver em empréstimos
+fn define_hello() -> &'static str {
     let x = "hello";
+    return x;
 }
-
 ```
 
 
-**QUESTÃO 04**
+**APLICAÇÃO 04**
 
 ```
-// Apenas modifique a posição do `assert_eq!` para fazer o `println!` funcionar.
 fn main() {
     let x: i32 = 5;
-    {
+    {// O x passa a ser 12 aqui
         let x = 12;
-        assert_eq!(x, 5);
+        assert_eq!(x, 12);
     }
-
-    assert_eq!(x, 12);
+    // Nesse namespace o x continua igual a 5
+    assert_eq!(x, 5);
 
     let x = 42;
-    println!("{}", x); // Printa "42".
+    // Printa "42".
+    println!("{}", x);
 }
 ```
 
 
-**QUESTÃO 05**
+**QUESTÃO  PORPOSTA 05**
+
+* OBJETIVO: Remova uma linha no código para fazer ele compilar
 
 ```
-// Remova uma linha no código para fazer ele compilar
 fn main() {
     let mut x: i32 = 1;
     x = 7;
@@ -85,12 +88,12 @@ fn main() {
 ```
 
 
-**QUESTÃO 06**
+**APLICAÇÃO 06**
 
 ```
-// Corrija o erro abaixo com a menor quantidade de modificações
 fn main() {
-    let (x, y) = (1, 2);
+    // criando duas variáveis
+    let (mut x, y) = (1, 2);
     x += 2;
 
     assert_eq!(x, 3);
@@ -102,12 +105,13 @@ fn main() {
 
 ## Numbers, Char & Bool
 
-**QUESTÃO 01**
+**APLICAÇÃO 01**
 
 ```
-// Realize uma mudança e faça o código funcionar. (OBS: '' == "" ?)
+// Lembre-se sempre: "" é usado para string;
+//                   '' e´usado para char;
 fn main() {
-    let c1 = "中";
+    let c1 = '中';
     print_char(c1);
 } 
 
@@ -117,13 +121,13 @@ fn print_char(c : char) {
 ```
 
 
-**QUESTÃO 02**
+**QUESTÃO PROPOSTA 02**
+
+OBJETIVO: Faça ``println!`` funcionar
 
 ```
-// Faça println! funcionar
 fn main() {
     let _f: bool = false;
-
     let t = true;
     if !t {
         println!("Success!");
@@ -131,12 +135,12 @@ fn main() {
 } 
 ```
 
-**QUESTÃO 03**
+**APLICAÇÃO 03**
 
 ```
-// Faça o mínimo de modificaçãos no programa para que ele funcione
 fn main() {
-    let f = true;
+    // Mostrando a lógica booleana
+    let f = false;
     let t = true && false;
     assert_eq!(t, f);
 
@@ -145,36 +149,13 @@ fn main() {
 ```
 
 
-**QUESTÃO 04**
+**APLICAÇÃO 04**
 
 ```
-// Faça o programa funcionar, sem modificar a função `implicitly_ret_unit` !
-fn main() {
-    let _v: () = ();
-
-    let v = (2, 3);
-    assert_eq!(v, implicitly_ret_unit());
-
-    println!("Success!");
-}
-
-fn implicitly_ret_unit() {
-    println!("I will return a ()");
-}
-
-// Não utilize essa função
-fn explicitly_ret_unit() -> () {
-    println!("I will return a ()");
-}
-```
-
-**QUESTÃO 05**
-
-```
-// Modifique `4` para fazer o código funcionar (Dica: Qual é o tamanho do tipo dessa unidade?)
+// LEMBRE-SE: u32 e i32 utilizam 4 bytes
 use std::mem::size_of_val;
 fn main() {
-    let unit: () = ();
+    let unit: i32 = 2;
     assert!(size_of_val(&unit) == 4);
 
     println!("Success!");
@@ -182,17 +163,14 @@ fn main() {
 ```
 
 
-**QUESTÃO 06**
+**APLICAÇÃO 06**
 
 ```
-//  Troque ? pela sua resposta de qual tipo a variável x deve ser.
-// Em seguida, rode o código e veja se você acertou.
-
 fn main() {
-    let x = 1_000.000_1;   // ?
-    let y: f32 = 0.12;     // f32
-    let z: f64 = 0.01_f64; // f64
-
+    // Verificando qual o tipo de x;
+    let x = 1_000.000_1;    // ?
+    let _y: f32 = 0.12;     // f32
+    let _z: f64 = 0.01_f64; // f64
     print_type_of(&x);
 }
 
@@ -202,13 +180,12 @@ fn print_type_of<T>(_: &T) {
 }
 ```
 
-
 ## Expressões
 
-**QUESTÃO 01**
+**APLICAÇÃO 01**
 
 ```
-// // Realize o mínimo de modificações para fazer o programa funcionar.
+// Realizando uma soma de dois números;
 fn main() {
     let s = sum(1 , 2);
     assert_eq!(s, 3);
@@ -217,15 +194,16 @@ fn main() {
 }
 
 fn sum(x: i32, y: i32) -> i32 {
-    x + y;
+    x + y
 }
 ```
 
 
-**QUESTÃO 02**
+**QUESTÃO PROPOSTA 03**
+
+OBJETIVO: Realize o mínimo de modificações para fazer o programa funcionar.
 
 ```
-// Realize o mínimo de modificações para fazer o programa funcionar.
 fn main() {
    let v = (let x = 3);
 
@@ -233,3 +211,59 @@ fn main() {
    println!("Success!");
 }
 ```
+
+___
+
+RESPOSTA DOS EXERCÍCIOS PROPOSTOS: 
+
+1) PRIMEIRO
+
+```
+fn main() {
+    let mut x: i32 = 1;
+    x = 7;
+    // Shadowing
+    x += 3;
+
+    let y = 4;
+    // Shadowing
+    let y = "Eu também posso ser vinculado ao tipo texto!"; 
+
+    println!("Success!");
+}
+```
+
+2) SEGUNDO
+
+```
+// Existem muitas formas de fazer essa questão funcionar.
+// A maneira mais simples é apenas usar ! antes de true, pois
+// deixará a variável t igual a false.
+fn main() {
+    let _f: bool = false;
+    let t = !true;
+    if !t {
+        println!("Success!");
+    }
+} 
+```
+
+3) TERCEIRO
+
+```
+fn main() {
+   let v = (let x = 3);
+
+   assert!(v == 3);
+   println!("Success!");
+}
+```
+
+___
+
+**Exercícios:**
+
+**codewars -> /kata/5a00e05cc374cb34d100000d/train/rust**
+
+OBJETIVO: Crie uma função que retorna uma matriz de inteiros de n a 1 onde n>0.
+Exemplo : n=5 --> [5,4,3,2,1]
