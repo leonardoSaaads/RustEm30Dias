@@ -88,7 +88,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>12</td>
     <td><a href="/HandsOn/HD12/README.md">APLICAÇÕES UNIDADE 02</a></td>
     <td>BÁSICO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>13</td>

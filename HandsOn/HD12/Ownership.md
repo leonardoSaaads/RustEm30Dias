@@ -100,3 +100,29 @@ fn main() {
 }
 ```
 
+PROPOSTA DE EXERCÍCIO 01 - Defina uma struct chamada `Pessoa` que tenha três campos: `nome`, `idade` e `cidade`. Em seguida, crie uma instância dessa struct e atribua valores aos seus campos. Por fim, imprima os valores dos campos da instância criada.
+
+___
+
+Resposta dos exercícios propostos:
+
+```
+// RESPOSTA EXERCÍCIO 01 
+struct Pessoa {
+    nome: String,
+    idade: u8,
+    cidade: String,
+}
+
+fn main() {
+    let pessoa = Pessoa {
+        nome: String::from("João"),
+        idade: 30,
+        cidade: String::from("São Paulo"),
+    };
+
+    println!("Nome: {}", pessoa.nome);
+    println!("Idade: {}", pessoa.idade);
+    println!("Cidade: {}", pessoa.cidade);
+}
+```
