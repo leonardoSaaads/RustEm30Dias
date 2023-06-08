@@ -118,7 +118,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>17</td>
     <td><a href="/HandsOn/HD17/README.md">APLICAÇÕES UNIDADE 03</a></td>
     <td>BÁSICO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>18</td>
