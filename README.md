@@ -142,7 +142,7 @@ Muito obrigado por acompanhar esse projeto!!! Sugerimos de um a dois Hands-On po
     <td>21</td>
     <td><a href="/HandsOn/HD21/README.md">APLICAÇÕES UNIDADE 04</a></td>
     <td>BÁSICO</td>
-    <td>🚧</td>
+    <td>✔️</td>
   </tr>
   <tr>
     <td>22</td>

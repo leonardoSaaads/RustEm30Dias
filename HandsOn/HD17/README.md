@@ -1,4 +1,4 @@
-# **APLICAÇÕES 02**
+# **APLICAÇÕES UNIDADE 03**
 
 Para realizar essa série de aplicações, recomandamos que você utilize o site [Rust Playground](https://play.rust-lang.org/). Nesse site, você pode utilizar os códigos sem que seja necessário a implementação em seu computador. Se torna divertido e fácil para testar funcionalidades e exercícios.
 

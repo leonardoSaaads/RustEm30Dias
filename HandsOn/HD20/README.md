@@ -293,6 +293,8 @@ Titanic: "Sensacional"
 
 Binary Tress e Hash Maps são duas ferramentas excelentes para a manipulação de dados. Podemos fazer transformações e atribuir valores a certas operações. Com isso, há um ganho de performace e as operações não passam a ter uma grande complexidade.
 
+OBS: Existe também a aplicação de ``.map()``, mas veremos isso com mais deatlhes em closures e iterators.
+
 [![Visualizing Memory Layout of Rusts Data](https://img.youtube.com/vi/80OQHtuNrXI/0.jpg)](https://www.youtube.com/watch?v=80OQHtuNrXI)
 
 ### ➡️ AVANÇAR PARA O PRÓXIMO HANDS-ON? ➡️[Clique Aqui](/HandsOn/HD21/README.md)
