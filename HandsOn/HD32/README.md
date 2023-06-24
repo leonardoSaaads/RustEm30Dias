@@ -103,9 +103,9 @@ exemplo.txt
 
 # **Lendo Arquivos**
 
-Primeiro, precisamos de um arquivo de exemplo para testá-lo: usaremos um arquivo com uma pequena quantidade de texto em várias linhas com algumas palavras repetidas. Crie um arquivo chamado ``poema.txt`` no nível raiz (C:...\ler_arquivos\poema.txt) do seu projeto. Você pode usar esse abaixo, por exemplo: 
+Primeiro, precisamos de um arquivo de exemplo para testá-lo: usaremos um arquivo com uma pequena quantidade de texto em várias linhas com algumas palavras repetidas. Crie um arquivo chamado ``poema.txt`` no nível raiz ``(C:...\ler_arquivos\poema.txt)`` do seu projeto. Você pode usar esse abaixo, por exemplo: 
 
-<p align=“center”> Círculo vicioso<br><br> Bailando no ar, gemia inquieto vagalume:<br> “Quem me dera que eu fosse aquela loira estrela<br> Que arde no eterno azul, como uma eterna vela!”<br> Mas a estrela, fitando a lua, com ciúme:<br> “Pudesse eu copiar-te o transparente lume,<br> Que, da grega coluna à gótica janela,<br> Contemplou, suspirosa, a fronte amada e bela”<br> Mas a lua, fitando o sol com azedume:<br> “Mísera! Tivesse eu aquela enorme, aquela<br> Claridade imortal, que toda a luz resume”!<br> Mas o sol, inclinando a rútila capela:<br> Pesa-me esta brilhante auréola de nume…<br> Enfara-me esta luz e desmedida umbela…<br> Por que não nasci eu um simples vagalume?”…<br> </p>
+<div align=“center”> Círculo vicioso<br><br> Bailando no ar, gemia inquieto vagalume:<br> “Quem me dera que eu fosse aquela loira estrela<br> Que arde no eterno azul, como uma eterna vela!”<br> Mas a estrela, fitando a lua, com ciúme:<br> “Pudesse eu copiar-te o transparente lume,<br> Que, da grega coluna à gótica janela,<br> Contemplou, suspirosa, a fronte amada e bela”<br> Mas a lua, fitando o sol com azedume:<br> “Mísera! Tivesse eu aquela enorme, aquela<br> Claridade imortal, que toda a luz resume”!<br> Mas o sol, inclinando a rútila capela:<br> Pesa-me esta brilhante auréola de nume…<br> Enfara-me esta luz e desmedida umbela…<br> Por que não nasci eu um simples vagalume?”…<br> </div>
 
 Com o texto no lugar, edite ``src/main.rs`` e adicione código para ler o arquivo, conforme mostrado abaixo: 
 
@@ -137,7 +137,7 @@ Em geral, a nova instrução ``fs::read_to_string`` usa o ``file_path``, abre es
 Veja como fica a saída do Arquivo: 
 
 ```
-cargo run -- poema poema.txt 
+$$ cargo run -- poema poema.txt 
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
      Running `target\debug\ler_arquivos.exe poema poema.txt` 
 Procurando por:
@@ -164,3 +164,193 @@ Por que não nasci eu um simples vagalume?”…
 ```
 
 Excelente! O código leu e, em seguida, imprimiu o conteúdo do arquivo. Mas o código tem algumas falhas. No momento, a função principal tem múltiplas responsabilidades: geralmente, as funções são mais claras e fáceis de manter se cada função for responsável por apenas uma ideia. O outro problema é que não estamos lidando com erros da melhor forma como poderíamos.
+
+## Melhorando a modularidade e usando tratamento de erros
+
+O problema organizacional de alocar a responsabilidade de várias tarefas para a função principal é comum a muitos projetos binários. Como resultado, a comunidade Rust desenvolveu diretrizes para dividir as preocupações separadas de um programa binário quando main começa a ficar grande. Este processo tem os seguintes passos:
+
+1 - Divida seu programa em main.rs e lib.rs e **mova a lógica** do seu programa para lib.rs.
+2 - Contanto que sua lógica de análise de **linha de comando seja pequena**, ela pode permanecer em main.rs.
+3 - Quando a lógica de análise da **linha de comando começar a ficar complicada**, extraia-a de main.rs e mova-a para lib.rs.
+4 - O código que permanecer em main.rs será pequeno o suficiente para verificar sua exatidão lendo-o.
+
+Vamos retrabalhar nosso programa seguindo este processo.
+
+### Extraindo o analisador de argumentos
+
+Extrairemos a funcionalidade para analisar argumentos em uma função que ``main`` chamará para se preparar para mover a lógica de análise da linha de comando para ``src/lib.rs``. O novo início de ``main`` que chama uma nova função ``parse_config``, que definiremos em ``src/main.rs`` por enquanto.
+
+```
+use std::env;
+use std::fs;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let (query, file_path) = analisa_config(&args);
+
+    // --snip--
+
+    println!("Procurando por:\n{}", query);
+    println!("No arquivo:\n{}", file_path);
+
+    let contents = fs::read_to_string(file_path)
+        .expect("Não foi possível abrir o Arquivo");
+
+    println!("Com o texto:\n{contents}");
+}
+
+fn analisa_config(args: &[String]) -> (&str, &str) {
+    let query = &args[1];
+    let file_path = &args[2];
+
+    (query, file_path)
+}
+```
+
+Ainda estamos coletando os argumentos da linha de comando em um vetor, mas em vez de atribuir o valor do argumento no índice 1 à variável ``query`` e o valor do argumento no índice 2 à variável ``file_path`` dentro da função principal, passamos o vetor inteiro para o função ``analisa_config``. A função ``analisa_config`` contém a lógica que determina qual argumento vai em qual variável e passa os valores de volta para main.
+
+### Agrupar Valores de Configuração
+
+Podemos dar outro pequeno passo para melhorar ainda mais a função ``analisa_config``. No momento, estamos retornando uma tupla, mas imediatamente quebramos essa tupla em partes individuais novamente. Isso é um sinal de que talvez ainda não tenhamos a abstração certa.
+
+Outro indicador que mostra que há espaço para melhorias é a parte de configuração de ``analisa_config``, o que implica que os dois valores que retornamos estão relacionados e fazem parte de um valor de ``configuração``.
+
+```
+use std::env;
+use std::fs;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let (query, file_path) = analisa_config(&args);
+
+    // --snip--
+
+    println!("Procurando por:\n{}", query);
+    println!("No arquivo:\n{}", file_path);
+
+    let contents = fs::read_to_string(file_path)
+        .expect("Não foi possível abrir o Arquivo");
+
+    println!("Com o texto:\n{contents}");
+}
+
+struct Cofig{
+    query: String,
+    file_path: String,
+}
+
+fn analisa_config(args: &[String]) -> (&str, &str) {
+    let query = &args[1];
+    let file_path = &args[2];
+
+    Config{query, file_path}
+}
+```
+
+Adicionamos uma estrutura chamada ``Config`` definida para ter campos chamados ``query`` e ``file_path``. A assinatura de ``analisa_config`` agora indica que retorna um valor de configuração. No corpo de ``parse_config``, onde costumávamos retornar fatias de string que referenciam valores de String em args, agora definimos ``Config`` para conter valores de String pertencentes.
+
+___
+**OBS: As vantagens e desvantagens de usar o clone**
+Há uma tendência entre muitos Rustaceans de evitar o uso de clones para corrigir problemas de propriedade por causa de seu custo de tempo de execução. Usualmente utilizamos iterators ou closures. (Você verá como isso possui impacto logo logo). Em vez disso, você pode usar o método ``.get()`` para obter uma referência ao elemento em vez de cloná-lo. O método ``.get()`` retorna um ``Option<&T>``, que é um tipo de opção que pode ser ``Some(&T)`` ou ``None``. Se o índice estiver fora dos limites do vetor, o método ``.get()`` retornará ``None``.
+___
+
+Agora nosso código transmite mais claramente que ``query`` e ``file_path`` estão relacionados e que seu propósito é configurar como o programa funcionará. Qualquer código que usa esses valores sabe como localizá-los na instância de configuração nos campos nomeados para sua finalidade.
+
+### Criando um Construtor para Config
+
+Portanto, agora que o objetivo da função ``parse_config`` é criar uma instância de ``Config``, podemos alterar ``parse_config`` de uma função simples para uma função chamada new associada à estrutura Config. Fazer essa alteração tornará o código mais idiomático. Da mesma forma, alterando ``parse_config`` para uma nova função associada a ``Config``, poderemos criar instâncias de ``Config`` chamando ``Config::new``
+
+```
+use std::env;
+use std::fs;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let config = Config::new(&args);
+
+    println!("Procurando por:\n{}", query);
+    println!("No arquivo:\n{}", file_path);
+
+    let contents = fs::read_to_string(file_path)
+        .expect("Não foi possível abrir o Arquivo");
+
+    println!("Com o texto:\n{contents}");
+
+    // --snip--
+}
+
+struct Config {
+    query: String,
+    file_path: String,
+}
+
+impl Config {
+    fn new(args: &[String]) -> Config {
+        // Muitos programadores evitam de fazer esse tipo de código:
+        // let query = args[1].clone();
+        // let file_path = args[2].clone();
+        // Os motivos para evitarem foram exposto acima
+        let query = args.get(1).unwrap().to_owned();
+        let file_path = args.get(2).unwrap().to_owned();
+        Config { query, file_path }
+    }
+}
+```
+
+
+Atualizamos main onde estávamos chamando ``parse_config`` para chamar ``Config::new``. Mudamos o nome de ``parse_config`` para new e o movemos dentro de um bloco ``impl``, que associa a nova função com ``Config``.
+
+## Lidando um pouco com erros
+
+Agora vamos trabalhar para melhorar nosso tratamento de erros. A primeira coisa que podemos fazer é usar o tratamento para fornecer uma mesnagem de erro caso o tamanho de args seja menor que 3. Em outras palavras, adicionamos uma verificação na nova função que verificará se a fatia é longa o suficiente antes de acessar os índices 1 e 2. Se a fatia não for longa o suficiente, o programa entra em pânico e exibe uma mensagem de erro melhor.
+
+```
+use std::env;
+use std::fs;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let config = Config::new(&args);
+
+    println!("Procurando por:\n{}", config.query);
+    println!("No arquivo:\n{}", config.file_path);
+
+    let contents = fs::read_to_string(&config.file_path)
+        .expect("Não foi possível abrir o arquivo");
+
+    println!("Com o texto:\n{contents}");
+
+    // --snip--
+}
+
+struct Config {
+    query: String,
+    file_path: String,
+}
+
+impl Config {
+    fn new(args: &[String]) -> Config {
+        if args.len() < 3 {
+            panic!("Não há elementos suficientes");
+        }
+
+        let query = args.get(1).unwrap().to_owned();
+        let file_path = args.get(2).unwrap().to_owned();
+
+        Config { query, file_path }
+    }
+}
+
+```
+Chamamos ``.panic!()`` quando o argumento value estava fora do intervalo de valores válidos. Em vez de verificar um intervalo de valores aqui, estamos verificando se o comprimento de ``args`` é pelo menos 3 e o resto da função pode operar sob a suposição de que essa condição foi atendida. Se ``args`` tiver menos de três itens, essa condição será verdadeira, e chamamos a macro ``.panic!`` para encerrar o programa imediatamente. 
+
+Mas fica a pergunta "podemos melhorar como lidamos com esses erros?!". Como você já deve imaginar, a resposta é sim. Podemos usar ``Result``, pois ele indica sucesso ou erro.
+
+### Usando Result ao invés de panic!()
+
+
+
