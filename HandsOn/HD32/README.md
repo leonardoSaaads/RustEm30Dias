@@ -12,7 +12,7 @@ Isso criará um novo diretório chamado ``lendo_arquivos`` com a estrutura bási
 A primeira tarefa é fazer o ``lendo_arquivos`` aceitar dois argumentos de linha de comando: **o caminho do arquivo e uma string para pesquisar**. Queremos executar nosso programa com cargo run, dois hífens para indicar que os argumentos seguintes são para o nosso programa e não para o cargo, uma string para pesquisar e um caminho para um arquivo a ser pesquisado, assim:
 
 ```
-cargo run -- searchstring example-filename.txt
+cargo run -- string_desejada example_filename.txt
 ```
 
 para realizar essa terafa, para permitir que o ``lendo_arquivos`` leia os valores dos argumentos de linha de comando que passamos para ele, precisaremos da função ``std::env::args`` fornecida na biblioteca padrão do Rust. Essa função retorna um iterador dos argumentos de linha de comando passados para o ``lendo_arquivos``. Como vimos anteriormente, os iterators produzem uma série de elementos que podem ser reunidos usando `.collect()`.
@@ -43,23 +43,23 @@ ___
 Vamos tentar executar o código primeiro sem argumentos e depois com dois argumentos:
 
 ```
-cargo run && cargo run -- Telecom Show
+cargo run && cargo run -- alguma_coisa Show
 ```
 
 Você verá que aparecerá algo como:
 
 ```
-C:\\\\ler_arquivos>cargo run && cargo run -- Telecom Show
+C:\\\\ler_arquivos>cargo run && cargo run -- alguma_coisa Show
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
      Running `target\debug\ler_arquivos.exe`
 [src\main.rs:5] args = [
     "target\\debug\\ler_arquivos.exe",
 ]
     Finished dev [unoptimized + debuginfo] target(s) in 0.01s
-     Running `target\debug\ler_arquivos.exe Telecom Show`
+     Running `target\debug\ler_arquivos.exe alguma_coisa Show`
 [src\main.rs:5] args = [
     "target\\debug\\ler_arquivos.exe",
-    "Telecom",
+    "alguma_coisa",
     "Show",
 ]
 ```
@@ -106,6 +106,7 @@ exemplo.txt
 Primeiro, precisamos de um arquivo de exemplo para testá-lo: usaremos um arquivo com uma pequena quantidade de texto em várias linhas com algumas palavras repetidas. Crie um arquivo chamado ``poema.txt`` no nível raiz ``(C:...\ler_arquivos\poema.txt)`` do seu projeto. Você pode usar esse abaixo, por exemplo: 
 
 <div align=“center”> Círculo vicioso<br><br> Bailando no ar, gemia inquieto vagalume:<br> “Quem me dera que eu fosse aquela loira estrela<br> Que arde no eterno azul, como uma eterna vela!”<br> Mas a estrela, fitando a lua, com ciúme:<br> “Pudesse eu copiar-te o transparente lume,<br> Que, da grega coluna à gótica janela,<br> Contemplou, suspirosa, a fronte amada e bela”<br> Mas a lua, fitando o sol com azedume:<br> “Mísera! Tivesse eu aquela enorme, aquela<br> Claridade imortal, que toda a luz resume”!<br> Mas o sol, inclinando a rútila capela:<br> Pesa-me esta brilhante auréola de nume…<br> Enfara-me esta luz e desmedida umbela…<br> Por que não nasci eu um simples vagalume?”…<br> </div>
+
 
 Com o texto no lugar, edite ``src/main.rs`` e adicione código para ler o arquivo, conforme mostrado abaixo: 
 
@@ -169,10 +170,13 @@ Excelente! O código leu e, em seguida, imprimiu o conteúdo do arquivo. Mas o c
 
 O problema organizacional de alocar a responsabilidade de várias tarefas para a função principal é comum a muitos projetos binários. Como resultado, a comunidade Rust desenvolveu diretrizes para dividir as preocupações separadas de um programa binário quando main começa a ficar grande. Este processo tem os seguintes passos:
 
-1 - Divida seu programa em main.rs e lib.rs e **mova a lógica** do seu programa para lib.rs.
-2 - Contanto que sua lógica de análise de **linha de comando seja pequena**, ela pode permanecer em main.rs.
-3 - Quando a lógica de análise da **linha de comando começar a ficar complicada**, extraia-a de main.rs e mova-a para lib.rs.
-4 - O código que permanecer em main.rs será pequeno o suficiente para verificar sua exatidão lendo-o.
+- Divida seu programa em main.rs e lib.rs e **mova a lógica** do seu programa para lib.rs.
+
+- Contanto que sua lógica de análise de **linha de comando seja pequena**, ela pode permanecer em main.rs.
+
+- Quando a lógica de análise da **linha de comando começar a ficar complicada**, extraia-a de main.rs e mova-a para lib.rs.
+
+- O código que permanecer em main.rs será pequeno o suficiente para verificar sua exatidão lendo-o.
 
 Vamos retrabalhar nosso programa seguindo este processo.
 
@@ -352,5 +356,57 @@ Mas fica a pergunta "podemos melhorar como lidamos com esses erros?!". Como voc�
 
 ### Usando Result ao invés de panic!()
 
+Em vez de usar ``panic()``, podemos retornar um valor ``Result`` que conterá uma instância ``Config`` no caso bem-sucedido e descreverá o problema no caso de erro. Também vamos mudar o nome da função de novo para compilar porque muitos programadores esperam que as novas funções nunca falhem.
 
+Isso é ótimo, pois dessa maneira teremos maior generalidade para operacionalizar o nosso programa. Veja abixo como fica a formatação:
 
+```
+use std::env;
+use std::fs;
+use std::process;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let config = Config::construtor(&args).unwrap_or_else(|err| {
+        eprintln!("Erro ao analisar os argumentos: {}", err);
+        process::exit(1);
+    });
+
+    println!("Procurando por:\n{}", config.query);
+    println!("No arquivo:\n{}", config.file_path);
+
+    let contents = fs::read_to_string(&config.file_path).unwrap_or_else(|err| {
+        eprintln!("Não foi possível abrir o arquivo: {}", err);
+        process::exit(1);
+    });
+
+    println!("Com o texto:\n{}", contents);
+
+    // --snip--
+}
+
+struct Config {
+    query: String,
+    file_path: String,
+}
+
+impl Config {
+    fn construtor(args: &[String]) -> Result<Config, &'static str> {
+        if args.len() < 3 {
+            return Err("Não há elementos suficientes");
+        }
+
+        let query = args.get(1).unwrap().to_owned();
+        let file_path = args.get(2).unwrap().to_owned();
+
+        Ok(Config { query, file_path })
+    }
+}
+```
+
+Veja que fizemos algumas modificações importantes no nosso programa. A primeira coisa que fizemos foi importar ``std::process``, pois ``std::process::exit()`` pode encerrar o programa - o que é interessante caso aconteça algum erro. Devido a esse motivo, usamos closures nas variáveis ``config`` e ``contents`` que podem chamar ``exit()``. Note também que mudamos o nome ``Config::new`` para ``Config::construtor``, pois geralmente os programadores esperam que a função new sejam simples e não abram margem para erros. Além disso, implementamos Result. Em caso acertivo, Result retornará ``Config``, mas em caso de erros retornará a mensagem com erro do tipo ``&'static str``. 
+
+Pa não deixarmos esse Hands-On muito grande, separamosele em duas partes.  Clique abaixo para acessar a segunda parte do Hands-On
+
+# [Parte 02](/HandsOn/HD32/PARTE2.md)
